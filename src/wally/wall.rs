@@ -18,7 +18,6 @@ pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
 
     let alpha = 128.0 / 255.0;
     let radius = args.dot_size * 0.5;
-    let padding = args.steps * 3;
 
     for gx in (0..=args.width).step_by(args.steps as usize) {
         for gy in (0..=args.height).step_by(args.steps as usize) {
@@ -33,16 +32,16 @@ pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
                 gx as f64,
                 0.0,
                 grid_width,
-                padding as f64,
-                (args.width - padding) as f64,
+                args.padding as f64,
+                (args.width - args.padding) as f64,
             );
 
             let y_pos = map_float(
                 gy as f64,
                 0.0,
                 grid_height,
-                padding as f64,
-                (args.height - padding) as f64,
+                args.padding as f64,
+                (args.height - args.padding) as f64,
             );
 
             let cur_circle = Circle {

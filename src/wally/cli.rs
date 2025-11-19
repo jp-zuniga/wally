@@ -8,6 +8,7 @@ use super::utils::{parse_float, parse_str};
 pub(crate) const DEFAULT_DOT_SIZE: f64 = 40.0;
 pub(crate) const DEFAULT_FILE_NAME: &str = "dots";
 pub(crate) const DEFAULT_HEIGHT: u32 = 1080;
+pub(crate) const DEFAULT_PADDING: u32 = 200;
 pub(crate) const DEFAULT_STEPS: u32 = 80;
 pub(crate) const DEFAULT_WIDTH: u32 = 1920;
 
@@ -51,6 +52,9 @@ pub struct WallyCLI {
     // /// while larger values create spread-out patterns.
     #[arg(short, long, default_value_t = DEFAULT_STEPS)]
     pub(crate) steps: u32,
+
+    #[arg(short, long, default_value_t = DEFAULT_PADDING)]
+    pub(crate) padding: u32,
 
     /// Size of circles generated.
     #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_float)]
