@@ -2,15 +2,16 @@ use image::{Rgb, RgbImage};
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 
+use crate::wally::palettes::theme::ThemeFlavor;
+
 use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};
-use super::flavors::{COLOR_COUNT, RosePineFlavor};
 use super::utils::{map_float, noise2d};
 
-pub(crate) fn mk_wall(args: &WallyCLI, flavor: &RosePineFlavor) {
+pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
     let mut chaos = StdRng::from_rng(&mut rand::rng());
 
-    let mut pixels = vec![flavor.base; (args.width * args.height) as usize];
+    let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
     let grid_width = (args.width / args.steps * args.steps) as f64;
     let grid_height = (args.height / args.steps * args.steps) as f64;
@@ -26,7 +27,7 @@ pub(crate) fn mk_wall(args: &WallyCLI, flavor: &RosePineFlavor) {
                 continue;
             }
 
-            let color = flavor.get(chaos.random_range(0..COLOR_COUNT));
+            let color = palette.get_color(chaos.random_range(0..palette.len()));
 
             let x_pos = map_float(
                 gx as f64,

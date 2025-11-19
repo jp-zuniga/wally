@@ -1,7 +1,7 @@
 use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
-use super::flavors::RosePineFlavorNames;
+use super::palettes::theme::Theme;
 use super::img::ImgFormats;
 use super::utils::{parse_float, parse_str};
 
@@ -16,8 +16,8 @@ pub(crate) enum Commands {
     /// Generate a wallpaper of randomly-generated dots.
     Dots {
         /// Color palette for generated wallpaper.
-        #[arg(short, long, value_enum, default_value_t = RosePineFlavorNames::Moon)]
-        palette: RosePineFlavorNames,
+        #[arg(short, long, value_enum, default_value_t = Theme::RosePineMoon)]
+        palette: Theme,
     },
 }
 

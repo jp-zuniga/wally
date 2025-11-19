@@ -1,6 +1,5 @@
 pub(crate) mod cli;
 mod draw;
-mod flavors;
 mod img;
 mod palettes;
 mod utils;
@@ -9,17 +8,25 @@ mod wall;
 use std::mem::swap;
 
 use cli::{Commands, WallyCLI};
-use palettes::PALETTES;
+use palettes::catppuccin::CatppuccinFlavor;
+use palettes::rose_pine::RosePineFlavor;
+use palettes::theme::Theme;
 use wall::mk_wall;
 
 pub fn run(mut args: WallyCLI) {
-    match &args.command {
-        Commands::Dots { palette } => {
-            if args.swap {
-                swap(&mut args.width, &mut args.height);
-            };
+    if args.swap {
+        swap(&mut args.width, &mut args.height);
+    };
 
-            mk_wall(&args, &PALETTES.get_flavor(palette));
-        }
-    }
+    match &args.command {
+        Commands::Dots { palette } => match palette {
+            Theme::CatppuccinFrappe => mk_wall(&args, CatppuccinFlavor::frappe()),
+            Theme::CatppuccinLatte => mk_wall(&args, CatppuccinFlavor::latte()),
+            Theme::CatppuccinMacchiato => mk_wall(&args, CatppuccinFlavor::macchiato()),
+            Theme::CatppuccinMocha => mk_wall(&args, CatppuccinFlavor::mocha()),
+            Theme::RosePineDawn => mk_wall(&args, RosePineFlavor::dawn()),
+            Theme::RosePineDefault => mk_wall(&args, RosePineFlavor::default()),
+            Theme::RosePineMoon => mk_wall(&args, RosePineFlavor::moon()),
+        },
+    };
 }
