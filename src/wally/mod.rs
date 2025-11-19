@@ -1,6 +1,7 @@
 pub(crate) mod cli;
 mod draw;
 mod img;
+mod noise;
 mod palettes;
 mod utils;
 mod wall;

@@ -6,11 +6,10 @@ use crate::wally::palettes::theme::ThemeFlavor;
 
 use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};
-use super::utils::{map_float, noise2d};
+use super::noise::Perlin2D;
+use super::utils::map_float;
 
 pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
-    let mut chaos = StdRng::from_rng(&mut rand::rng());
-
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
     let grid_width = (args.width / args.steps * args.steps) as f64;
@@ -19,10 +18,15 @@ pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
     let alpha = 128.0 / 255.0;
     let radius = args.dot_size * 0.5;
 
+    let mut chaos = StdRng::from_rng(&mut rand::rng());
+
+    let noise = Perlin2D::new(&mut chaos);
+
     for gx in (0..=args.width).step_by(args.steps as usize) {
         for gy in (0..=args.height).step_by(args.steps as usize) {
-            let n2 = noise2d(gx as f64 * 0.005, gy as f64 * 0.005);
-            if !args.full_grid && n2 <= 0.5 {
+            let n2 = noise.sample(gx as f64, gy as f64);
+
+            if chaos.random::<f64>() > n2 {
                 continue;
             }
 
@@ -76,6 +80,6 @@ pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
 
     let file = format!("{}.{}", args.file_name, args.format.as_string());
 
-    img.save(file.clone()).expect("Failed to save {file}");
-    println!("Wrote {file}.");
+    img.save(file.clone()).expect("Failed to save `{file}`!");
+    println!("Successfully wrote `{file}`!");
 }

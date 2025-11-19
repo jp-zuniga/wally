@@ -14,11 +14,6 @@ pub(crate) fn map_float(value: f64, in_min: f64, in_max: f64, out_min: f64, out_
     out_min + (value - in_min) * (out_max - out_min) / (in_max - in_min)
 }
 
-pub(crate) fn noise2d(x: f64, y: f64) -> f64 {
-    let v = (0.1 * x + 0.13 * y).sin() * (0.17 * x - 0.19 * y).cos();
-    0.5 * (v + 1.0)
-}
-
 pub(crate) fn parse_float(s: &str) -> Result<f64, String> {
     let value = s
         .parse()
