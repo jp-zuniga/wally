@@ -9,7 +9,7 @@ use super::draw::{Circle, draw_circle};
 use super::noise::Perlin2D;
 use super::utils::map_float;
 
-pub(crate) fn mk_wall<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
+pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
     let grid_width = (args.width / args.steps * args.steps) as f64;
