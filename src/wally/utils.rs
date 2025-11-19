@@ -31,7 +31,7 @@ pub(crate) fn parse_float(s: &str) -> Result<f64, String> {
     }
 }
 
-pub(crate) fn parse_str(s: &str) -> Result<String, String> {
+pub(crate) fn parse_file_arg(s: &str) -> Result<String, String> {
     let value = s.to_string();
     let parts: Vec<&str> = value.split_terminator('.').collect();
 

@@ -1,9 +1,9 @@
 use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
-use super::palettes::theme::Theme;
 use super::img::ImgFormats;
-use super::utils::{parse_float, parse_str};
+use super::palettes::theme::Theme;
+use super::utils::{parse_file_arg, parse_float};
 
 pub(crate) const DEFAULT_DOT_SIZE: f64 = 40.0;
 pub(crate) const DEFAULT_FILE_NAME: &str = "dots";
@@ -32,7 +32,7 @@ pub(crate) enum Commands {
 )]
 pub struct WallyCLI {
     /// Name of generated image.
-    #[arg(short, long, default_value_t = DEFAULT_FILE_NAME.to_string(), value_parser = parse_str)]
+    #[arg(short, long, default_value_t = DEFAULT_FILE_NAME.to_string(), value_parser = parse_file_arg)]
     pub(crate) file_name: String,
 
     /// Image format for wallpaper.
