@@ -1,5 +1,6 @@
 use super::img::Color;
 
+use super::consts::DEFAULT_AA_RANGE;
 use super::utils::blend;
 
 pub(crate) struct Circle {
@@ -16,12 +17,10 @@ pub(crate) fn draw_circle(
     height: u32,
     circle: Circle,
 ) {
-    let aa_range = 0.1;
-
-    let xmin = (circle.x - circle.radius - aa_range).floor() as i32;
-    let xmax = (circle.x + circle.radius + aa_range).ceil() as i32;
-    let ymin = (circle.y - circle.radius - aa_range).floor() as i32;
-    let ymax = (circle.y + circle.radius + aa_range).ceil() as i32;
+    let xmin = (circle.x - circle.radius - DEFAULT_AA_RANGE).floor() as i32;
+    let xmax = (circle.x + circle.radius + DEFAULT_AA_RANGE).ceil() as i32;
+    let ymin = (circle.y - circle.radius - DEFAULT_AA_RANGE).floor() as i32;
+    let ymax = (circle.y + circle.radius + DEFAULT_AA_RANGE).ceil() as i32;
 
     for y in ymin..=ymax {
         if y < 0 || y >= height as i32 {
@@ -40,7 +39,7 @@ pub(crate) fn draw_circle(
             let dy = py - circle.y;
             let dist = (dx * dx + dy * dy).sqrt();
 
-            let coverage = (circle.radius + aa_range - dist).clamp(0.0, 1.0);
+            let coverage = (circle.radius + DEFAULT_AA_RANGE - dist).clamp(0.0, 1.0);
             if coverage <= 0.0 {
                 continue;
             }

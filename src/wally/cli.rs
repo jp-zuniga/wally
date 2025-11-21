@@ -1,16 +1,14 @@
 use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
+use super::consts::{
+    DEFAULT_DOT_SIZE, DEFAULT_FILE_NAME, DEFAULT_HEIGHT, DEFAULT_PADDING, DEFAULT_STEPS,
+    DEFAULT_WIDTH,
+};
+
 use super::img::ImgFormats;
 use super::palettes::theme::Theme;
 use super::utils::{parse_file_arg, parse_float};
-
-pub(crate) const DEFAULT_DOT_SIZE: f64 = 40.0;
-pub(crate) const DEFAULT_FILE_NAME: &str = "dots";
-pub(crate) const DEFAULT_HEIGHT: u32 = 1080;
-pub(crate) const DEFAULT_PADDING: u32 = 200;
-pub(crate) const DEFAULT_STEPS: u32 = 80;
-pub(crate) const DEFAULT_WIDTH: u32 = 1920;
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum Commands {

@@ -1,4 +1,5 @@
 pub(crate) mod cli;
+mod consts;
 mod dots;
 mod draw;
 mod img;
