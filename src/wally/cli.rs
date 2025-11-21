@@ -7,7 +7,7 @@ use super::consts::{
 };
 
 use super::img::ImgFormats;
-use super::palettes::theme::Theme;
+use super::palettes::theme::Themes;
 use super::utils::{parse_file_arg, parse_float};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
@@ -15,8 +15,8 @@ pub(crate) enum Commands {
     /// Generate a wallpaper of randomly-generated dots.
     Dots {
         /// Color palette for generated wallpaper.
-        #[arg(short, long, value_enum, default_value_t = Theme::RosePineMoon)]
-        palette: Theme,
+        #[arg(short, long, value_enum, default_value_t = Themes::RosePineMoon)]
+        palette: Themes,
     },
 }
 
