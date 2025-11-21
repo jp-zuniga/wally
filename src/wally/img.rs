@@ -1,17 +1,29 @@
 use clap::ValueEnum;
 use image::{Rgb, RgbImage};
 
+pub(crate) fn write_img(file: String, width: &u32, height: &u32, pixels: &[Color]) {
+    let mut img = RgbImage::new(*width, *height);
+
+    for y in 0..*height {
+        for x in 0..*width {
+            let idx = (*width * y + x) as usize;
+            let p = pixels[idx];
+
+            let [r, g, b] = p.to_rgb8();
+
+            img.put_pixel(x, y, Rgb([r, g, b]));
+        }
+    }
+
+    img.save(&file).expect("Failed to save `{file}`!");
+    println!("Successfully wrote `{file}`!");
+}
+
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Color {
     pub(crate) r: f64,
     pub(crate) g: f64,
     pub(crate) b: f64,
-}
-
-#[derive(Clone, Copy, Debug, ValueEnum)]
-pub(crate) enum ImgFormats {
-    Png,
-    Jpg,
 }
 
 impl Color {
@@ -32,6 +44,12 @@ impl Color {
     }
 }
 
+#[derive(Clone, Copy, Debug, ValueEnum)]
+pub(crate) enum ImgFormats {
+    Png,
+    Jpg,
+}
+
 impl ImgFormats {
     pub fn as_string(&self) -> String {
         match &self {
@@ -39,22 +57,4 @@ impl ImgFormats {
             ImgFormats::Jpg => String::from("jpg"),
         }
     }
-}
-
-pub(crate) fn write_img(file: String, width: &u32, height: &u32, pixels: &[Color]) {
-    let mut img = RgbImage::new(*width, *height);
-
-    for y in 0..*height {
-        for x in 0..*width {
-            let idx = (*width * y + x) as usize;
-            let p = pixels[idx];
-
-            let [r, g, b] = p.to_rgb8();
-
-            img.put_pixel(x, y, Rgb([r, g, b]));
-        }
-    }
-
-    img.save(&file).expect("Failed to save `{file}`!");
-    println!("Successfully wrote `{file}`!");
 }
