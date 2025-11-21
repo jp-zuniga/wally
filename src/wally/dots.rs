@@ -1,4 +1,3 @@
-use image::{Rgb, RgbImage};
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 
@@ -6,6 +5,7 @@ use crate::wally::palettes::theme::ThemeFlavor;
 
 use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};
+use super::img::write_img;
 use super::noise::Perlin2D;
 use super::utils::map_float;
 
@@ -65,21 +65,10 @@ pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
         }
     }
 
-    let mut img = RgbImage::new(args.width, args.height);
-
-    for y in 0..args.height {
-        for x in 0..args.width {
-            let idx = (y * args.width + x) as usize;
-            let p = pixels[idx];
-
-            let [r, g, b] = p.to_rgb8();
-
-            img.put_pixel(x, y, Rgb([r, g, b]));
-        }
-    }
-
-    let file = format!("{}.{}", args.file_name, args.format.as_string());
-
-    img.save(file.clone()).expect("Failed to save `{file}`!");
-    println!("Successfully wrote `{file}`!");
+    write_img(
+        format!("{}.{}", args.file_name, args.format.as_string()),
+        &args.width,
+        &args.height,
+        &pixels,
+    );
 }
