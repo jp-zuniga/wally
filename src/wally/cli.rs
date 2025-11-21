@@ -56,7 +56,7 @@ pub struct WallyCLI {
 
     /// Size of circles generated.
     #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_float)]
-    pub(crate) dot_size: f64,
+    pub(crate) dot_size: f32,
 
     /// Whether to always generate a full grid of circles.
     #[arg(long, action = ArgAction::SetTrue)]

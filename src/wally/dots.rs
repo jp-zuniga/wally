@@ -12,8 +12,8 @@ use super::utils::map_float;
 pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
-    let grid_width = (args.width / args.steps * args.steps) as f64;
-    let grid_height = (args.height / args.steps * args.steps) as f64;
+    let grid_width = (args.width / args.steps * args.steps) as f32;
+    let grid_height = (args.height / args.steps * args.steps) as f32;
 
     let alpha = 128.0 / 255.0;
     let radius = args.dot_size * 0.5;
@@ -24,28 +24,28 @@ pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
 
     for gx in (0..=args.width).step_by(args.steps as usize) {
         for gy in (0..=args.height).step_by(args.steps as usize) {
-            let n2 = noise.sample(gx as f64, gy as f64);
+            let n2 = noise.sample(gx as f32, gy as f32);
 
-            if chaos.random::<f64>() > n2 {
+            if chaos.random::<f32>() > n2 {
                 continue;
             }
 
             let color = palette.get_color(chaos.random_range(0..palette.len()));
 
             let x_pos = map_float(
-                gx as f64,
+                gx as f32,
                 0.0,
                 grid_width,
-                args.padding as f64,
-                (args.width - args.padding) as f64,
+                args.padding as f32,
+                (args.width - args.padding) as f32,
             );
 
             let y_pos = map_float(
-                gy as f64,
+                gy as f32,
                 0.0,
                 grid_height,
-                args.padding as f64,
-                (args.height - args.padding) as f64,
+                args.padding as f32,
+                (args.height - args.padding) as f32,
             );
 
             let cur_circle = Circle {

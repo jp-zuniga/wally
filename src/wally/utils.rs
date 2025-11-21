@@ -1,6 +1,6 @@
 use super::img::Color;
 
-pub(crate) fn blend(src: Color, dst: Color, alpha: f64) -> Color {
+pub(crate) fn blend(src: Color, dst: Color, alpha: f32) -> Color {
     let inv = 1.0 - alpha;
 
     Color {
@@ -10,11 +10,11 @@ pub(crate) fn blend(src: Color, dst: Color, alpha: f64) -> Color {
     }
 }
 
-pub(crate) fn map_float(value: f64, in_min: f64, in_max: f64, out_min: f64, out_max: f64) -> f64 {
+pub(crate) fn map_float(value: f32, in_min: f32, in_max: f32, out_min: f32, out_max: f32) -> f32 {
     out_min + (value - in_min) * (out_max - out_min) / (in_max - in_min)
 }
 
-pub(crate) fn parse_float(s: &str) -> Result<f64, String> {
+pub(crate) fn parse_float(s: &str) -> Result<f32, String> {
     let value = s
         .parse()
         .map_err(|_| format!("`{s}` is not a valid number."))?;

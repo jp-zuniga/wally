@@ -21,17 +21,17 @@ pub(crate) fn write_img(file: String, width: &u32, height: &u32, pixels: &[Color
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Color {
-    pub(crate) r: f64,
-    pub(crate) g: f64,
-    pub(crate) b: f64,
+    pub(crate) r: f32,
+    pub(crate) g: f32,
+    pub(crate) b: f32,
 }
 
 impl Color {
     pub const fn from_u8(r: u8, g: u8, b: u8) -> Self {
         Self {
-            r: r as f64,
-            g: g as f64,
-            b: b as f64,
+            r: r as f32,
+            g: g as f32,
+            b: b as f32,
         }
     }
 
