@@ -4,16 +4,16 @@ mod dots;
 mod draw;
 mod img;
 mod noise;
-mod palettes;
+mod themes;
 mod utils;
 
 use std::mem::swap;
 
 use cli::{Commands, WallyCLI};
 use dots::mk_dots;
-use palettes::catppuccin::CatppuccinFlavor;
-use palettes::rose_pine::RosePineFlavor;
-use palettes::theme::Themes;
+use themes::catppuccin::CatppuccinFlavor;
+use themes::rose_pine::RosePineFlavor;
+use themes::Themes;
 
 pub fn run(mut args: WallyCLI) {
     if args.swap {

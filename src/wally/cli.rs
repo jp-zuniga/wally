@@ -7,7 +7,7 @@ use super::consts::{
 };
 
 use super::img::ImgFormats;
-use super::palettes::theme::Themes;
+use super::themes::Themes;
 use super::utils::{parse_file_arg, parse_float};
 
 #[derive(Clone, Copy, Debug, Subcommand)]

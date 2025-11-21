@@ -1,7 +1,7 @@
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 
-use crate::wally::palettes::theme::ThemeFlavor;
+use crate::wally::themes::ThemeFlavor;
 
 use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};

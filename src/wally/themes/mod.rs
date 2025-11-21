@@ -1,3 +1,6 @@
+pub(crate) mod catppuccin;
+pub(crate) mod rose_pine;
+
 use clap::ValueEnum;
 
 use crate::wally::img::Color;
@@ -21,3 +24,4 @@ pub(crate) trait ThemeFlavor {
 
     fn get_color(&self, idx: usize) -> Color;
 }
+

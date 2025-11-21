@@ -2,7 +2,7 @@ use clap::ValueEnum;
 
 use crate::wally::img::Color;
 
-use super::theme::ThemeFlavor;
+use super::ThemeFlavor;
 
 pub(crate) const CAT_COLOR_COUNT: usize = 25;
 
