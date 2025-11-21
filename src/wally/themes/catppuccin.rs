@@ -4,7 +4,7 @@ use crate::wally::img::Color;
 
 use super::ThemeFlavor;
 
-pub(crate) const CAT_COLOR_COUNT: usize = 25;
+pub(crate) const CAT_COLOR_COUNT: usize = 26;
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
 #[clap(rename_all = "kebab_case")]
