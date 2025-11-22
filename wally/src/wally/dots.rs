@@ -9,21 +9,21 @@ use super::img::write_img;
 use super::noise::Perlin2D;
 use super::utils::map_float;
 
-pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
+pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T, dot_size: f32, steps: u32) {
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
-    let grid_width = (args.width / args.steps * args.steps) as f32;
-    let grid_height = (args.height / args.steps * args.steps) as f32;
+    let grid_width = (args.width / steps * steps) as f32;
+    let grid_height = (args.height / steps * steps) as f32;
 
     let alpha = 128.0 / 255.0;
-    let radius = args.dot_size * 0.5;
+    let radius = dot_size * 0.5;
 
     let mut chaos = StdRng::from_rng(&mut rand::rng());
 
     let noise = Perlin2D::new(&mut chaos);
 
-    for gx in (0..=args.width).step_by(args.steps as usize) {
-        for gy in (0..=args.height).step_by(args.steps as usize) {
+    for gx in (0..=args.width).step_by(steps as usize) {
+        for gy in (0..=args.height).step_by(steps as usize) {
             let n2 = noise.sample(gx as f32, gy as f32);
 
             if chaos.random::<f32>() > n2 {
@@ -66,7 +66,7 @@ pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
     }
 
     write_img(
-        format!("{}.{}", args.file_name, args.format.as_string()),
+        format!("{}.{}", args.name, args.format.as_string()),
         args.format,
         args.width,
         args.height,

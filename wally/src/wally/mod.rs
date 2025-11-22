@@ -21,14 +21,24 @@ pub fn run(mut args: WallyCLI) {
     };
 
     match &args.command {
-        Commands::Dots { palette } => match palette {
-            Themes::CatppuccinFrappe => mk_dots(&args, CatppuccinFlavor::frappe()),
-            Themes::CatppuccinLatte => mk_dots(&args, CatppuccinFlavor::latte()),
-            Themes::CatppuccinMacchiato => mk_dots(&args, CatppuccinFlavor::macchiato()),
-            Themes::CatppuccinMocha => mk_dots(&args, CatppuccinFlavor::mocha()),
-            Themes::RosePineDawn => mk_dots(&args, RosePineFlavor::dawn()),
-            Themes::RosePineDefault => mk_dots(&args, RosePineFlavor::default()),
-            Themes::RosePineMoon => mk_dots(&args, RosePineFlavor::moon()),
+        Commands::Dots {
+            palette,
+            dot_size,
+            steps,
+        } => match palette {
+            Themes::CatppuccinFrappe => {
+                mk_dots(&args, CatppuccinFlavor::frappe(), *dot_size, *steps)
+            }
+
+            Themes::CatppuccinLatte => mk_dots(&args, CatppuccinFlavor::latte(), *dot_size, *steps),
+            Themes::CatppuccinMacchiato => {
+                mk_dots(&args, CatppuccinFlavor::macchiato(), *dot_size, *steps)
+            }
+
+            Themes::CatppuccinMocha => mk_dots(&args, CatppuccinFlavor::mocha(), *dot_size, *steps),
+            Themes::RosePineDawn => mk_dots(&args, RosePineFlavor::dawn(), *dot_size, *steps),
+            Themes::RosePineDefault => mk_dots(&args, RosePineFlavor::default(), *dot_size, *steps),
+            Themes::RosePineMoon => mk_dots(&args, RosePineFlavor::moon(), *dot_size, *steps),
         },
     };
 }
