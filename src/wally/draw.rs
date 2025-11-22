@@ -23,37 +23,29 @@ pub(crate) fn draw_circle(
     let r2 = r * r;
     let ra2 = ra * ra;
 
-    let xmin = (circle.x - r - DEFAULT_AA_RANGE).floor() as i32;
-    let xmax = (circle.x + r + DEFAULT_AA_RANGE).ceil() as i32;
-    let ymin = (circle.y - r - DEFAULT_AA_RANGE).floor() as i32;
-    let ymax = (circle.y + r + DEFAULT_AA_RANGE).ceil() as i32;
+    let mut xmin = (circle.x - r - DEFAULT_AA_RANGE).floor() as i32;
+    let mut xmax = (circle.x + r + DEFAULT_AA_RANGE).ceil() as i32;
+    let mut ymin = (circle.y - r - DEFAULT_AA_RANGE).floor() as i32;
+    let mut ymax = (circle.y + r + DEFAULT_AA_RANGE).ceil() as i32;
 
     let w_i = width as i32;
     let h_i = height as i32;
 
-    for y in ymin..=ymax {
-        if y < 0 || y >= h_i {
-            continue;
-        }
+    xmin = xmin.clamp(0, w_i - 1);
+    xmax = xmax.clamp(0, w_i - 1);
+    ymin = ymin.clamp(0, h_i - 1);
+    ymax = ymax.clamp(0, h_i - 1);
 
+    for y in ymin..=ymax {
         let py = y as f32 + 0.5;
         let dy = py - circle.y;
 
-        let mut px = xmin as f32 + 0.5;
-        let mut dx = px - circle.x;
-
         for x in xmin..=xmax {
-            if x < 0 || x >= w_i {
-                px += 1.0;
-                dx += 1.0;
-                continue;
-            }
-
+            let px = x as f32 + 0.5;
+            let dx = px - circle.x;
             let dist2 = dx * dx + dy * dy;
 
             if dist2 >= ra2 {
-                px += 1.0;
-                dx += 1.0;
                 continue;
             }
 
@@ -65,8 +57,6 @@ pub(crate) fn draw_circle(
             };
 
             if coverage <= 0.0 {
-                px += 1.0;
-                dx += 1.0;
                 continue;
             }
 
@@ -75,9 +65,6 @@ pub(crate) fn draw_circle(
             let dst = pixels[idx];
 
             pixels[idx] = blend(color, dst, alpha);
-
-            px += 1.0;
-            dx += 1.0;
         }
     }
 }

@@ -6,7 +6,7 @@ use super::consts::{
     DEFAULT_WIDTH,
 };
 
-use super::img::ImgFormats;
+use super::img::WallFormats;
 use super::themes::Themes;
 use super::utils::{parse_file_arg, parse_float};
 
@@ -34,8 +34,8 @@ pub struct WallyCLI {
     pub(crate) file_name: String,
 
     /// Image format for wallpaper.
-    #[arg(short = 'F', long, default_value_t = ImgFormats::Png, value_enum)]
-    pub(crate) format: ImgFormats,
+    #[arg(short = 'F', long, default_value_t = WallFormats::Png, value_enum)]
+    pub(crate) format: WallFormats,
 
     /// Width of wallpaper.
     #[arg(short = 'W', long, default_value_t = DEFAULT_WIDTH)]

@@ -67,8 +67,9 @@ pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T) {
 
     write_img(
         format!("{}.{}", args.file_name, args.format.as_string()),
-        &args.width,
-        &args.height,
+        args.format,
+        args.width,
+        args.height,
         &pixels,
     );
 }

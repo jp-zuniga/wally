@@ -24,4 +24,3 @@ pub(crate) trait ThemeFlavor {
 
     fn get_color(&self, idx: usize) -> Color;
 }
-

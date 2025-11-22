@@ -1,21 +1,32 @@
 use clap::ValueEnum;
-use image::{Rgb, RgbImage};
+use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
 
-pub(crate) fn write_img(file: String, width: &u32, height: &u32, pixels: &[Color]) {
-    let mut img = RgbImage::new(*width, *height);
+pub(crate) fn write_img(
+    file: String,
+    format: WallFormats,
+    width: u32,
+    height: u32,
+    pixels: &[Color],
+) {
+    let mut buf = Vec::with_capacity((width * height * 3) as usize);
 
-    for y in 0..*height {
-        for x in 0..*width {
-            let idx = (*width * y + x) as usize;
-            let p = pixels[idx];
-
-            let [r, g, b] = p.to_rgb8();
-
-            img.put_pixel(x, y, Rgb([r, g, b]));
-        }
+    for p in pixels {
+        let [r, g, b] = p.to_rgb();
+        buf.push(r);
+        buf.push(g);
+        buf.push(b);
     }
 
-    img.save(&file).expect("Failed to save `{file}`!");
+    save_buffer_with_format(
+        &file,
+        &buf,
+        width,
+        height,
+        ExtendedColorType::Rgb8,
+        format.as_image_format(),
+    )
+    .unwrap_or_else(|e| panic!("Failed to save `{file}`: {e}"));
+
     println!("Successfully wrote `{file}`!");
 }
 
@@ -35,7 +46,7 @@ impl Color {
         }
     }
 
-    pub fn to_rgb8(self) -> [u8; 3] {
+    pub fn to_rgb(self) -> [u8; 3] {
         [
             self.r.clamp(0.0, 255.0).round() as u8,
             self.g.clamp(0.0, 255.0).round() as u8,
@@ -45,16 +56,23 @@ impl Color {
 }
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
-pub(crate) enum ImgFormats {
+pub(crate) enum WallFormats {
     Png,
     Jpg,
 }
 
-impl ImgFormats {
+impl WallFormats {
     pub fn as_string(&self) -> String {
         match &self {
-            ImgFormats::Png => String::from("png"),
-            ImgFormats::Jpg => String::from("jpg"),
+            WallFormats::Png => String::from("png"),
+            WallFormats::Jpg => String::from("jpg"),
+        }
+    }
+
+    pub fn as_image_format(&self) -> ImageFormat {
+        match self {
+            WallFormats::Png => ImageFormat::Png,
+            WallFormats::Jpg => ImageFormat::Jpeg,
         }
     }
 }
