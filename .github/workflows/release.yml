@@ -10,7 +10,7 @@ jobs:
   build:
     defaults:
       run:
-        working-directory: ban-api
+        working-directory: wally
 
     name: build ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
