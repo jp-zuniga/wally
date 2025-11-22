@@ -12,7 +12,7 @@ A `cargo` installation and `nix` package are both planned.
 
 ## Usage
 
-```
+```markdown
 Usage: wally [OPTIONS] <COMMAND>
 
 Commands:
@@ -26,13 +26,11 @@ Options:
   -H, --height <HEIGHT>    Height of wallpaper [default: 1080]
   -p, --padding <PADDING>  Amount of padding to add to wallpaper's borders [default: 200]
       --swap               Whether to swap width and height values to create a vertical wallpaper
-  -h, --help               Print help
-  -V, --version            Print version
 ```
 
 ### `dots`
 
-```
+```markdown
 Generate a wallpaper of randomly-generated dots
 
 Usage: wally dots [OPTIONS]
