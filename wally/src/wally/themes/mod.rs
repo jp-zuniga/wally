@@ -17,7 +17,7 @@ pub(crate) enum Themes {
     CatppuccinMocha,
 }
 
-pub(crate) trait ThemeFlavor {
+pub(crate) trait ColorPalette {
     fn len(&self) -> usize;
 
     fn background(&self) -> Color;

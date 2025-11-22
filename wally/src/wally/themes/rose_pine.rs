@@ -1,18 +1,8 @@
-use clap::ValueEnum;
-
 use crate::wally::img::Color;
 
-use super::ThemeFlavor;
+use super::ColorPalette;
 
 pub(crate) const ROSE_COLOR_COUNT: usize = 15;
-
-#[derive(Clone, Copy, Debug, ValueEnum)]
-#[clap(rename_all = "kebab_case")]
-pub(crate) enum RosePineFlavorNames {
-    Default,
-    Dawn,
-    Moon,
-}
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct RosePineFlavor {
@@ -33,7 +23,7 @@ pub(crate) struct RosePineFlavor {
     pub(crate) h_high: Color,
 }
 
-impl ThemeFlavor for RosePineFlavor {
+impl ColorPalette for RosePineFlavor {
     fn len(&self) -> usize {
         ROSE_COLOR_COUNT
     }

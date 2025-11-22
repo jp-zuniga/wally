@@ -1,7 +1,7 @@
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
 
-use crate::wally::themes::ThemeFlavor;
+use crate::wally::themes::ColorPalette;
 
 use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};
@@ -9,7 +9,7 @@ use super::img::write_img;
 use super::noise::Perlin2D;
 use super::utils::map_float;
 
-pub(crate) fn mk_dots<T: ThemeFlavor>(args: &WallyCLI, palette: T, dot_size: f32, steps: u32) {
+pub(crate) fn mk_dots<T: ColorPalette>(args: &WallyCLI, palette: T, dot_size: f32, steps: u32) {
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
     let grid_width = (args.width / steps * steps) as f32;

@@ -1,19 +1,8 @@
-use clap::ValueEnum;
-
 use crate::wally::img::Color;
 
-use super::ThemeFlavor;
+use super::ColorPalette;
 
 pub(crate) const CAT_COLOR_COUNT: usize = 26;
-
-#[derive(Clone, Copy, Debug, ValueEnum)]
-#[clap(rename_all = "kebab_case")]
-pub(crate) enum CatppuccinFlavorNames {
-    Frappe,
-    Latte,
-    Macchiato,
-    Mocha,
-}
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct CatppuccinFlavor {
@@ -45,7 +34,7 @@ pub(crate) struct CatppuccinFlavor {
     pub(crate) crust: Color,
 }
 
-impl ThemeFlavor for CatppuccinFlavor {
+impl ColorPalette for CatppuccinFlavor {
     fn len(&self) -> usize {
         CAT_COLOR_COUNT
     }
