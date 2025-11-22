@@ -6,7 +6,7 @@ Sleek, minimal, elegant, and efficient wallpaper generator.
 
 ## Installation
 
-Currently, the only way to install  `wally` is to download the latest release on [Github](https://github.com/jp-zuniga/wally/releases/latest).
+Currently, the only way to install  `wally` is to download the [latest release on Github](https://github.com/jp-zuniga/wally/releases/latest).
 
 A `cargo` installation and `nix` package are both planned.
 
@@ -46,11 +46,11 @@ Options:
 
 ## Color Palettes
 
-Currently, `wally` supports the [Catppuccin](https://catppuccin.com) and [Rosé Pine](https://rosepinetheme.com) themes and all of their flavors.
+Currently, `wally` fully supports the [Catppuccin](https://catppuccin.com) and [Rosé Pine](https://rosepinetheme.com) themes.
 
-If your favorite theme isn't available, the [`themes`](wally/src/wally/themes) module is easily extendible. If you're interested, you can find the relevant documentation [here](.github/new-themes.md). PR's with your favorite color palettes are welcome!
+If your favorite theme isn't available, the [`themes`](wally/src/wally/themes) module is easily extendible. If you're interested, you can find the relevant documentation [here](docs/new-themes.md). PR's with your favorite color palettes are welcome!
 
-Take a look at the [samples](docs/samples.md) for examples of what `wally` can do.
+Take a look at the [samples](docs/samples.md) to see what `wally` can do.
 
 ## Development
 

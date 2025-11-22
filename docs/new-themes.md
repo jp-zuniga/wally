@@ -1,6 +1,6 @@
 # Adding New Themes
 
-To create a new theme, it must be added to the [`Themes` enum](../wally/src/wally/themes/mod.rs).
+To create a new theme, it must be added to the [`Themes`](../wally/src/wally/themes/mod.rs) enum.
 
 ```rust
 pub(crate) enum Themes {
@@ -22,7 +22,7 @@ pub(crate) struct CatppuccinFlavor {
 }
 ```
 
-This new struct must implement the [`ColorPalette` trait](../wally/src/wally/themes/mod.rs).
+This new struct must implement the [`ColorPalette`](../wally/src/wally/themes/mod.rs) trait.
 
 ```rust
 pub(crate) trait ColorPalette {
@@ -50,7 +50,7 @@ impl RosePineFlavor {
 }
 ```
 
-Now, all that's left is matching the new enum variant in the [`run()` function](../wally/src/wally/mod.rs)!
+Now, all that's left is matching the new enum variant in the [`run()`](../wally/src/wally/mod.rs) function!
 
 ```rust
 match &args.command {
