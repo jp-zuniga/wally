@@ -54,7 +54,13 @@ Take a look at the [samples](docs/samples.md) to see what `wally` can do.
 
 ## Development
 
-If you're interested in extending or improving `wally` (or fixing a nasty bug!),
+If you're interested in extending or improving `wally` (or fixing a nasty bug!), you'll need to clone this repo and install the packages listed in [`shell.nix`](./shell.nix).
+
+For `nix` users, this is as simple as running `nix-shell shell.nix`.
+
+For everyone else, make sure you've installed the latest version of Rust using [`rustup`](https://rustup.rs/).
+
+> `bacon`, `cargo-bump`, and `clippy` are technically optional – all you really need is a working `rustup` installation – but they'll make your life easier.
 
 ## Acknowledgements
 
