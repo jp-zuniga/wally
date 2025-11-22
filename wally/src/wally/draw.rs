@@ -1,6 +1,5 @@
 use super::img::Color;
 
-use super::consts::DEFAULT_AA_RANGE;
 use super::utils::blend;
 
 pub(crate) struct Circle {
@@ -13,20 +12,21 @@ pub(crate) fn draw_circle(
     pixels: &mut [Color],
     base_alpha: f32,
     color: Color,
+    aa_width: f32,
     width: u32,
     height: u32,
     circle: Circle,
 ) {
     let r = circle.radius;
-    let ra = r + DEFAULT_AA_RANGE;
+    let ra = r + aa_width;
 
     let r2 = r * r;
     let ra2 = ra * ra;
 
-    let mut xmin = (circle.x - r - DEFAULT_AA_RANGE).floor() as i32;
-    let mut xmax = (circle.x + r + DEFAULT_AA_RANGE).ceil() as i32;
-    let mut ymin = (circle.y - r - DEFAULT_AA_RANGE).floor() as i32;
-    let mut ymax = (circle.y + r + DEFAULT_AA_RANGE).ceil() as i32;
+    let mut xmin = (circle.x - r - aa_width).floor() as i32;
+    let mut xmax = (circle.x + r + aa_width).ceil() as i32;
+    let mut ymin = (circle.y - r - aa_width).floor() as i32;
+    let mut ymax = (circle.y + r + aa_width).ceil() as i32;
 
     let w_i = width as i32;
     let h_i = height as i32;

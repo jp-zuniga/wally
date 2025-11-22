@@ -17,6 +17,7 @@ pub(crate) fn mk_dots<T: ColorPalette>(args: &WallyCLI, palette: T, dot_size: f3
 
     let alpha = 128.0 / 255.0;
     let radius = dot_size * 0.5;
+    let aa_width = dot_size * 0.1;
 
     let mut chaos = StdRng::from_rng(&mut rand::rng());
 
@@ -58,6 +59,7 @@ pub(crate) fn mk_dots<T: ColorPalette>(args: &WallyCLI, palette: T, dot_size: f3
                 &mut pixels,
                 alpha,
                 color,
+                aa_width,
                 args.width,
                 args.height,
                 cur_circle,
