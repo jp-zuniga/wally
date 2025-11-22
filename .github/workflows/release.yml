@@ -79,6 +79,10 @@ jobs:
           if-no-files-found: error
 
   release:
+    defaults:
+        run:
+          working-directory: wally
+
     name: release build
     needs: build
     runs-on: ubuntu-latest
