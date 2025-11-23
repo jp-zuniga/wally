@@ -3,6 +3,7 @@ pub(crate) mod dracula;
 pub(crate) mod gruvbox;
 pub(crate) mod nord;
 pub(crate) mod rosepine;
+pub(crate) mod tokyonight;
 
 use clap::ValueEnum;
 
@@ -23,6 +24,10 @@ pub(crate) enum Themes {
     RosePineDefault,
     RosePineDawn,
     RosePineMoon,
+    TokyoNightDefault,
+    TokyoNightDay,
+    TokyoNightMoon,
+    TokyoNightStorm,
 }
 
 pub(crate) trait ColorPalette {
