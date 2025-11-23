@@ -19,10 +19,7 @@ pub(crate) fn parse_file_name(s: &str) -> Result<String, String> {
 
     if let Some(parent) = path.parent() {
         if !parent.as_os_str().is_empty() && !parent.exists() {
-            return Err(format!(
-                "directory `{}` does not exist!",
-                parent.display()
-            ));
+            return Err(format!("directory `{}` does not exist!", parent.display()));
         }
     }
 

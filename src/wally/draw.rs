@@ -49,7 +49,7 @@ pub(crate) fn draw_circle(
 
         let row_start = (y as usize) * width_usize;
 
-        let mut dx = xmin_f - circle.x;
+        let mut dx = (xmin_f + 0.5) - circle.x;
 
         for x in xmin..=xmax {
             let dist2 = dx * dx + dy2;
