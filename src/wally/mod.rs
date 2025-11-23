@@ -14,6 +14,7 @@ use dots::mk_dots;
 use themes::Themes;
 use themes::catppuccin::CatppuccinFlavor;
 use themes::dracula::DraculaFlavor;
+use themes::gruvbox::GruvboxFlavor;
 use themes::rosepine::RosePineFlavor;
 
 pub fn run(mut args: WallyCLI) {
@@ -26,8 +27,8 @@ pub fn run(mut args: WallyCLI) {
     };
 
     match args.palette {
-        Themes::Dracula => mk_dots(&args, dot_size, steps, DraculaFlavor::default()),
         Themes::Alucard => mk_dots(&args, dot_size, steps, DraculaFlavor::alucard()),
+        Themes::Dracula => mk_dots(&args, dot_size, steps, DraculaFlavor::default()),
         Themes::CatppuccinFrappe => {
             mk_dots(&args, dot_size, steps, CatppuccinFlavor::frappe())
         }
@@ -40,6 +41,8 @@ pub fn run(mut args: WallyCLI) {
         Themes::CatppuccinMocha => {
             mk_dots(&args, dot_size, steps, CatppuccinFlavor::mocha())
         }
+        Themes::GruvboxDark => mk_dots(&args, dot_size, steps, GruvboxFlavor::dark()),
+        Themes::GruvboxLight => mk_dots(&args, dot_size, steps, GruvboxFlavor::light()),
         Themes::RosePineDawn => mk_dots(&args, dot_size, steps, RosePineFlavor::dawn()),
         Themes::RosePineDefault => {
             mk_dots(&args, dot_size, steps, RosePineFlavor::default())

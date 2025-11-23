@@ -1,5 +1,6 @@
 pub(crate) mod catppuccin;
 pub(crate) mod dracula;
+pub(crate) mod gruvbox;
 pub(crate) mod rosepine;
 
 use clap::ValueEnum;
@@ -9,12 +10,14 @@ use crate::wally::img::Color;
 #[derive(Clone, Copy, Debug, ValueEnum)]
 #[clap(rename_all = "kebab_case")]
 pub(crate) enum Themes {
+    Alucard,
+    Dracula,
     CatppuccinFrappe,
     CatppuccinLatte,
     CatppuccinMacchiato,
     CatppuccinMocha,
-    Dracula,
-    Alucard,
+    GruvboxDark,
+    GruvboxLight,
     RosePineDefault,
     RosePineDawn,
     RosePineMoon,
