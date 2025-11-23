@@ -33,8 +33,6 @@ Options:
 ### `dots`
 
 ```text
-Create a wallpaper of randomly-generated dots.
-
 Usage: wally dots [OPTIONS]
 
 Options:
@@ -44,7 +42,7 @@ Options:
 
 ## Color Palettes
 
-Currently, `wally` fully supports the [Catppuccin](https://catppuccin.com) and [Rosé Pine](https://rosepinetheme.com) themes.
+Currently, `wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox), and [Rosé Pine](https://rosepinetheme.com).
 
 If your favorite theme isn't available yet, the [`themes`](src/wally/themes) module is easily extendible. If you're interested, you can find the relevant documentation [here](docs/new-themes.md). PR's with your favorite color palettes are welcome!
 
