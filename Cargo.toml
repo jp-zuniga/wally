@@ -7,4 +7,4 @@
     clap         = { version = "4.5.53", features = ["cargo", "derive"] }
     image        = "0.25.9"
     noise_perlin = "1.0.0"
-    rand         = "0.9.2"
+    rand         = { version = "0.9.2", features = ["small_rng"] }
