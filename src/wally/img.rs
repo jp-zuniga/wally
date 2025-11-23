@@ -1,4 +1,5 @@
 use clap::ValueEnum;
+use colored::Colorize;
 use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
 use rayon::{
     iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator},
@@ -33,7 +34,13 @@ pub(crate) fn write_img(
     )
     .unwrap_or_else(|e| panic!("Failed to save `{file}`: {e}"));
 
-    println!("Successfully wrote `{file}`!");
+    println!();
+    println!("{}", "Success!".green().bold());
+    println!(
+        "{} {}",
+        "You can find your new wallpaper here:".blue().italic(),
+        file.yellow().bold().italic(),
+    );
 }
 
 #[derive(Clone, Copy, Debug)]

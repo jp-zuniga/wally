@@ -1,13 +1,12 @@
 use rand::rngs::SmallRng;
 use rand::{Rng, SeedableRng};
 
-use crate::wally::themes::ColorPalette;
-
 use super::cli::WallyCLI;
 use super::consts::BASE_ALPHA;
 use super::draw::draw_tiled_dots;
 use super::img::{Color, write_img};
 use super::noise::Perlin2D;
+use super::themes::ColorPalette;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Dot {

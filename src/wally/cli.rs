@@ -1,4 +1,4 @@
-use clap::{ArgAction, ColorChoice, crate_authors, crate_version};
+use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
 use super::consts::{
@@ -7,11 +7,11 @@ use super::consts::{
 };
 
 use super::img::WallFormats;
-use super::themes::Themes;
 use super::parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };
+use super::themes::Themes;
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum Commands {
@@ -30,7 +30,6 @@ pub(crate) enum Commands {
 #[derive(Parser, Debug)]
 #[command(
     arg_required_else_help = true,
-    color = ColorChoice::Auto,
     styles = WALLY_STYLE,
     author = crate_authors!(),
     version = crate_version!(),
@@ -82,7 +81,27 @@ pub struct WallyCLI {
     #[arg(long, global = true, action = ArgAction::SetTrue)]
     pub(crate) swap: bool,
 
+    /// Force color output.
+    #[arg(long, global = true, action = ArgAction::SetTrue)]
+    pub(crate) color: bool,
+
+    /// Disable color output.
+    #[arg(long, global = true, conflicts_with = "color", action = ArgAction::SetTrue)]
+    pub(crate) no_color: bool,
+
     /// Command to execute.
     #[command(subcommand)]
     pub(crate) command: Commands,
+}
+
+impl WallyCLI {
+    pub(crate) fn colorize(&self) -> Option<bool> {
+        if self.color {
+            Some(true)
+        } else if self.no_color {
+            Some(false)
+        } else {
+            None
+        }
+    }
 }

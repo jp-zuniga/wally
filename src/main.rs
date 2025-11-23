@@ -1,7 +1,5 @@
-use clap::Parser;
-
-use wally::{WallyCLI, run};
+use wally::{init_cli, run_cli};
 
 fn main() {
-    run(WallyCLI::parse());
+    run_cli(init_cli());
 }

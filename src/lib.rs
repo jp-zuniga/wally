@@ -1,4 +1,3 @@
 pub mod wally;
 
-pub use wally::cli::WallyCLI;
-pub use wally::run;
+pub use wally::{init_cli, run_cli};
