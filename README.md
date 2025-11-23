@@ -12,58 +12,58 @@ A `cargo` installation and `nix` package are both planned.
 
 ## Usage
 
-```markdown
+```text
 Usage: wally [OPTIONS] <COMMAND>
 
 Commands:
-  dots  Generate a wallpaper of randomly-generated dots
-  help  Print this message or the help of the given subcommand(s)
+  dots  Create a wallpaper of randomly-generated dots.
+  help  Print this message or the help of the given subcommand(s).
 
 Options:
-  -n, --name <NAME>        Name of generated wallpaper [default: dots]
-  -f, --format <FORMAT>    Image format wallpaper will be saved as [default: png] [possible values: png, jpg]
-  -W, --width <WIDTH>      Width of wallpaper [default: 1920]
-  -H, --height <HEIGHT>    Height of wallpaper [default: 1080]
-  -p, --padding <PADDING>  Amount of padding to add to wallpaper's borders [default: 200]
-      --swap               Whether to swap width and height values to create a vertical wallpaper
+      --seed <SEED>        Optional seed for reproducible output.
+  -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
+  -n, --name <NAME>        Name of generated wallpaper. [default: wally]
+  -f, --format <FORMAT>    Output format of generated wallpaper. [default: png]
+  -W, --width <WIDTH>      Width of wallpaper. [default: 1920]
+  -H, --height <HEIGHT>    Height of wallpaper. [default: 1080]
+      --padding <PADDING>  Pixels of padding around wallpaper borders. [default: 200]
+      --swap               Swap width and height to create a vertical wallpaper.
 ```
 
 ### `dots`
 
-```markdown
-Generate a wallpaper of randomly-generated dots
+```text
+Create a wallpaper of randomly-generated dots.
 
 Usage: wally dots [OPTIONS]
 
 Options:
-  -d, --dot-size <DOT_SIZE>  Size of circles generated [default: 40]
-  -s, --steps <STEPS>        Controls the density of generated dots. Lower generates denser, tight patterns; high creates a spread-out grid [default: 80]
-  -p, --palette <PALETTE>    Color palette for generated wallpaper [default: rose-pine-moon] [possible values: rose-pine-default, rose-pine-dawn, rose-pine-moon, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha]
-  -h, --help                 Print help
+  -d, --dot-size <DOT_SIZE>  Size of dots generated. [default: 40]
+  -s, --steps <STEPS>        Density of generated dots. [default: 80]
 ```
 
 ## Color Palettes
 
 Currently, `wally` fully supports the [Catppuccin](https://catppuccin.com) and [Rosé Pine](https://rosepinetheme.com) themes.
 
-If your favorite theme isn't available, the [`themes`](wally/src/wally/themes) module is easily extendible. If you're interested, you can find the relevant documentation [here](docs/new-themes.md). PR's with your favorite color palettes are welcome!
+If your favorite theme isn't available yet, the [`themes`](wally/src/wally/themes) module is easily extendible. If you're interested, you can find the relevant documentation [here](docs/new-themes.md). PR's with your favorite color palettes are welcome!
 
 Take a look at the [samples](docs/samples.md) to see what `wally` can do.
 
 ## Development
 
-If you're interested in extending or improving `wally` (or fixing a nasty bug!), you'll need to clone this repo and install the packages listed in [`shell.nix`](./shell.nix).
+If you're interested in extending, fixing, or improving `wally`, you'll need to clone this repo and install the packages listed in [`shell.nix`](./shell.nix).
 
 For `nix` users, this is as simple as running `nix-shell shell.nix`.
 
 For everyone else, make sure you've installed the latest version of Rust using [`rustup`](https://rustup.rs/).
 
-> `bacon`, `cargo-bump`, and `clippy` are technically optional – all you really need is a working `rustup` installation – but they'll make your life easier.
+> `bacon`, `cargo-bump`, and `clippy` are technically optional – all you really need is a working `rustup` installation – but they'll make your life a lot easier.
 
 ## Acknowledgements
 
-This project is a rewrite and extension of [Oliver Thurley's](https://github.com/thrly) `p5.js` scripts, [dots](https://github.com/thrly/dots-wallpaper) and [cubes](https://github.com/thrly/cubes-wallpaper).
+This project is a rewrite and extension of [Oliver Thurley's](https://github.com/thrly) `p5.js` scripts: [dots](https://github.com/thrly/dots-wallpaper) and [cubes](https://github.com/thrly/cubes-wallpaper).
 
 ## [License](LICENSE)
 
-Licensed under the GPLv3.
+`wally` is licensed under the GPLv3.
