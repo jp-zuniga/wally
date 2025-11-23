@@ -3,7 +3,7 @@ use std::path::Path;
 use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_WIDTH};
 
 #[derive(Clone, Copy, Debug)]
-pub(crate) enum Dimensions {
+enum Dimensions {
     Height,
     Width,
 }
@@ -46,7 +46,7 @@ fn pretty_parse_u32(label: &str, limit: i32, s: &str) -> Result<u32, String> {
 
     if value < limit {
         return Err(format!(
-            "`{label}` must be greater than or equal to 0, got {value}."
+            "`{label}` must be greater than {limit}, got {value}."
         ));
     }
 

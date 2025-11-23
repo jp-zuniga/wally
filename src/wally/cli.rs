@@ -8,7 +8,7 @@ use super::consts::{
 
 use super::img::WallFormats;
 use super::themes::Themes;
-use super::utils::{
+use super::parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };

@@ -5,7 +5,7 @@ mod draw;
 mod img;
 mod noise;
 mod themes;
-mod utils;
+mod parse;
 
 use std::mem::swap;
 
