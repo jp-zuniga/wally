@@ -1017,6 +1017,7 @@ dependencies = [
  "image",
  "noise_perlin",
  "rand",
+ "rayon",
 ]
 
 [[package]]
