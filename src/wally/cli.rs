@@ -12,20 +12,15 @@ use super::utils::{parse_file_arg, parse_float};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum Commands {
-    /// Generate a wallpaper of randomly-generated dots.
+    /// Create a wallpaper of randomly-generated dots.
     Dots {
-        /// Size of circles generated.
+        /// Size of dots generated.
         #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_float)]
         dot_size: f32,
 
-        /// Controls the density of generated dots.
-        /// Lower generates denser, tight patterns; high creates a spread-out grid.
+        /// Density of generated dots.
         #[arg(short, long, default_value_t = DEFAULT_STEPS)]
         steps: u32,
-
-        /// Color palette for generated wallpaper.
-        #[arg(short, long, value_enum, default_value_t = Themes::RosePineMoon)]
-        palette: Themes,
     },
 }
 
@@ -38,34 +33,49 @@ pub(crate) enum Commands {
     arg_required_else_help = true,
 )]
 pub struct WallyCLI {
+    /// Optional seed for reproducible output.
+    #[arg(long, global = true)]
+    pub(crate) seed: Option<u64>,
+
     /// Name of generated wallpaper.
-    #[arg(short, long, default_value_t = DEFAULT_NAME.to_string(), value_parser = parse_file_arg)]
+    #[arg(
+        short,
+        long,
+        global = true,
+        default_value_t = DEFAULT_NAME.to_string(),
+        value_parser = parse_file_arg,
+    )]
     pub(crate) name: String,
 
-    /// Image format wallpaper will be saved as.
-    #[arg(short, long, default_value_t = WallFormats::Png, value_enum)]
+    /// Color palette of generated wallpaper.
+    #[arg(
+        short,
+        long,
+        global = true,
+        value_enum,
+        default_value_t = Themes::RosePineMoon,
+    )]
+    pub(crate) palette: Themes,
+
+    /// Output format of generated wallpaper.
+    #[arg(short, long, global = true, default_value_t = WallFormats::Png, value_enum)]
     pub(crate) format: WallFormats,
 
+    /// Pixels of padding around wallpaper borders.
+    #[arg(long, global = true, default_value_t = DEFAULT_PADDING)]
+    pub(crate) padding: u32,
+
     /// Width of wallpaper.
-    #[arg(short = 'W', long, default_value_t = DEFAULT_WIDTH)]
+    #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH)]
     pub(crate) width: u32,
 
     /// Height of wallpaper.
-    #[arg(short = 'H', long, default_value_t = DEFAULT_HEIGHT)]
+    #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT)]
     pub(crate) height: u32,
 
-    /// Amount of padding to add to wallpaper's borders.
-    #[arg(short, long, default_value_t = DEFAULT_PADDING)]
-    pub(crate) padding: u32,
-
-    /// Whether to swap width and height values to create a vertical wallpaper.
-    #[arg(long, action = ArgAction::SetTrue)]
+    /// Swap width and height to create a vertical wallpaper.
+    #[arg(long, global = true, action = ArgAction::SetTrue)]
     pub(crate) swap: bool,
-
-    /// Random seed for reproducible output.
-    /// If omitted, a random seed is used.
-    #[arg(long)]
-    pub(crate) seed: Option<u64>,
 
     /// Command to execute.
     #[command(subcommand)]
