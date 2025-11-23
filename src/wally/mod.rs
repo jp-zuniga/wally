@@ -20,6 +20,7 @@ use themes::Themes;
 use themes::catppuccin::CatppuccinFlavor;
 use themes::dracula::DraculaFlavor;
 use themes::gruvbox::GruvboxFlavor;
+use themes::nord::Nord;
 use themes::rosepine::RosePineFlavor;
 use utils::detect_color_choice;
 
@@ -63,6 +64,7 @@ pub fn run_cli(mut args: WallyCLI) {
         }
         Themes::GruvboxDark => mk_dots(&args, dot_size, steps, GruvboxFlavor::dark()),
         Themes::GruvboxLight => mk_dots(&args, dot_size, steps, GruvboxFlavor::light()),
+        Themes::Nord => mk_dots(&args, dot_size, steps, Nord::new()),
         Themes::RosePineDawn => mk_dots(&args, dot_size, steps, RosePineFlavor::dawn()),
         Themes::RosePineDefault => {
             mk_dots(&args, dot_size, steps, RosePineFlavor::default())

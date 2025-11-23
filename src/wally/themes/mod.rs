@@ -1,6 +1,7 @@
 pub(crate) mod catppuccin;
 pub(crate) mod dracula;
 pub(crate) mod gruvbox;
+pub(crate) mod nord;
 pub(crate) mod rosepine;
 
 use clap::ValueEnum;
@@ -18,6 +19,7 @@ pub(crate) enum Themes {
     CatppuccinMocha,
     GruvboxDark,
     GruvboxLight,
+    Nord,
     RosePineDefault,
     RosePineDawn,
     RosePineMoon,
