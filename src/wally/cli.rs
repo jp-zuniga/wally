@@ -2,7 +2,8 @@ use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
 use super::consts::{
-    DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING, DEFAULT_STEPS, DEFAULT_WIDTH,
+    DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING, DEFAULT_STEPS,
+    DEFAULT_WIDTH,
 };
 
 use super::img::WallFormats;

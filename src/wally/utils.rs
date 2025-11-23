@@ -10,7 +10,13 @@ pub(crate) fn blend(src: Color, dst: Color, alpha: f32) -> Color {
     }
 }
 
-pub(crate) fn map_float(value: f32, in_min: f32, in_max: f32, out_min: f32, out_max: f32) -> f32 {
+pub(crate) fn map_float(
+    value: f32,
+    in_min: f32,
+    in_max: f32,
+    out_min: f32,
+    out_max: f32,
+) -> f32 {
     out_min + (value - in_min) * (out_max - out_min) / (in_max - in_min)
 }
 
