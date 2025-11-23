@@ -8,13 +8,15 @@ pub(crate) fn write_img(
     height: u32,
     pixels: &[Color],
 ) {
-    let mut buf = Vec::with_capacity((width * height * 3) as usize);
+    let mut buf = vec![0u8; (width * height * 3) as usize];
 
-    for p in pixels {
+    for (i, p) in pixels.iter().enumerate() {
         let [r, g, b] = p.to_rgb();
-        buf.push(r);
-        buf.push(g);
-        buf.push(b);
+        let j = i * 3;
+
+        buf[j] = r;
+        buf[j + 1] = g;
+        buf[j + 2] = b;
     }
 
     save_buffer_with_format(
@@ -46,12 +48,9 @@ impl Color {
         }
     }
 
+    #[inline]
     pub fn to_rgb(self) -> [u8; 3] {
-        [
-            self.r.clamp(0.0, 255.0).round() as u8,
-            self.g.clamp(0.0, 255.0).round() as u8,
-            self.b.clamp(0.0, 255.0).round() as u8,
-        ]
+        [self.r as u8, self.g as u8, self.b as u8]
     }
 }
 

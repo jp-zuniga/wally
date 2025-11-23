@@ -23,27 +23,29 @@ pub(crate) fn draw_circle(
     let r2 = r * r;
     let ra2 = ra * ra;
 
-    let mut xmin = (circle.x - r - aa_width).floor() as i32;
-    let mut xmax = (circle.x + r + aa_width).ceil() as i32;
-    let mut ymin = (circle.y - r - aa_width).floor() as i32;
-    let mut ymax = (circle.y + r + aa_width).ceil() as i32;
-
     let w_i = width as i32;
     let h_i = height as i32;
 
-    xmin = xmin.clamp(0, w_i - 1);
-    xmax = xmax.clamp(0, w_i - 1);
-    ymin = ymin.clamp(0, h_i - 1);
-    ymax = ymax.clamp(0, h_i - 1);
+    let xmin = ((circle.x - ra).floor() as i32).clamp(0, w_i - 1);
+    let xmax = ((circle.x + ra).ceil() as i32).clamp(0, w_i - 1);
+    let ymin = ((circle.y - ra).floor() as i32).clamp(0, h_i - 1);
+    let ymax = ((circle.y + ra).ceil() as i32).clamp(0, h_i - 1);
+
+    let xmin_f = xmin as f32;
+    let width_usize = width as usize;
 
     for y in ymin..=ymax {
         let py = y as f32 + 0.5;
         let dy = py - circle.y;
+        let dy2 = dy * dy;
+
+        let row_start = (y as usize) * width_usize;
+
+        let mut dx = xmin_f - circle.x;
 
         for x in xmin..=xmax {
-            let px = x as f32 + 0.5;
-            let dx = px - circle.x;
-            let dist2 = dx * dx + dy * dy;
+            let dist2 = dx * dx + dy2;
+            dx += 1.0;
 
             if dist2 >= ra2 {
                 continue;
@@ -53,7 +55,7 @@ pub(crate) fn draw_circle(
                 1.0
             } else {
                 let dist = dist2.sqrt();
-                (ra - dist).clamp(0.0, 1.0)
+                (ra - dist).max(0.0).min(1.0)
             };
 
             if coverage <= 0.0 {
@@ -61,9 +63,9 @@ pub(crate) fn draw_circle(
             }
 
             let alpha = base_alpha * coverage;
-            let idx = (y as u32 * width + x as u32) as usize;
-            let dst = pixels[idx];
+            let idx = row_start + x as usize;
 
+            let dst = pixels[idx];
             pixels[idx] = blend(color, dst, alpha);
         }
     }

@@ -1,4 +1,4 @@
-use rand::rngs::StdRng;
+use rand::rngs::SmallRng;
 use rand::{Rng, SeedableRng};
 
 use crate::wally::themes::ColorPalette;
@@ -7,31 +7,51 @@ use super::cli::WallyCLI;
 use super::draw::{Circle, draw_circle};
 use super::img::write_img;
 use super::noise::Perlin2D;
-use super::utils::map_float;
 
 pub(crate) fn mk_dots<T: ColorPalette>(
     args: &WallyCLI,
-    dot_size: &f32,
-    steps: &u32,
+    dot_size: f32,
+    steps: u32,
     palette: T,
 ) {
-    let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
+    let width_usize = args.width as usize;
+    let height_usize = args.height as usize;
 
-    let grid_width = (args.width / steps * steps) as f32;
-    let grid_height = (args.height / steps * steps) as f32;
+    let total_pixels = width_usize
+        .checked_mul(height_usize)
+        .expect("image dimensions are too large!");
+
+    let width_f = args.width as f32;
+    let height_f = args.height as f32;
+    let padding_f = args.padding as f32;
+    let steps_f = steps as f32;
+
+    let grid_width = (width_f / steps_f).floor() * steps_f;
+    let grid_height = (height_f / steps_f).floor() * steps_f;
+
+    let x_min = padding_f;
+    let x_max = width_f - padding_f;
+    let y_min = padding_f;
+    let y_max = height_f - padding_f;
+
+    let mut pixels = vec![palette.background(); total_pixels];
 
     let alpha = 128.0 / 255.0;
-    let radius = dot_size * 0.5;
     let aa_width = dot_size * 0.1;
 
-    let mut chaos =
-        StdRng::seed_from_u64(args.seed.unwrap_or_else(|| rand::rng().random::<u64>()));
+    let mut chaos = SmallRng::seed_from_u64(
+        args.seed.unwrap_or_else(|| rand::rng().random::<u64>()),
+    );
 
     let noise = Perlin2D::new(&mut chaos);
 
-    for gx in (0..=args.width).step_by(*steps as usize) {
-        for gy in (0..=args.height).step_by(*steps as usize) {
-            let n2 = noise.sample(gx as f32, gy as f32);
+    for gx in (0..=args.width).step_by(steps as usize) {
+        let gx_f = gx as f32;
+
+        for gy in (0..=args.height).step_by(steps as usize) {
+            let gy_f = gy as f32;
+
+            let n2 = noise.sample(gx_f, gy_f);
 
             if chaos.random::<f32>() > n2 {
                 continue;
@@ -39,24 +59,11 @@ pub(crate) fn mk_dots<T: ColorPalette>(
 
             let color = palette.get_color(chaos.random_range(0..palette.len()));
 
-            let x_pos = map_float(
-                gx as f32,
-                0.0,
-                grid_width,
-                args.padding as f32,
-                (args.width - args.padding) as f32,
-            );
+            let x_pos = x_min + gx_f * (x_max - x_min) / grid_width;
+            let y_pos = y_min + gy_f * (y_max - y_min) / grid_height;
 
-            let y_pos = map_float(
-                gy as f32,
-                0.0,
-                grid_height,
-                args.padding as f32,
-                (args.height - args.padding) as f32,
-            );
-
-            let cur_circle = Circle {
-                radius,
+            let circle = Circle {
+                radius: dot_size,
                 x: x_pos,
                 y: y_pos,
             };
@@ -68,7 +75,7 @@ pub(crate) fn mk_dots<T: ColorPalette>(
                 aa_width,
                 args.width,
                 args.height,
-                cur_circle,
+                circle,
             );
         }
     }
