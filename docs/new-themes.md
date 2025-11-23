@@ -1,6 +1,6 @@
 # Adding New Themes
 
-To create a new theme, it must be added to the [`Themes`](../wally/src/wally/themes/mod.rs) enum.
+To create a new theme, it must be added to the [`Themes`](../src/wally/themes/mod.rs) enum.
 
 ```rust
 pub(crate) enum Themes {
@@ -14,15 +14,15 @@ pub(crate) enum Themes {
 Then, a new file for the theme's implementation must be created. There, create a struct for the new theme. This will store the theme's color palette.
 
 ```rust
-pub(crate) struct CatppuccinFlavor {
-    pub(crate) rosewater: Color,
-    pub(crate) flamingo: Color,
-    pub(crate) pink: Color,
+pub(crate) struct DraculaPalette {
+    pub(crate) background: Color,
+    pub(crate) line: Color,
+    pub(crate) selection: Color,
     // ...
 }
 ```
 
-This new struct must implement the [`ColorPalette`](../wally/src/wally/themes/mod.rs) trait.
+This new struct must implement the [`ColorPalette`](../src/wally/themes/mod.rs) trait.
 
 ```rust
 pub(crate) trait ColorPalette {
@@ -37,12 +37,11 @@ pub(crate) trait ColorPalette {
 It should also provide methods to instantiate itself. If the theme only has one color palette, a simple `::new()` will do. If it has several, there should be a `::<palette>()` method for each one.
 
 ```rust
-impl RosePineFlavor {
-    pub(crate) fn default() -> RosePineFlavor {
-        RosePineFlavor {
-            base: Color::from_u8(0x19, 0x17, 0x24),    // #191724
-            surface: Color::from_u8(0x1f, 0x1d, 0x2e), // #1f1d2e
-            // ...
+impl DraculaPalette {
+    pub(crate) fn new() -> DraculaPalette {
+        DraculaPalette {
+            background: Color::from_u8(0x28, 0x2a, 36), // #282a36
+            line: Color::from_u8(0x62, 0x72, 0xa4),     // #6272A4
         }
     }
 
@@ -50,7 +49,7 @@ impl RosePineFlavor {
 }
 ```
 
-Now, all that's left is matching the new enum variant in the [`run()`](../wally/src/wally/mod.rs) function!
+Now, all that's left is matching the new enum variant in the [`run()`](../src/wally/mod.rs) function!
 
 ```rust
 match &args.command {
@@ -60,7 +59,7 @@ match &args.command {
         steps,
     } => match palette {
         // previous `match` arms...
-        Themes::Dracula => mk_dots(&args, Dracula::new(), *dot_size, *steps),
+        Themes::Dracula => mk_dots(&args, DraculaPalette::new(), *dot_size, *steps),
     },
 };
 ```
