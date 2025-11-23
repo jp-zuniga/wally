@@ -39,12 +39,12 @@ pub(crate) fn parse_file_name(s: &str) -> Result<String, String> {
     Ok(value.to_string())
 }
 
-fn pretty_parse_u32(label: &str, s: &str) -> Result<u32, String> {
+fn pretty_parse_u32(label: &str, limit: i32, s: &str) -> Result<u32, String> {
     let value = s
         .parse::<i32>()
-        .map_err(|_| format!("`{s} must be a positive integer."))?;
+        .map_err(|_| format!("`{s}` must be a positive integer."))?;
 
-    if value < 0 {
+    if value < limit {
         return Err(format!(
             "`{label}` must be greater than or equal to 0, got {value}."
         ));
@@ -54,11 +54,13 @@ fn pretty_parse_u32(label: &str, s: &str) -> Result<u32, String> {
 }
 
 pub(crate) fn parse_padding(s: &str) -> Result<u32, String> {
-    pretty_parse_u32("padding", s)
+    // allow --padding=0
+    pretty_parse_u32("padding", 0, s)
 }
 
 pub(crate) fn parse_steps(s: &str) -> Result<u32, String> {
-    pretty_parse_u32("steps", s)
+    // do *not* allow --steps=0
+    pretty_parse_u32("steps", 1, s)
 }
 
 fn parse_positive_float(label: &str, s: &str) -> Result<f32, String> {
