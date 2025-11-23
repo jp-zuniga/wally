@@ -21,13 +21,13 @@ Commands:
 
 Options:
       --seed    <SEED>     Optional seed for reproducible wallpapers.
-  -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
-  -n, --name    <NAME>     Name of generated wallpaper. [default: wally]
-  -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
-  -W, --width   <WIDTH>    Width of generated wallpaper. [default: 1920]
-  -H, --height  <HEIGHT>   Height of generated wallpaper. [default: 1080]
+  -p, --palette <PALETTE>  Color palette of generated wallpaper.       [default: rose-pine-moon]
+  -n, --name    <NAME>     Name of generated wallpaper.                [default: wally]
+  -f, --format  <FORMAT>   Output format of generated wallpaper.       [default: png]
+  -W, --width   <WIDTH>    Width of generated wallpaper.               [default: 1920]
+  -H, --height  <HEIGHT>   Height of generated wallpaper.              [default: 1080]
       --padding <PADDING>  Pixels of padding around wallpaper borders. [default: 200]
-      --swap               Swap width and height to create a vertical wallpaper.
+      --swap               Swap width and height.
 ```
 
 ### `dots`
@@ -38,7 +38,7 @@ Create a wallpaper of randomly-generated dots.
 Usage: wally dots [OPTIONS]
 
 Options:
-  -d, --dot-size <DOT_SIZE>  Size of dots generated. [default: 40]
+  -d, --dot-size <DOT_SIZE>  Size of dots generated.    [default: 40]
   -s, --steps    <STEPS>     Density of generated dots. [default: 80]
 ```
 

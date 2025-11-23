@@ -55,7 +55,7 @@ $ wally --seed 28258988067220596 --padding 250 -p rose-pine-default dots -d 160 
 ### Moon
 
 ```bash
-$ wally --seed 1836019566 --padding 180 dots -d 80 -s 60
+$ wally --seed 1836019566 --padding -p rose-pine-moon 180 dots -d 80 -s 60
 ```
 
 ![Rosé Pine Moon sample.](../.github/assets/rose-pine-moon.png)

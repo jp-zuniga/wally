@@ -75,7 +75,7 @@ pub struct WallyCLI {
     #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT)]
     pub(crate) height: u32,
 
-    /// Swap width and height to create a vertical wallpaper.
+    /// Swap width and height.
     #[arg(long, global = true, action = ArgAction::SetTrue)]
     pub(crate) swap: bool,
 
