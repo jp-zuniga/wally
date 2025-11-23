@@ -1,11 +1,8 @@
+use super::consts::TILE_HEIGHT;
+use super::dots::Dot;
 use super::img::Color;
 
-pub(crate) struct Circle {
-    pub(crate) radius: f32,
-    pub(crate) x: f32,
-    pub(crate) y: f32,
-}
-
+#[inline]
 pub(crate) fn blend(src: Color, dst: Color, alpha: f32) -> Color {
     let inv = 1.0 - alpha;
 
@@ -16,65 +13,100 @@ pub(crate) fn blend(src: Color, dst: Color, alpha: f32) -> Color {
     }
 }
 
-pub(crate) fn draw_circle(
+pub(crate) fn draw_tiled_dots(
     pixels: &mut [Color],
-    base_alpha: f32,
-    color: Color,
-    aa_width: f32,
-    width: u32,
+    dots: &[Dot],
     height: u32,
-    circle: Circle,
+    width: u32,
+    base_alpha: f32,
 ) {
-    let r = circle.radius;
-    let ra = r + aa_width;
-
-    let r2 = r * r;
-    let ra2 = ra * ra;
-
-    let w_i = width as i32;
-    let h_i = height as i32;
-
-    let xmin = ((circle.x - ra).floor() as i32).clamp(0, w_i - 1);
-    let xmax = ((circle.x + ra).ceil() as i32).clamp(0, w_i - 1);
-    let ymin = ((circle.y - ra).floor() as i32).clamp(0, h_i - 1);
-    let ymax = ((circle.y + ra).ceil() as i32).clamp(0, h_i - 1);
-
-    let xmin_f = xmin as f32;
     let width_usize = width as usize;
+    let height_i = height as i32;
 
-    for y in ymin..=ymax {
-        let py = y as f32 + 0.5;
-        let dy = py - circle.y;
-        let dy2 = dy * dy;
+    if width_usize == 0 || height_i <= 0 || dots.is_empty() {
+        return;
+    }
 
-        let row_start = (y as usize) * width_usize;
+    let num_tiles = ((height_i + TILE_HEIGHT - 1) / TILE_HEIGHT) as usize;
 
-        let mut dx = (xmin_f + 0.5) - circle.x;
+    let mut buckets: Vec<Vec<usize>> = vec![Vec::new(); num_tiles];
 
-        for x in xmin..=xmax {
-            let dist2 = dx * dx + dy2;
-            dx += 1.0;
+    for (idx, dot) in dots.iter().enumerate() {
+        let mut first_tile = dot.y_min / TILE_HEIGHT;
+        let mut last_tile = dot.y_max / TILE_HEIGHT;
 
-            if dist2 >= ra2 {
-                continue;
+        if first_tile < 0 {
+            first_tile = 0;
+        }
+
+        if last_tile >= num_tiles as i32 {
+            last_tile = num_tiles as i32 - 1;
+        }
+
+        for tile_y in first_tile..=last_tile {
+            buckets[tile_y as usize].push(idx);
+        }
+    }
+
+    for (tile_idx, bucket) in buckets.iter().enumerate() {
+        if bucket.is_empty() {
+            continue;
+        }
+
+        let tile_start_y = (tile_idx as i32) * TILE_HEIGHT;
+        let mut tile_end_y = tile_start_y + TILE_HEIGHT - 1;
+
+        if tile_end_y >= height_i {
+            tile_end_y = height_i - 1;
+        }
+
+        for y in tile_start_y..=tile_end_y {
+            let py = y as f32 + 0.5;
+            let row_start = (y as usize) * width_usize;
+
+            for &circle_idx in bucket {
+                let dot = &dots[circle_idx];
+
+                if y < dot.y_min || y > dot.y_max {
+                    continue;
+                }
+
+                let dy = py - dot.y;
+                let dy2 = dy * dy;
+
+                if dy2 >= dot.ra2 {
+                    continue;
+                }
+
+                let mut dx = dot.x_min as f32 - dot.x;
+                let xmin = dot.x_min;
+                let xmax = dot.x_max;
+
+                for x in xmin..=xmax {
+                    let dist2 = dx * dx + dy2;
+                    dx += 1.0;
+
+                    if dist2 >= dot.ra2 {
+                        continue;
+                    }
+
+                    let coverage = if dist2 <= dot.r2 {
+                        1.0
+                    } else {
+                        (dot.radius + dot.aa_width - dist2.sqrt()).clamp(0.0, 1.0)
+                    };
+
+                    if coverage <= 0.0 {
+                        continue;
+                    }
+
+                    let alpha = base_alpha * coverage;
+                    let idx = row_start + x as usize;
+
+                    let dst = pixels[idx];
+                    pixels[idx] = blend(dot.color, dst, alpha);
+                }
             }
-
-            let coverage = if dist2 <= r2 {
-                1.0
-            } else {
-                let dist = dist2.sqrt();
-                (ra - dist).clamp(0.0, 1.0)
-            };
-
-            if coverage <= 0.0 {
-                continue;
-            }
-
-            let alpha = base_alpha * coverage;
-            let idx = row_start + x as usize;
-            let dst = pixels[idx];
-
-            pixels[idx] = blend(color, dst, alpha);
         }
     }
 }

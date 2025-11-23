@@ -18,6 +18,8 @@ pub(crate) const DEFAULT_STEPS: u32 = 80;
 
 pub(crate) const DEFAULT_NAME: &str = "wally";
 
+pub(crate) const TILE_HEIGHT: i32 = 64;
+
 pub(crate) const WALLY_STYLE: Styles = Styles::styled()
     .header(AnsiColor::Yellow.on_default())
     .literal(AnsiColor::Green.on_default())
