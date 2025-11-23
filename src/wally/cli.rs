@@ -1,9 +1,9 @@
-use clap::{ArgAction, crate_authors, crate_version};
+use clap::{ArgAction, ColorChoice, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
 use super::consts::{
     DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING, DEFAULT_STEPS,
-    DEFAULT_WIDTH,
+    DEFAULT_WIDTH, WALLY_STYLE,
 };
 
 use super::img::WallFormats;
@@ -26,11 +26,13 @@ pub(crate) enum Commands {
 
 #[derive(Parser, Debug)]
 #[command(
+    arg_required_else_help = true,
+    color = ColorChoice::Auto,
+    styles = WALLY_STYLE,
     author = crate_authors!(),
     version = crate_version!(),
     about = None,
     long_about = None,
-    arg_required_else_help = true,
 )]
 pub struct WallyCLI {
     /// Optional seed for reproducible output.
