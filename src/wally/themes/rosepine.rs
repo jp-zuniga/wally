@@ -2,25 +2,25 @@ use crate::wally::img::Color;
 
 use super::ColorPalette;
 
-pub(crate) const ROSE_COLOR_COUNT: usize = 15;
+const ROSE_COLOR_COUNT: usize = 15;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct RosePineFlavor {
-    pub(crate) base: Color,
-    pub(crate) surface: Color,
-    pub(crate) overlay: Color,
-    pub(crate) muted: Color,
-    pub(crate) subtle: Color,
-    pub(crate) text: Color,
-    pub(crate) love: Color,
-    pub(crate) gold: Color,
-    pub(crate) rose: Color,
-    pub(crate) pine: Color,
-    pub(crate) foam: Color,
-    pub(crate) iris: Color,
-    pub(crate) h_low: Color,
-    pub(crate) h_med: Color,
-    pub(crate) h_high: Color,
+    base: Color,
+    surface: Color,
+    overlay: Color,
+    muted: Color,
+    subtle: Color,
+    text: Color,
+    love: Color,
+    gold: Color,
+    rose: Color,
+    pine: Color,
+    foam: Color,
+    iris: Color,
+    h_low: Color,
+    h_med: Color,
+    h_high: Color,
 }
 
 impl ColorPalette for RosePineFlavor {

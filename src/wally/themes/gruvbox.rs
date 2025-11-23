@@ -2,17 +2,7 @@ use crate::wally::img::Color;
 
 use super::ColorPalette;
 
-pub(crate) const GRUV_COLOR_COUNT: usize = 9;
-
-// background = "#282828"
-// foreground = "#ebdbb2"
-// white = "#a89984"
-// red = "#cc241d"
-// yellow = "#d79921"
-// green = "#98971a"
-// cyan = "#689d6a"
-// blue = "#458588"
-// magenta = "#b16286"
+const GRUV_COLOR_COUNT: usize = 9;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct GruvboxFlavor {
@@ -53,7 +43,7 @@ impl ColorPalette for GruvboxFlavor {
 }
 
 impl GruvboxFlavor {
-    pub fn dark() -> GruvboxFlavor {
+    pub(crate) fn dark() -> GruvboxFlavor {
         GruvboxFlavor {
             background: Color::from_u8(0x28, 0x28, 0x28), // #282828
             foreground: Color::from_u8(0xeb, 0xdb, 0xb2), // #ebdbb2
@@ -67,7 +57,7 @@ impl GruvboxFlavor {
         }
     }
 
-    pub fn light() -> GruvboxFlavor {
+    pub(crate) fn light() -> GruvboxFlavor {
         GruvboxFlavor {
             background: Color::from_u8(0xfb, 0xf1, 0xc7), // #fbf1c7
             foreground: Color::from_u8(0x3c, 0x38, 0x36), // #3c3836

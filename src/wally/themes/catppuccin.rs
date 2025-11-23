@@ -2,36 +2,36 @@ use crate::wally::img::Color;
 
 use super::ColorPalette;
 
-pub(crate) const CAT_COLOR_COUNT: usize = 26;
+const CAT_COLOR_COUNT: usize = 26;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct CatppuccinFlavor {
-    pub(crate) rosewater: Color,
-    pub(crate) flamingo: Color,
-    pub(crate) pink: Color,
-    pub(crate) mauve: Color,
-    pub(crate) red: Color,
-    pub(crate) maroon: Color,
-    pub(crate) peach: Color,
-    pub(crate) yellow: Color,
-    pub(crate) green: Color,
-    pub(crate) teal: Color,
-    pub(crate) sky: Color,
-    pub(crate) sapphire: Color,
-    pub(crate) blue: Color,
-    pub(crate) lavender: Color,
-    pub(crate) text: Color,
-    pub(crate) subtext0: Color,
-    pub(crate) subtext1: Color,
-    pub(crate) overlay0: Color,
-    pub(crate) overlay1: Color,
-    pub(crate) overlay2: Color,
-    pub(crate) surface0: Color,
-    pub(crate) surface1: Color,
-    pub(crate) surface2: Color,
-    pub(crate) base: Color,
-    pub(crate) mantle: Color,
-    pub(crate) crust: Color,
+    rosewater: Color,
+    flamingo: Color,
+    pink: Color,
+    mauve: Color,
+    red: Color,
+    maroon: Color,
+    peach: Color,
+    yellow: Color,
+    green: Color,
+    teal: Color,
+    sky: Color,
+    sapphire: Color,
+    blue: Color,
+    lavender: Color,
+    text: Color,
+    subtext0: Color,
+    subtext1: Color,
+    overlay0: Color,
+    overlay1: Color,
+    overlay2: Color,
+    surface0: Color,
+    surface1: Color,
+    surface2: Color,
+    base: Color,
+    mantle: Color,
+    crust: Color,
 }
 
 impl ColorPalette for CatppuccinFlavor {

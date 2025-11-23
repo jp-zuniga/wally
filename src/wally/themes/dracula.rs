@@ -2,7 +2,7 @@ use crate::wally::img::Color;
 
 use super::ColorPalette;
 
-pub(crate) const DRACULA_COLOR_COUNT: usize = 12;
+const DRACULA_COLOR_COUNT: usize = 12;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct DraculaFlavor {
@@ -49,7 +49,7 @@ impl ColorPalette for DraculaFlavor {
 }
 
 impl DraculaFlavor {
-    pub fn default() -> DraculaFlavor {
+    pub(crate) fn default() -> DraculaFlavor {
         DraculaFlavor {
             background: Color::from_u8(0x28, 0x2a, 0x36), // #282a36
             foreground: Color::from_u8(0xf8, 0xf8, 0xf2), // #f8f8f2
@@ -66,7 +66,7 @@ impl DraculaFlavor {
         }
     }
 
-    pub fn alucard() -> DraculaFlavor {
+    pub(crate) fn alucard() -> DraculaFlavor {
         DraculaFlavor {
             background: Color::from_u8(0xff, 0xfb, 0xeb), // #fffbeb
             foreground: Color::from_u8(0x6c, 0x66, 0x4b), // #6c664b

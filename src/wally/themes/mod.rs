@@ -1,13 +1,13 @@
+use clap::ValueEnum;
+
+use crate::wally::img::Color;
+
 pub(crate) mod catppuccin;
 pub(crate) mod dracula;
 pub(crate) mod gruvbox;
 pub(crate) mod nord;
 pub(crate) mod rosepine;
 pub(crate) mod tokyonight;
-
-use clap::ValueEnum;
-
-use crate::wally::img::Color;
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
 #[clap(rename_all = "kebab_case")]
