@@ -1,11 +1,19 @@
 use super::img::Color;
 
-use super::utils::blend;
-
 pub(crate) struct Circle {
     pub(crate) radius: f32,
     pub(crate) x: f32,
     pub(crate) y: f32,
+}
+
+pub(crate) fn blend(src: Color, dst: Color, alpha: f32) -> Color {
+    let inv = 1.0 - alpha;
+
+    Color {
+        r: alpha * src.r + inv * dst.r,
+        g: alpha * src.g + inv * dst.g,
+        b: alpha * src.b + inv * dst.b,
+    }
 }
 
 pub(crate) fn draw_circle(
@@ -55,7 +63,7 @@ pub(crate) fn draw_circle(
                 1.0
             } else {
                 let dist = dist2.sqrt();
-                (ra - dist).max(0.0).min(1.0)
+                (ra - dist).clamp(0.0, 1.0)
             };
 
             if coverage <= 0.0 {
@@ -64,8 +72,8 @@ pub(crate) fn draw_circle(
 
             let alpha = base_alpha * coverage;
             let idx = row_start + x as usize;
-
             let dst = pixels[idx];
+
             pixels[idx] = blend(color, dst, alpha);
         }
     }

@@ -8,18 +8,21 @@ use super::consts::{
 
 use super::img::WallFormats;
 use super::themes::Themes;
-use super::utils::{parse_file_arg, parse_float};
+use super::utils::{
+    parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
+    parse_width,
+};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum Commands {
     /// Create a wallpaper of randomly-generated dots.
     Dots {
         /// Radius of generated dots.
-        #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_float)]
+        #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_dot_size)]
         dot_size: f32,
 
         /// Density of generated dots.
-        #[arg(short, long, default_value_t = DEFAULT_STEPS)]
+        #[arg(short, long, default_value_t = DEFAULT_STEPS, value_parser = parse_steps)]
         steps: u32,
     },
 }
@@ -45,7 +48,7 @@ pub struct WallyCLI {
         long,
         global = true,
         default_value_t = DEFAULT_NAME.to_string(),
-        value_parser = parse_file_arg,
+        value_parser = parse_file_name,
     )]
     pub(crate) name: String,
 
@@ -53,26 +56,26 @@ pub struct WallyCLI {
     #[arg(
         short,
         long,
-        global = true,
         value_enum,
+        global = true,
         default_value_t = Themes::RosePineMoon,
     )]
     pub(crate) palette: Themes,
 
     /// Output format of generated wallpaper.
-    #[arg(short, long, global = true, default_value_t = WallFormats::Png, value_enum)]
+    #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::Png)]
     pub(crate) format: WallFormats,
 
     /// Pixels of padding around wallpaper borders.
-    #[arg(long, global = true, default_value_t = DEFAULT_PADDING)]
+    #[arg(long, global = true, default_value_t = DEFAULT_PADDING, value_parser = parse_padding)]
     pub(crate) padding: u32,
 
     /// Width of generated wallpaper.
-    #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH)]
+    #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH, value_parser = parse_width)]
     pub(crate) width: u32,
 
     /// Height of generated wallpaper.
-    #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT)]
+    #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT, value_parser = parse_height)]
     pub(crate) height: u32,
 
     /// Swap width and height.

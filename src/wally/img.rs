@@ -8,7 +8,7 @@ pub(crate) fn write_img(
     height: u32,
     pixels: &[Color],
 ) {
-    let mut buf = vec![0u8; (width * height * 3) as usize];
+    let mut buf = vec![0u8; pixels.len() * 3];
 
     for (i, p) in pixels.iter().enumerate() {
         let [r, g, b] = p.to_rgb();
@@ -61,10 +61,10 @@ pub(crate) enum WallFormats {
 }
 
 impl WallFormats {
-    pub fn as_string(&self) -> String {
+    pub fn as_str(&self) -> &'static str {
         match &self {
-            WallFormats::Png => String::from("png"),
-            WallFormats::Jpg => String::from("jpg"),
+            WallFormats::Png => "png",
+            WallFormats::Jpg => "jpg",
         }
     }
 
