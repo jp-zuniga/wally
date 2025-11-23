@@ -13,7 +13,7 @@ use cli::{Commands, WallyCLI};
 use dots::mk_dots;
 use themes::Themes;
 use themes::catppuccin::CatppuccinFlavor;
-use themes::rose_pine::RosePineFlavor;
+use themes::rosepine::RosePineFlavor;
 
 pub fn run(mut args: WallyCLI) {
     if args.swap {
