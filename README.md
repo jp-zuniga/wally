@@ -20,12 +20,12 @@ Commands:
   help  Print this message or the help of the given subcommand(s).
 
 Options:
-      --seed <SEED>        Optional seed for reproducible wallpapers.
+      --seed    <SEED>     Optional seed for reproducible wallpapers.
   -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
-  -n, --name <NAME>        Name of generated wallpaper. [default: wally]
-  -f, --format <FORMAT>    Output format of generated wallpaper. [default: png]
-  -W, --width <WIDTH>      Width of generated wallpaper. [default: 1920]
-  -H, --height <HEIGHT>    Height of generated wallpaper. [default: 1080]
+  -n, --name    <NAME>     Name of generated wallpaper. [default: wally]
+  -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
+  -W, --width   <WIDTH>    Width of generated wallpaper. [default: 1920]
+  -H, --height  <HEIGHT>   Height of generated wallpaper. [default: 1080]
       --padding <PADDING>  Pixels of padding around wallpaper borders. [default: 200]
       --swap               Swap width and height to create a vertical wallpaper.
 ```
@@ -39,7 +39,7 @@ Usage: wally dots [OPTIONS]
 
 Options:
   -d, --dot-size <DOT_SIZE>  Size of dots generated. [default: 40]
-  -s, --steps <STEPS>        Density of generated dots. [default: 80]
+  -s, --steps    <STEPS>     Density of generated dots. [default: 80]
 ```
 
 ## Color Palettes
@@ -66,4 +66,4 @@ This project is a rewrite and extension of [Oliver Thurley's](https://github.com
 
 ## [License](LICENSE)
 
-`wally` is licensed under the GPLv3.
+`wally` is licensed under the GNU General Public License.
