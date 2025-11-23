@@ -11,9 +11,9 @@ use super::utils::map_float;
 
 pub(crate) fn mk_dots<T: ColorPalette>(
     args: &WallyCLI,
+    dot_size: &f32,
+    steps: &u32,
     palette: T,
-    dot_size: f32,
-    steps: u32,
 ) {
     let mut pixels = vec![palette.background(); (args.width * args.height) as usize];
 
@@ -29,8 +29,8 @@ pub(crate) fn mk_dots<T: ColorPalette>(
 
     let noise = Perlin2D::new(&mut chaos);
 
-    for gx in (0..=args.width).step_by(steps as usize) {
-        for gy in (0..=args.height).step_by(steps as usize) {
+    for gx in (0..=args.width).step_by(*steps as usize) {
+        for gy in (0..=args.height).step_by(*steps as usize) {
             let n2 = noise.sample(gx as f32, gy as f32);
 
             if chaos.random::<f32>() > n2 {
