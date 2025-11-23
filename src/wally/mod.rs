@@ -13,6 +13,7 @@ use cli::{Commands, WallyCLI};
 use dots::mk_dots;
 use themes::Themes;
 use themes::catppuccin::CatppuccinFlavor;
+use themes::dracula::DraculaFlavor;
 use themes::rosepine::RosePineFlavor;
 
 pub fn run(mut args: WallyCLI) {
@@ -25,6 +26,8 @@ pub fn run(mut args: WallyCLI) {
     };
 
     match args.palette {
+        Themes::Dracula => mk_dots(&args, dot_size, steps, DraculaFlavor::default()),
+        Themes::Alucard => mk_dots(&args, dot_size, steps, DraculaFlavor::alucard()),
         Themes::CatppuccinFrappe => {
             mk_dots(&args, dot_size, steps, CatppuccinFlavor::frappe())
         }
