@@ -1,5 +1,9 @@
 use clap::ValueEnum;
 use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
+use rayon::{
+    iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator},
+    slice::ParallelSliceMut,
+};
 
 pub(crate) fn write_img(
     file: String,
@@ -10,14 +14,14 @@ pub(crate) fn write_img(
 ) {
     let mut buf = vec![0u8; pixels.len() * 3];
 
-    for (i, p) in pixels.iter().enumerate() {
-        let [r, g, b] = p.to_rgb();
-        let j = i * 3;
-
-        buf[j] = r;
-        buf[j + 1] = g;
-        buf[j + 2] = b;
-    }
+    buf.par_chunks_mut(3)
+        .zip(pixels.par_iter())
+        .for_each(|(chunk, p)| {
+            let [r, g, b] = p.to_rgb();
+            chunk[0] = r;
+            chunk[1] = g;
+            chunk[2] = b;
+        });
 
     save_buffer_with_format(
         &file,

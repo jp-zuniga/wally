@@ -1,3 +1,8 @@
+use rayon::{
+    iter::{IndexedParallelIterator, IntoParallelIterator, ParallelIterator},
+    slice::ParallelSliceMut,
+};
+
 use super::consts::TILE_HEIGHT;
 use super::dots::Dot;
 use super::img::Color;
@@ -48,65 +53,88 @@ pub(crate) fn draw_tiled_dots(
         }
     }
 
-    for (tile_idx, bucket) in buckets.iter().enumerate() {
-        if bucket.is_empty() {
-            continue;
-        }
+    let tile_row_count = TILE_HEIGHT as usize;
+    let row_stride = width_usize;
 
-        let tile_start_y = (tile_idx as i32) * TILE_HEIGHT;
-        let mut tile_end_y = tile_start_y + TILE_HEIGHT - 1;
+    // - `par_chunks_mut` splits `pixels` into tiles of up to `tile_row_count`
+    //    rows each (last tile may be shorter).
+    // - `buckets.into_par_iter()` gives us the dot indices for each tile.
+    // - `zip` pairs each tile's pixels with the corresponding bucket.
+    pixels
+        .par_chunks_mut(row_stride * tile_row_count)
+        .enumerate()
+        .zip(buckets.into_par_iter())
+        .for_each(|((tile_idx, tile_pixels), bucket)| {
+            if bucket.is_empty() {
+                return;
+            }
 
-        if tile_end_y >= height_i {
-            tile_end_y = height_i - 1;
-        }
+            let chunk_rows = tile_pixels.len() / row_stride;
+            if chunk_rows == 0 {
+                return;
+            }
 
-        for y in tile_start_y..=tile_end_y {
-            let py = y as f32 + 0.5;
-            let row_start = (y as usize) * width_usize;
+            let tile_start_y = (tile_idx * tile_row_count) as i32;
+            let mut tile_end_y = tile_start_y + chunk_rows as i32 - 1;
+            if tile_end_y >= height_i {
+                tile_end_y = height_i - 1;
+            }
 
-            for &circle_idx in bucket {
-                let dot = &dots[circle_idx];
-
-                if y < dot.y_min || y > dot.y_max {
-                    continue;
+            for local_row in 0..chunk_rows {
+                let y = tile_start_y + local_row as i32;
+                if y > tile_end_y {
+                    break;
                 }
 
-                let dy = py - dot.y;
-                let dy2 = dy * dy;
+                let py = y as f32 + 0.5;
 
-                if dy2 >= dot.ra2 {
-                    continue;
-                }
+                let row_slice_start = local_row * row_stride;
+                let row_slice_end = row_slice_start + row_stride;
+                let row_slice = &mut tile_pixels[row_slice_start..row_slice_end];
 
-                let mut dx = dot.x_min as f32 - dot.x;
-                let xmin = dot.x_min;
-                let xmax = dot.x_max;
+                for &dot_idx in &bucket {
+                    let dot = &dots[dot_idx];
 
-                for x in xmin..=xmax {
-                    let dist2 = dx * dx + dy2;
-                    dx += 1.0;
-
-                    if dist2 >= dot.ra2 {
+                    if y < dot.y_min || y > dot.y_max {
                         continue;
                     }
 
-                    let coverage = if dist2 <= dot.r2 {
-                        1.0
-                    } else {
-                        (dot.radius + dot.aa_width - dist2.sqrt()).clamp(0.0, 1.0)
-                    };
+                    let dy = py - dot.y;
+                    let dy2 = dy * dy;
 
-                    if coverage <= 0.0 {
+                    if dy2 >= dot.ra2 {
                         continue;
                     }
 
-                    let alpha = base_alpha * coverage;
-                    let idx = row_start + x as usize;
+                    let mut dx = dot.x_min as f32 - dot.x;
+                    let xmin = dot.x_min;
+                    let xmax = dot.x_max;
 
-                    let dst = pixels[idx];
-                    pixels[idx] = blend(dot.color, dst, alpha);
+                    for x in xmin..=xmax {
+                        let dist2 = dx * dx + dy2;
+                        dx += 1.0;
+
+                        if dist2 >= dot.ra2 {
+                            continue;
+                        }
+
+                        let coverage = if dist2 <= dot.r2 {
+                            1.0
+                        } else {
+                            (dot.radius + dot.aa_width - dist2.sqrt()).clamp(0.0, 1.0)
+                        };
+
+                        if coverage <= 0.0 {
+                            continue;
+                        }
+
+                        let alpha = base_alpha * coverage;
+                        let idx = x as usize;
+
+                        let dst = row_slice[idx];
+                        row_slice[idx] = blend(dot.color, dst, alpha);
+                    }
                 }
             }
-        }
-    }
+        });
 }
