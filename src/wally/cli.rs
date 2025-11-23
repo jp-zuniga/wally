@@ -35,7 +35,7 @@ pub(crate) enum Commands {
     long_about = None,
 )]
 pub struct WallyCLI {
-    /// Optional seed for reproducible output.
+    /// Optional seed for reproducible wallpapers.
     #[arg(long, global = true)]
     pub(crate) seed: Option<u64>,
 
@@ -67,11 +67,11 @@ pub struct WallyCLI {
     #[arg(long, global = true, default_value_t = DEFAULT_PADDING)]
     pub(crate) padding: u32,
 
-    /// Width of wallpaper.
+    /// Width of generated wallpaper.
     #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH)]
     pub(crate) width: u32,
 
-    /// Height of wallpaper.
+    /// Height of generated wallpaper.
     #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT)]
     pub(crate) height: u32,
 

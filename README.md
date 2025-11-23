@@ -20,12 +20,12 @@ Commands:
   help  Print this message or the help of the given subcommand(s).
 
 Options:
-      --seed <SEED>        Optional seed for reproducible output.
+      --seed <SEED>        Optional seed for reproducible wallpapers.
   -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
   -n, --name <NAME>        Name of generated wallpaper. [default: wally]
   -f, --format <FORMAT>    Output format of generated wallpaper. [default: png]
-  -W, --width <WIDTH>      Width of wallpaper. [default: 1920]
-  -H, --height <HEIGHT>    Height of wallpaper. [default: 1080]
+  -W, --width <WIDTH>      Width of generated wallpaper. [default: 1920]
+  -H, --height <HEIGHT>    Height of generated wallpaper. [default: 1080]
       --padding <PADDING>  Pixels of padding around wallpaper borders. [default: 200]
       --swap               Swap width and height to create a vertical wallpaper.
 ```
