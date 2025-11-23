@@ -4,20 +4,21 @@ To create a new theme, it must be added to the [`Themes`](../src/wally/themes/mo
 
 ```rust
 pub(crate) enum Themes {
+    // ...
+    Dracula,
+    // ...
     RosePineDefault,
     RosePineDawn,
     // ...
-    Dracula,
 }
 ```
 
-Then, a new file for the theme's implementation must be created. There, create a struct for the new theme. This will store the theme's color palette.
+Then, a new file for the theme's implementation must be created. A theme is represented by a struct which stores its color palette.
 
 ```rust
 pub(crate) struct DraculaFlavor {
     pub(crate) background: Color,
     pub(crate) foreground: Color,
-    pub(crate) line: Color,
     // ...
 }
 ```
@@ -42,6 +43,7 @@ impl DraculaFlavor {
         DraculaFlavor {
             background: Color::from_u8(0x28, 0x2a, 0x36), // #282a36
             foreground: Color::from_u8(0xf8, 0xf8, 0xf2), // #f8f8f2
+            // ...
         }
     }
 
