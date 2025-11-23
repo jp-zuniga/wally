@@ -19,7 +19,7 @@ pub(crate) fn mk_dots<T: ColorPalette>(args: &WallyCLI, palette: T, dot_size: f3
     let radius = dot_size * 0.5;
     let aa_width = dot_size * 0.1;
 
-    let mut chaos = StdRng::from_rng(&mut rand::rng());
+    let mut chaos = StdRng::seed_from_u64(args.seed.unwrap_or_else(|| rand::rng().random::<u64>()));
 
     let noise = Perlin2D::new(&mut chaos);
 

@@ -61,6 +61,11 @@ pub struct WallyCLI {
     #[arg(long, action = ArgAction::SetTrue)]
     pub(crate) swap: bool,
 
+    /// Random seed for reproducible output.
+    /// If omitted, a random seed is used.
+    #[arg(long)]
+    pub(crate) seed: Option<u64>,
+
     /// Command to execute.
     #[command(subcommand)]
     pub(crate) command: Commands,
