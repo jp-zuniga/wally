@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_WIDTH};
 
 #[derive(Clone, Copy, Debug)]
@@ -13,7 +15,21 @@ pub(crate) fn parse_file_name(s: &str) -> Result<String, String> {
         return Err(String::from("file name must not be empty."));
     }
 
-    let last_component = value.rsplit(&['/', '\\'][..]).next().unwrap_or(value);
+    let path = Path::new(value);
+
+    if let Some(parent) = path.parent() {
+        if !parent.as_os_str().is_empty() && !parent.exists() {
+            return Err(format!(
+                "directory `{}` does not exist!",
+                parent.display()
+            ));
+        }
+    }
+
+    let last_component = path
+        .file_name()
+        .and_then(|s| s.to_str())
+        .ok_or_else(|| "file name must be valid UTF-8 and not empty.".to_string())?;
 
     if let Some(dot_pos) = last_component.rfind('.') {
         if dot_pos + 1 < last_component.len() {
