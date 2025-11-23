@@ -38,7 +38,7 @@ Create a wallpaper of randomly-generated dots.
 Usage: wally dots [OPTIONS]
 
 Options:
-  -d, --dot-size <DOT_SIZE>  Size of dots generated.    [default: 40]
+  -d, --dot-size <DOT_SIZE>  Radius of generated dots.  [default: 40]
   -s, --steps    <STEPS>     Density of generated dots. [default: 80]
 ```
 

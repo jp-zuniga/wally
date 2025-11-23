@@ -14,7 +14,7 @@ use super::utils::{parse_file_arg, parse_float};
 pub(crate) enum Commands {
     /// Create a wallpaper of randomly-generated dots.
     Dots {
-        /// Size of dots generated.
+        /// Radius of generated dots.
         #[arg(short, long, default_value_t = DEFAULT_DOT_SIZE, value_parser = parse_float)]
         dot_size: f32,
 
