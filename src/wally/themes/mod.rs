@@ -7,6 +7,7 @@ pub(crate) mod dracula;
 pub(crate) mod gruvbox;
 pub(crate) mod nord;
 pub(crate) mod rosepine;
+pub(crate) mod solarized;
 pub(crate) mod tokyonight;
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
@@ -24,6 +25,8 @@ pub(crate) enum Themes {
     RosePineDefault,
     RosePineDawn,
     RosePineMoon,
+    SolarizedDark,
+    SolarizedLight,
     TokyoNightDefault,
     TokyoNightDay,
     TokyoNightMoon,

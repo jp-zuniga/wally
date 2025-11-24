@@ -22,6 +22,7 @@ use themes::dracula::DraculaFlavor;
 use themes::gruvbox::GruvboxFlavor;
 use themes::nord::Nord;
 use themes::rosepine::RosePineFlavor;
+use themes::solarized::SolarizedFlavor;
 use themes::tokyonight::TokyoNightFlavor;
 use utils::detect_color_choice;
 
@@ -71,6 +72,12 @@ pub fn run_cli(mut args: WallyCLI) {
             mk_dots(&args, dot_size, steps, RosePineFlavor::default())
         }
         Themes::RosePineMoon => mk_dots(&args, dot_size, steps, RosePineFlavor::moon()),
+        Themes::SolarizedDark => {
+            mk_dots(&args, dot_size, steps, SolarizedFlavor::dark())
+        }
+        Themes::SolarizedLight => {
+            mk_dots(&args, dot_size, steps, SolarizedFlavor::light())
+        }
         Themes::TokyoNightDefault => {
             mk_dots(&args, dot_size, steps, TokyoNightFlavor::default())
         }
