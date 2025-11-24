@@ -1,4 +1,5 @@
 [package]
+    authors = ["Joaquín Zúñiga <jp.zuniga.dev@gmail.com>"]
     edition = "2024"
     name    = "wally"
     version = "0.5.0"
