@@ -37,10 +37,6 @@ pub(crate) enum Commands {
     long_about = None,
 )]
 pub struct WallyCLI {
-    /// Optional seed for reproducible wallpapers.
-    #[arg(long, global = true)]
-    pub(crate) seed: Option<u64>,
-
     /// Name of generated wallpaper.
     #[arg(
         short,
@@ -65,10 +61,6 @@ pub struct WallyCLI {
     #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::Png)]
     pub(crate) format: WallFormats,
 
-    /// Pixels of padding around wallpaper borders.
-    #[arg(long, global = true, default_value_t = DEFAULT_PADDING, value_parser = parse_padding)]
-    pub(crate) padding: u32,
-
     /// Width of generated wallpaper.
     #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH, value_parser = parse_width)]
     pub(crate) width: u32,
@@ -77,12 +69,20 @@ pub struct WallyCLI {
     #[arg(short = 'H', long, global = true, default_value_t = DEFAULT_HEIGHT, value_parser = parse_height)]
     pub(crate) height: u32,
 
+    /// Padding around wallpaper borders.
+    #[arg(long, global = true, default_value_t = DEFAULT_PADDING, value_parser = parse_padding)]
+    pub(crate) padding: u32,
+
+    /// Optional seed for reproducible wallpapers.
+    #[arg(long, global = true)]
+    pub(crate) seed: Option<u64>,
+
     /// Swap width and height.
     #[arg(long, global = true, action = ArgAction::SetTrue)]
     pub(crate) swap: bool,
 
     /// Force color output.
-    #[arg(long, global = true, action = ArgAction::SetTrue)]
+    #[arg(long, global = true, conflicts_with = "no_color", action = ArgAction::SetTrue)]
     pub(crate) color: bool,
 
     /// Disable color output.
