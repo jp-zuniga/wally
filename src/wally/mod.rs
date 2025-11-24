@@ -16,7 +16,7 @@ mod utils;
 use cli::{Commands, WallyCLI};
 use dots::mk_dots;
 use term::set_color_output;
-use utils::detect_color_choice;
+use utils::{check_bounds, detect_color_choice};
 
 pub fn init_cli() -> WallyCLI {
     let argv: Vec<std::ffi::OsString> = std::env::args_os().collect();
@@ -33,6 +33,8 @@ pub fn init_cli() -> WallyCLI {
 }
 
 pub fn run_cli(mut args: WallyCLI) {
+    check_bounds(&args);
+
     if args.swap {
         swap(&mut args.width, &mut args.height);
     }
