@@ -11,7 +11,14 @@ use super::parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };
-use super::themes::Themes;
+use super::themes::catppuccin::CatppuccinFlavor;
+use super::themes::dracula::DraculaFlavor;
+use super::themes::gruvbox::GruvboxFlavor;
+use super::themes::nord::Nord;
+use super::themes::rosepine::RosePineFlavor;
+use super::themes::solarized::SolarizedFlavor;
+use super::themes::tokyonight::TokyoNightFlavor;
+use super::themes::{ColorPalette, Themes};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum Commands {
@@ -102,6 +109,29 @@ impl WallyCLI {
             Some(false)
         } else {
             None
+        }
+    }
+
+    pub(crate) fn mk_palette(&self) -> Box<dyn ColorPalette> {
+        match self.palette {
+            Themes::Alucard => Box::new(DraculaFlavor::alucard()),
+            Themes::Dracula => Box::new(DraculaFlavor::default()),
+            Themes::CatppuccinFrappe => Box::new(CatppuccinFlavor::frappe()),
+            Themes::CatppuccinLatte => Box::new(CatppuccinFlavor::latte()),
+            Themes::CatppuccinMacchiato => Box::new(CatppuccinFlavor::macchiato()),
+            Themes::CatppuccinMocha => Box::new(CatppuccinFlavor::mocha()),
+            Themes::GruvboxDark => Box::new(GruvboxFlavor::dark()),
+            Themes::GruvboxLight => Box::new(GruvboxFlavor::light()),
+            Themes::Nord => Box::new(Nord::new()),
+            Themes::RosePineDawn => Box::new(RosePineFlavor::dawn()),
+            Themes::RosePineDefault => Box::new(RosePineFlavor::default()),
+            Themes::RosePineMoon => Box::new(RosePineFlavor::moon()),
+            Themes::SolarizedDark => Box::new(SolarizedFlavor::dark()),
+            Themes::SolarizedLight => Box::new(SolarizedFlavor::light()),
+            Themes::TokyoNightDefault => Box::new(TokyoNightFlavor::default()),
+            Themes::TokyoNightDay => Box::new(TokyoNightFlavor::day()),
+            Themes::TokyoNightMoon => Box::new(TokyoNightFlavor::moon()),
+            Themes::TokyoNightStorm => Box::new(TokyoNightFlavor::storm()),
         }
     }
 }

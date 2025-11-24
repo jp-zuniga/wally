@@ -16,14 +16,6 @@ mod utils;
 use cli::{Commands, WallyCLI};
 use dots::mk_dots;
 use term::set_color_output;
-use themes::Themes;
-use themes::catppuccin::CatppuccinFlavor;
-use themes::dracula::DraculaFlavor;
-use themes::gruvbox::GruvboxFlavor;
-use themes::nord::Nord;
-use themes::rosepine::RosePineFlavor;
-use themes::solarized::SolarizedFlavor;
-use themes::tokyonight::TokyoNightFlavor;
 use utils::detect_color_choice;
 
 pub fn init_cli() -> WallyCLI {
@@ -45,50 +37,9 @@ pub fn run_cli(mut args: WallyCLI) {
         swap(&mut args.width, &mut args.height);
     }
 
-    let (dot_size, steps) = match args.command {
-        Commands::Dots { dot_size, steps } => (dot_size, steps),
-    };
-
-    match args.palette {
-        Themes::Alucard => mk_dots(&args, dot_size, steps, DraculaFlavor::alucard()),
-        Themes::Dracula => mk_dots(&args, dot_size, steps, DraculaFlavor::default()),
-        Themes::CatppuccinFrappe => {
-            mk_dots(&args, dot_size, steps, CatppuccinFlavor::frappe())
-        }
-        Themes::CatppuccinLatte => {
-            mk_dots(&args, dot_size, steps, CatppuccinFlavor::latte())
-        }
-        Themes::CatppuccinMacchiato => {
-            mk_dots(&args, dot_size, steps, CatppuccinFlavor::macchiato())
-        }
-        Themes::CatppuccinMocha => {
-            mk_dots(&args, dot_size, steps, CatppuccinFlavor::mocha())
-        }
-        Themes::GruvboxDark => mk_dots(&args, dot_size, steps, GruvboxFlavor::dark()),
-        Themes::GruvboxLight => mk_dots(&args, dot_size, steps, GruvboxFlavor::light()),
-        Themes::Nord => mk_dots(&args, dot_size, steps, Nord::new()),
-        Themes::RosePineDawn => mk_dots(&args, dot_size, steps, RosePineFlavor::dawn()),
-        Themes::RosePineDefault => {
-            mk_dots(&args, dot_size, steps, RosePineFlavor::default())
-        }
-        Themes::RosePineMoon => mk_dots(&args, dot_size, steps, RosePineFlavor::moon()),
-        Themes::SolarizedDark => {
-            mk_dots(&args, dot_size, steps, SolarizedFlavor::dark())
-        }
-        Themes::SolarizedLight => {
-            mk_dots(&args, dot_size, steps, SolarizedFlavor::light())
-        }
-        Themes::TokyoNightDefault => {
-            mk_dots(&args, dot_size, steps, TokyoNightFlavor::default())
-        }
-        Themes::TokyoNightDay => {
-            mk_dots(&args, dot_size, steps, TokyoNightFlavor::day())
-        }
-        Themes::TokyoNightMoon => {
-            mk_dots(&args, dot_size, steps, TokyoNightFlavor::moon())
-        }
-        Themes::TokyoNightStorm => {
-            mk_dots(&args, dot_size, steps, TokyoNightFlavor::storm())
+    match args.command {
+        Commands::Dots { dot_size, steps } => {
+            mk_dots(&args, dot_size, steps, &*args.mk_palette())
         }
     };
 }

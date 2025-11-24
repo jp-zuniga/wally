@@ -23,11 +23,11 @@ pub(crate) struct Dot {
     pub(crate) aa_width: f32,
 }
 
-pub(crate) fn mk_dots<T: ColorPalette>(
+pub(crate) fn mk_dots(
     args: &WallyCLI,
     dot_size: f32,
     steps: u32,
-    palette: T,
+    palette: &dyn ColorPalette,
 ) {
     let steps_usize = steps as usize;
     let width_usize = args.width as usize;
