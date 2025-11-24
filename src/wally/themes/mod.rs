@@ -11,7 +11,6 @@ pub(crate) mod solarized;
 pub(crate) mod tokyonight;
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
-#[clap(rename_all = "kebab_case")]
 pub(crate) enum Themes {
     Alucard,
     Dracula,
