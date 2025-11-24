@@ -28,7 +28,7 @@ Options:
   -W, --width   <WIDTH>    Width of generated wallpaper.         [default: 1920]
   -H, --height  <HEIGHT>   Height of generated wallpaper.        [default: 1080]
       --padding <PADDING>  Padding around wallpaper borders.     [default: 200]
-      --seed    <SEED>     Optional seed for reproducible wallpapers.
+      --seed    <SEED>     Optional seed for reproducibility.
       --swap               Swap width and height.
 ```
 

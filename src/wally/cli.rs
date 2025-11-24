@@ -80,7 +80,7 @@ pub struct WallyCLI {
     #[arg(long, global = true, default_value_t = DEFAULT_PADDING, value_parser = parse_padding)]
     pub(crate) padding: u32,
 
-    /// Optional seed for reproducible wallpapers.
+    /// Optional seed for reproducibility.
     #[arg(long, global = true)]
     pub(crate) seed: Option<u64>,
 
