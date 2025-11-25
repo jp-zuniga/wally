@@ -1,7 +1,5 @@
-use rayon::{
-    iter::{IndexedParallelIterator, IntoParallelIterator, ParallelIterator},
-    slice::ParallelSliceMut,
-};
+use rayon::iter::{IndexedParallelIterator, IntoParallelIterator, ParallelIterator};
+use rayon::slice::ParallelSliceMut;
 
 use super::consts::TILE_HEIGHT;
 use super::dots::Dot;

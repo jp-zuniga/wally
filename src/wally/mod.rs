@@ -1,4 +1,4 @@
-use std::mem::swap;
+use std::ffi::OsString;
 
 use clap::{CommandFactory, FromArgMatches};
 
@@ -6,6 +6,7 @@ pub(crate) mod cli;
 mod consts;
 mod dots;
 mod draw;
+mod error;
 mod img;
 mod noise;
 mod parse;
@@ -15,17 +16,20 @@ mod utils;
 
 use cli::{Commands, WallyCLI};
 use dots::mk_dots;
+use error::exit_with_clap_error;
 use term::set_color_output;
 use utils::{check_bounds, detect_color_choice};
 
 pub fn init_cli() -> WallyCLI {
-    let argv: Vec<std::ffi::OsString> = std::env::args_os().collect();
-    let clap_color = detect_color_choice(&argv);
+    let argv: Vec<OsString> = std::env::args_os().collect();
 
-    let cmd = WallyCLI::command().color(clap_color);
+    let matches = WallyCLI::command()
+        .color(detect_color_choice(&argv))
+        .try_get_matches_from(&argv)
+        .unwrap_or_else(exit_with_clap_error);
 
-    let matches = cmd.get_matches_from(argv);
-    let args = WallyCLI::from_arg_matches(&matches).unwrap_or_else(|e| e.exit());
+    let args =
+        WallyCLI::from_arg_matches(&matches).unwrap_or_else(exit_with_clap_error);
 
     set_color_output(args.colorize());
 
@@ -36,7 +40,7 @@ pub fn run_cli(mut args: WallyCLI) {
     check_bounds(&args);
 
     if args.swap {
-        swap(&mut args.width, &mut args.height);
+        std::mem::swap(&mut args.width, &mut args.height);
     }
 
     match args.command {

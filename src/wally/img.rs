@@ -1,48 +1,11 @@
 use clap::ValueEnum;
 use colored::Colorize;
 use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
-use rayon::{
-    iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator},
-    slice::ParallelSliceMut,
-};
+use rayon::iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator};
+use rayon::slice::ParallelSliceMut;
 
+use super::error::{exit_with_error, mk_write_error_msg};
 use super::utils::get_absolute_path;
-
-pub(crate) fn write_img(
-    file: String,
-    format: WallFormats,
-    width: u32,
-    height: u32,
-    pixels: &[Color],
-) {
-    let mut buf = vec![0u8; pixels.len() * 3];
-
-    buf.par_chunks_mut(3)
-        .zip(pixels.par_iter())
-        .for_each(|(chunk, p)| {
-            let [r, g, b] = p.to_rgb();
-            chunk[0] = r;
-            chunk[1] = g;
-            chunk[2] = b;
-        });
-
-    save_buffer_with_format(
-        &file,
-        &buf,
-        width,
-        height,
-        ExtendedColorType::Rgb8,
-        format.as_image_format(),
-    )
-    .unwrap_or_else(|e| panic!("Failed to save `{file}`: {e}"));
-
-    println!("\n{}", "Success!".green().bold());
-    println!(
-        "{} {}",
-        "You can find your new wallpaper here:".blue().italic(),
-        get_absolute_path(&file).yellow().bold().italic()
-    )
-}
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Color {
@@ -86,4 +49,43 @@ impl WallFormats {
             WallFormats::Jpg => ImageFormat::Jpeg,
         }
     }
+}
+
+pub(crate) fn write_img(
+    file: String,
+    format: WallFormats,
+    width: u32,
+    height: u32,
+    pixels: &[Color],
+) {
+    let mut buf = vec![0u8; pixels.len() * 3];
+
+    buf.par_chunks_mut(3)
+        .zip(pixels.par_iter())
+        .for_each(|(chunk, p)| {
+            let [r, g, b] = p.to_rgb();
+            chunk[0] = r;
+            chunk[1] = g;
+            chunk[2] = b;
+        });
+
+    if let Err(e) = save_buffer_with_format(
+        &file,
+        &buf,
+        width,
+        height,
+        ExtendedColorType::Rgb8,
+        format.as_image_format(),
+    ) {
+        exit_with_error(1, mk_write_error_msg(e, &file));
+    }
+
+    println!();
+    println!("{}", "Success!".green().bold());
+    println!(
+        "{} {}{}",
+        "You can find your new wallpaper here:".blue().italic(),
+        get_absolute_path(&file).yellow().bold().italic(),
+        "!".blue().italic(),
+    )
 }

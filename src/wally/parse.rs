@@ -1,9 +1,11 @@
 use std::path::Path;
 
-use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_WIDTH};
+use super::consts::{
+    MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_PADDING, MIN_STEPS, MIN_WIDTH,
+};
 
 #[derive(Clone, Copy, Debug)]
-enum Dimensions {
+pub(crate) enum Dimensions {
     Height,
     Width,
 }
@@ -39,6 +41,8 @@ pub(crate) fn parse_file_name(s: &str) -> Result<String, String> {
     Ok(value.to_string())
 }
 
+// ------------------------------------------------------------------------------------
+
 fn pretty_parse_u32(label: &str, limit: i32, s: &str) -> Result<u32, String> {
     let value = s
         .parse::<i32>()
@@ -46,7 +50,7 @@ fn pretty_parse_u32(label: &str, limit: i32, s: &str) -> Result<u32, String> {
 
     if value < limit {
         return Err(format!(
-            "`{label}` must be greater than {limit}, got {value}."
+            "`{label}` must be greater than or equal to {limit}, got {value}."
         ));
     }
 
@@ -54,14 +58,14 @@ fn pretty_parse_u32(label: &str, limit: i32, s: &str) -> Result<u32, String> {
 }
 
 pub(crate) fn parse_padding(s: &str) -> Result<u32, String> {
-    // allow `--padding=0`
-    pretty_parse_u32("padding", 0, s)
+    pretty_parse_u32("padding", MIN_PADDING, s)
 }
 
 pub(crate) fn parse_steps(s: &str) -> Result<u32, String> {
-    // do *not* allow `--steps=0`
-    pretty_parse_u32("steps", 5, s)
+    pretty_parse_u32("steps", MIN_STEPS, s)
 }
+
+// ------------------------------------------------------------------------------------
 
 fn parse_positive_float(label: &str, s: &str) -> Result<f32, String> {
     let value = s
@@ -79,6 +83,8 @@ pub(crate) fn parse_dot_size(s: &str) -> Result<f32, String> {
     parse_positive_float("dot_size", s)
 }
 
+// ------------------------------------------------------------------------------------
+
 fn parse_dimensions(s: &str, dim: Dimensions) -> Result<u32, String> {
     let value = s
         .parse()
@@ -86,14 +92,14 @@ fn parse_dimensions(s: &str, dim: Dimensions) -> Result<u32, String> {
 
     match dim {
         Dimensions::Height => {
-            if value < MIN_HEIGHT || value > MAX_HEIGHT {
+            if !(MIN_HEIGHT..=MAX_HEIGHT).contains(&value) {
                 return Err(format!(
                     "`height` must be between {MIN_HEIGHT} and {MAX_HEIGHT}.",
                 ));
             }
         }
         Dimensions::Width => {
-            if value < MIN_WIDTH || value > MAX_WIDTH {
+            if !(MIN_WIDTH..=MAX_WIDTH).contains(&value) {
                 return Err(format!(
                     "`width` must be between {MIN_WIDTH} and {MAX_WIDTH}.",
                 ));

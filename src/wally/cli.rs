@@ -11,6 +11,7 @@ use super::parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };
+
 use super::themes::catppuccin::CatppuccinFlavor;
 use super::themes::dracula::DraculaFlavor;
 use super::themes::gruvbox::GruvboxFlavor;

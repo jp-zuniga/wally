@@ -1,22 +1,17 @@
-use std::env::current_dir;
 use std::ffi::OsString;
 use std::path::Path;
 
 use clap::ColorChoice;
-use colored::Colorize;
 
 use super::cli::{Commands, WallyCLI};
+use super::error::{exit_with_error, mk_big_padding_error_msg, mk_big_steps_error_msg};
 
 pub(crate) fn check_bounds(args: &WallyCLI) {
     if args.padding * 2 >= args.width || args.padding * 2 >= args.height {
-        print_error(format!(
-            "{} {} {} {}{}",
-            "The padding".yellow(),
-            format!("({})", args.padding).red().bold(),
-            "is too large for the given dimensions".yellow(),
-            format!("({}x{})", args.width, args.height).red().bold(),
-            ".".yellow(),
-        ))
+        exit_with_error(
+            1,
+            mk_big_padding_error_msg(&args.padding, &args.height, &args.width),
+        )
     }
 
     let steps = match args.command {
@@ -24,14 +19,7 @@ pub(crate) fn check_bounds(args: &WallyCLI) {
     };
 
     if steps >= args.height || steps >= args.width {
-        print_error(format!(
-            "{} {} {} {} {}",
-            "A step value of".yellow(),
-            format!("{}", steps).red().bold(),
-            "is too large for a".yellow(),
-            format!("{}x{}", args.width, args.height).red().bold(),
-            "image.".yellow()
-        ));
+        exit_with_error(1, mk_big_steps_error_msg(&steps, &args.height, &args.width));
     }
 }
 
@@ -57,25 +45,17 @@ pub(crate) fn detect_color_choice(argv: &[OsString]) -> ColorChoice {
     }
 }
 
-pub(crate) fn get_absolute_path(file: &str) -> String {
-    let path = Path::new(&file);
+pub(crate) fn get_absolute_path(file: &String) -> String {
+    let path = Path::new(file);
 
     let abs_path = if path.is_absolute() {
         path.to_path_buf()
     } else {
-        match current_dir() {
+        match std::env::current_dir() {
             Ok(cwd) => cwd.join(path),
             Err(_) => path.to_path_buf(),
         }
     };
 
     abs_path.display().to_string()
-}
-
-pub(crate) fn print_error(error: String) {
-    eprintln!();
-    eprintln!("{}", "Oh no!".red().bold());
-    eprintln!("{error}");
-
-    std::process::exit(2);
 }
