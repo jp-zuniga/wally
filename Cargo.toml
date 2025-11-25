@@ -2,7 +2,7 @@
     authors = ["Joaquín Zúñiga <jp.zuniga.dev@gmail.com>"]
     edition = "2024"
     name    = "wally"
-    version = "0.5.0"
+    version = "0.5.1"
 
 [dependencies]
     clap         = { version = "4.5.53", features = ["cargo", "derive"] }
