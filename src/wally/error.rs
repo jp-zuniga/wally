@@ -22,8 +22,8 @@ pub(crate) fn exit_with_clap_error<T>(err: ClapError) -> T {
             println!();
             err.print().expect("what could go wrong writing to stdout?");
             std::process::exit(0);
-        }
-        _ => {}
+        },
+        _ => {},
     }
 
     let msg = if is_real_error(err.kind()) {
@@ -56,14 +56,14 @@ fn extract_error_context(err: &ClapError) -> ErrorContext {
         match kind {
             ContextKind::InvalidArg | ContextKind::InvalidSubcommand => {
                 ctx.arg = Some(s.to_string());
-            }
+            },
             ContextKind::InvalidValue => {
                 ctx.value = Some(s.to_string());
-            }
+            },
             ContextKind::Custom => {
                 ctx.custom_msg = Some(s.to_string());
-            }
-            _ => {}
+            },
+            _ => {},
         }
     }
 

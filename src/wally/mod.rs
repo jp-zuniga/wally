@@ -46,6 +46,6 @@ pub fn run_cli(mut args: WallyCLI) {
     match args.command {
         Commands::Dots { dot_size, steps } => {
             mk_dots(&args, dot_size, steps, &*args.mk_palette())
-        }
+        },
     };
 }

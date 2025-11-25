@@ -97,14 +97,14 @@ fn parse_dimensions(s: &str, dim: Dimensions) -> Result<u32, String> {
                     "`height` must be between {MIN_HEIGHT} and {MAX_HEIGHT}.",
                 ));
             }
-        }
+        },
         Dimensions::Width => {
             if !(MIN_WIDTH..=MAX_WIDTH).contains(&value) {
                 return Err(format!(
                     "`width` must be between {MIN_WIDTH} and {MAX_WIDTH}.",
                 ));
             }
-        }
+        },
     }
 
     Ok(value)
