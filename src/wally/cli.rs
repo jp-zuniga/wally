@@ -33,6 +33,9 @@ pub(crate) enum WallyCommands {
         #[arg(short, long, default_value_t = DEFAULT_STEPS, value_parser = parse_steps)]
         steps: u32,
     },
+
+    /// List available color palettes.
+    Themes,
 }
 
 #[derive(Parser, Debug)]
@@ -69,6 +72,7 @@ pub struct WallyCLI {
         long,
         value_enum,
         global = true,
+        hide_possible_values = true,
         default_value_t = Themes::RosePineMoon,
     )]
     pub(crate) palette: Themes,

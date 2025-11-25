@@ -37,15 +37,17 @@ pub fn init_cli() -> WallyCLI {
 }
 
 pub fn run_cli(mut args: WallyCLI) {
-    check_bounds(&args);
-
     if args.swap {
         std::mem::swap(&mut args.width, &mut args.height);
     }
 
     match args.command {
         WallyCommands::Dots { dot_size, steps } => {
+            check_bounds(&args, steps);
             mk_dots(&args, dot_size, steps, &*args.mk_palette())
+        },
+        WallyCommands::Themes => {
+            themes::print_palettes();
         },
     };
 }
