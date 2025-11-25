@@ -41,6 +41,12 @@ pub(crate) fn exit_with_error(code: i32, msg: String) -> ! {
     std::process::exit(code);
 }
 
+pub(crate) fn print_warning(msg: String) {
+    eprintln!();
+    eprintln!("{}", "Heads up!".yellow().bold());
+    eprintln!("{msg}");
+}
+
 // -------------------------------------------------------------------------------------
 
 fn format_clap_error(err: &ClapError) -> String {
@@ -159,6 +165,41 @@ pub(crate) fn mk_big_steps_error_msg(steps: &u32, height: &u32, width: &u32) -> 
         "image.".purple()
     )
 }
+
+pub(crate) fn mk_unmatched_extension_msg(format: &str, ext_str: &str) -> String {
+    format!(
+        "{} {} {} {} {}",
+        "The extension".purple(),
+        format!(".{}", ext_str).red().bold(),
+        "does not match".purple(),
+        "--format".green().bold(),
+        format!("{format}.").purple().bold(),
+    )
+}
+
+pub(crate) fn mk_unknown_extension_msg(ext_str: &str, target_ext: &str) -> String {
+    format!(
+        "{} {} {}\n{} {}{}",
+        "The extension".purple(),
+        format!(".{}", ext_str).red().bold(),
+        "is not supported.".purple(),
+        "Wally will save your wallpaper as a".blue().italic(),
+        target_ext.blue().bold().italic(),
+        " instead.".blue().italic(),
+    )
+}
+
+pub(crate) fn mk_dir_create_error_msg(dir: &str, err: &std::io::Error) -> String {
+    format!(
+        "{} {}{}\n{}",
+        "Couldn't create directory".purple(),
+        dir.blue().bold(),
+        ".".purple(),
+        err.to_string().red(),
+    )
+}
+
+// -------------------------------------------------------------------------------------
 
 pub(crate) fn mk_custom_error_msg(
     arg: String,

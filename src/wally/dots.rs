@@ -7,6 +7,7 @@ use super::draw::draw_tiled_dots;
 use super::img::{Color, write_img};
 use super::noise::Perlin2D;
 use super::themes::ColorPalette;
+use super::utils::resolve_output_path;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Dot {
@@ -111,7 +112,7 @@ pub(crate) fn mk_dots(
     draw_tiled_dots(&mut pixels, &dots, args.height, args.width, BASE_ALPHA);
 
     write_img(
-        format!("{}.{}", args.name, args.format.as_str()),
+        resolve_output_path(&args.name, args.format),
         args.format,
         args.width,
         args.height,

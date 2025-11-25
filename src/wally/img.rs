@@ -4,7 +4,7 @@ use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
 use rayon::iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use rayon::slice::ParallelSliceMut;
 
-use super::error::{exit_with_error, mk_write_error_msg};
+use super::error::{exit_with_error, mk_dir_create_error_msg, mk_write_error_msg};
 use super::utils::get_absolute_path;
 
 #[derive(Clone, Copy, Debug)]
@@ -68,6 +68,15 @@ pub(crate) fn write_img(
             chunk[1] = g;
             chunk[2] = b;
         });
+
+    if let Some(parent) = std::path::Path::new(&file).parent() {
+        if !parent.as_os_str().is_empty() {
+            if let Err(e) = std::fs::create_dir_all(parent) {
+                let dir = parent.display().to_string();
+                exit_with_error(1, mk_dir_create_error_msg(&dir, &e));
+            }
+        }
+    }
 
     if let Err(e) = save_buffer_with_format(
         &file,
