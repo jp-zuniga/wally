@@ -14,7 +14,7 @@ mod term;
 mod themes;
 mod utils;
 
-use cli::{Commands, WallyCLI};
+use cli::{WallyCLI, WallyCommands};
 use dots::mk_dots;
 use error::exit_with_clap_error;
 use term::set_color_output;
@@ -44,7 +44,7 @@ pub fn run_cli(mut args: WallyCLI) {
     }
 
     match args.command {
-        Commands::Dots { dot_size, steps } => {
+        WallyCommands::Dots { dot_size, steps } => {
             mk_dots(&args, dot_size, steps, &*args.mk_palette())
         },
     };

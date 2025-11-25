@@ -3,7 +3,7 @@ use std::path::Path;
 
 use clap::ColorChoice;
 
-use super::cli::{Commands, WallyCLI};
+use super::cli::{WallyCLI, WallyCommands};
 use super::error::{exit_with_error, mk_big_padding_error_msg, mk_big_steps_error_msg};
 
 pub(crate) fn check_bounds(args: &WallyCLI) {
@@ -15,7 +15,7 @@ pub(crate) fn check_bounds(args: &WallyCLI) {
     }
 
     let steps = match args.command {
-        Commands::Dots { steps, .. } => steps,
+        WallyCommands::Dots { steps, .. } => steps,
     };
 
     if steps >= args.height || steps >= args.width {

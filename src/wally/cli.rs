@@ -22,7 +22,7 @@ use super::themes::tokyonight::TokyoNightFlavor;
 use super::themes::{ColorPalette, Themes};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
-pub(crate) enum Commands {
+pub(crate) enum WallyCommands {
     /// Create a wallpaper of randomly-generated dots.
     Dots {
         /// Radius of generated dots.
@@ -99,7 +99,7 @@ pub struct WallyCLI {
 
     /// Command to execute.
     #[command(subcommand)]
-    pub(crate) command: Commands,
+    pub(crate) command: WallyCommands,
 }
 
 impl WallyCLI {
