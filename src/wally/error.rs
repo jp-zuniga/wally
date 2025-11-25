@@ -4,7 +4,7 @@ use clap::error::{ContextKind, ErrorKind};
 use clap::{Error as ClapError, crate_version};
 use image::ImageError;
 
-use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_WIDTH};
+use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_STEPS, MIN_WIDTH};
 use super::parse::Dimensions;
 
 #[derive(Debug, Default)]
@@ -297,14 +297,18 @@ fn mk_palette_error_msg(value: String) -> String {
 
 fn mk_steps_error_msg(value: String) -> String {
     format!(
-        "{} {} {}{}\n{} {} {} {} {}{}",
+        "{} {} {}{}\n{} {} {} {} {} {} {}{}",
         value.red().bold(),
         "is not a valid value for".purple(),
         "--steps".green().bold(),
         "!".purple(),
         // newline
         "--steps".green().bold().italic(),
-        "must be a positive integer, and less than".blue().italic(),
+        "must be a positive integer greater than or equal to"
+            .blue()
+            .italic(),
+        format!("{}", MIN_STEPS).blue().bold().italic(),
+        "and less than".blue().italic(),
         "--height".green().bold().italic(),
         "and".blue().italic(),
         "--width".green().bold().italic(),
