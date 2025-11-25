@@ -12,4 +12,8 @@ pub(crate) fn set_color_output(flag_state: Option<bool>) {
             unset_override();
         },
     }
+
+    if std::env::consts::OS == "windows" && flag_state.unwrap_or(true) {
+        set_override(true);
+    }
 }
