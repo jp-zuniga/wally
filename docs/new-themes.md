@@ -7,9 +7,6 @@ pub(crate) enum Themes {
     // ...
     Dracula,
     // ...
-    RosePineDefault,
-    RosePineDawn,
-    // ...
 }
 ```
 
@@ -51,12 +48,12 @@ impl DraculaFlavor {
 }
 ```
 
-Now, all that's left is matching the new enum variant in the [`run()`](../src/wally/mod.rs) function!
+Now, all that's left is matching the new enum variant in the [`mk_palette()`](../src/wally/cli.rs) method!
 
 ```rust
-match args.palette {
+match self.palette {
     // other `match` arms...
-    Themes::Dracula => mk_dots(&args, dot_size, steps, DraculaFlavor::default()),
+    Themes::Dracula => Box::new(DraculaFlavor::default()),
     // other `match` arms...
 };
 ```
