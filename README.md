@@ -22,13 +22,13 @@ Commands:
   help  Print this message or the help of the given subcommand(s).
 
 Options:
-  -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
-  -n, --name    <NAME>     Name of generated wallpaper.          [default: wally]
+      --seed    <SEED>     Optional seed for reproducibility.
   -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
+  -n, --name    <NAME>     Name of generated wallpaper.          [default: wally]
+  -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
   -W, --width   <WIDTH>    Width of generated wallpaper.         [default: 1920]
   -H, --height  <HEIGHT>   Height of generated wallpaper.        [default: 1080]
       --padding <PADDING>  Padding around wallpaper borders.     [default: 200]
-      --seed    <SEED>     Optional seed for reproducibility.
       --swap               Swap width and height.
 ```
 

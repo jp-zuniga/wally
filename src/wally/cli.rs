@@ -44,6 +44,10 @@ pub(crate) enum Commands {
     long_about = None,
 )]
 pub struct WallyCLI {
+    /// Optional seed for reproducibility.
+    #[arg(long, global = true)]
+    pub(crate) seed: Option<u64>,
+
     /// Name of generated wallpaper.
     #[arg(
         short,
@@ -54,6 +58,10 @@ pub struct WallyCLI {
     )]
     pub(crate) name: String,
 
+    /// Output format of generated wallpaper.
+    #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::Png)]
+    pub(crate) format: WallFormats,
+
     /// Color palette of generated wallpaper.
     #[arg(
         short,
@@ -63,10 +71,6 @@ pub struct WallyCLI {
         default_value_t = Themes::RosePineMoon,
     )]
     pub(crate) palette: Themes,
-
-    /// Output format of generated wallpaper.
-    #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::Png)]
-    pub(crate) format: WallFormats,
 
     /// Width of generated wallpaper.
     #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH, value_parser = parse_width)]
@@ -79,10 +83,6 @@ pub struct WallyCLI {
     /// Padding around wallpaper borders.
     #[arg(long, global = true, default_value_t = DEFAULT_PADDING, value_parser = parse_padding)]
     pub(crate) padding: u32,
-
-    /// Optional seed for reproducibility.
-    #[arg(long, global = true)]
-    pub(crate) seed: Option<u64>,
 
     /// Swap width and height.
     #[arg(long, global = true, action = ArgAction::SetTrue)]
