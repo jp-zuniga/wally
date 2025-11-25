@@ -48,12 +48,12 @@ impl DraculaFlavor {
 }
 ```
 
-Now, all that's left is matching the new enum variant in the [`mk_palette()`](../src/wally/cli.rs) method!
+Now, all that's left is matching the new enum variant in the [`mk_palette()`](../src/wally/cli.rs)!
 
 ```rust
 match self.palette {
-    // other `match` arms...
+    // ...
     Themes::Dracula => Box::new(DraculaFlavor::default()),
-    // other `match` arms...
+    // ...
 };
 ```
