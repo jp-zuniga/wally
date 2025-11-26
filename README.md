@@ -8,9 +8,7 @@ Take a look at the [samples](docs/samples.md) to see more of what `wally` can do
 
 ## Installation
 
-Currently, the only way to install  `wally` is to download the [latest release on Github](https://github.com/jp-zuniga/wally/releases/latest).
-
-A `cargo` installation and `nix` package are both planned.
+Currently, the only way to install `wally` is to download the [latest release on Github](https://github.com/jp-zuniga/wally/releases/latest). `cargo` and `nix` installations are planned.
 
 ## Usage
 
@@ -18,18 +16,21 @@ A `cargo` installation and `nix` package are both planned.
 wally [OPTIONS] <COMMAND>
 
 Commands:
-  dots  Create a wallpaper of randomly-generated dots.
-  help  Print this message or the help of the given subcommand(s).
+  dots    Create a wallpaper of randomly-generated dots.
+  themes  List available color palettes.
+  help    Print this message or the help of the given subcommand(s).
 
 Options:
       --seed    <SEED>     Optional seed for reproducibility.
-  -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
   -n, --name    <NAME>     Name of generated wallpaper.          [default: wally]
+  -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
   -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
   -W, --width   <WIDTH>    Width of generated wallpaper.         [default: 1920]
   -H, --height  <HEIGHT>   Height of generated wallpaper.        [default: 1080]
       --padding <PADDING>  Padding around wallpaper borders.     [default: 200]
       --swap               Swap width and height.
+      --color              Force color output
+      --no-color           Disable color output
 ```
 
 ### `dots`
@@ -46,17 +47,13 @@ Options:
 
 Currently, `wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox), [Rosé Pine](https://rosepinetheme.com), and many more popular color palettes!
 
-If your favorite one isn't available yet, it can be easily added to the [`themes`](src/wally/themes) module. If you're interested, you can find the relevant documentation [here](docs/new-themes.md). PRs with your favorite color palettes are welcome!
+If your favorite one isn't available yet, it can be easily added to the [`themes`](src/wally/themes) module. You can find the relevant documentation [here](docs/new-themes.md). PRs with your favorite color palettes are welcome!
 
 ## Development
 
-If you're interested in extending, fixing, or improving `wally`, you'll need to clone this repo and install the packages listed in [`shell.nix`](./shell.nix).
-
-For `nix` users, this is as simple as running `nix-shell shell.nix`.
+If you're interested in extending, fixing, or improving `wally`, you'll need to clone this repository and install the packages listed in [`shell.nix`](./shell.nix). For `nix` users, this is as simple as running `nix-shell shell.nix`.
 
 For everyone else, make sure you've installed the latest version of Rust using [`rustup`](https://rustup.rs/).
-
-> `bacon`, `cargo-bump`, and `clippy` are technically optional – all you really need is a working `rustup` installation – but they'll make your life a lot easier.
 
 ## Acknowledgements
 
@@ -64,4 +61,4 @@ This project is a rewrite and extension of [Oliver Thurley's](https://github.com
 
 ## [License](LICENSE)
 
-`wally` is licensed under the GNU General Public License.
+`wally` is licensed under the GPLv3.
