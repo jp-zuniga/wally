@@ -45,7 +45,7 @@ Options:
 
 ## Color Palettes
 
-Currently, `wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox), [Rosé Pine](https://rosepinetheme.com), and many more popular color palettes!
+`wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox), [Rosé Pine](https://rosepinetheme.com), and many more popular color palettes!
 
 If your favorite one isn't available yet, it can be easily added to the [`themes`](src/wally/themes) module. You can find the relevant documentation [here](docs/new-themes.md). PRs with your favorite color palettes are welcome!
 

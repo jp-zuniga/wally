@@ -1,6 +1,6 @@
 # Adding New Themes
 
-To create a new theme, it must first be added to the [`WallyPalettes`](../src/wally/themes/mod.rs) enum. If it has several variants or color palettes, they should all be added as enum variants.
+To create a new theme, it must first be added to the [`WallyPalettes`](../src/wally/themes/mod.rs#L29) enum. If it has several variants or color palettes, they should all be added as enum variants.
 
 ```rust
 pub(crate) enum WallyPalettes {
@@ -35,7 +35,7 @@ impl Palette {
 }
 ```
 
-Lastly, the new enum variant must be matched in [`WallyCli::mk_palette()`](../src/wally/cli/mod.rs).
+Lastly, the new enum variant must be matched in [`WallyCli::mk_palette()`](../src/wally/cli/mod.rs#L116).
 
 ```rust
 match self.palette {
