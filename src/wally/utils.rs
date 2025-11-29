@@ -3,14 +3,14 @@ use std::path::{Path, PathBuf};
 
 use clap::ColorChoice;
 
-use super::cli::WallyCLI;
+use super::cli::WallyCli;
 use super::error::{
     exit_with_error, mk_big_padding_error_msg, mk_big_steps_error_msg,
     mk_unknown_extension_msg, print_warning,
 };
 use super::img::WallFormats;
 
-pub(crate) fn check_bounds(args: &WallyCLI, steps: u32) {
+pub(crate) fn check_bounds(args: &WallyCli, steps: u32) {
     if args.padding * 2 >= args.width || args.padding * 2 >= args.height {
         exit_with_error(
             1,

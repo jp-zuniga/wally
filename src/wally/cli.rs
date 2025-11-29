@@ -2,8 +2,8 @@ use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
 use super::consts::{
-    DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING, DEFAULT_STEPS,
-    DEFAULT_WIDTH, WALLY_STYLE,
+    CLI_STYLE, DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING,
+    DEFAULT_STEPS, DEFAULT_WIDTH,
 };
 
 use super::img::WallFormats;
@@ -41,13 +41,13 @@ pub(crate) enum WallyCommands {
 #[derive(Parser, Debug)]
 #[command(
     arg_required_else_help = true,
-    styles = WALLY_STYLE,
+    styles = CLI_STYLE,
     author = crate_authors!(),
     version = crate_version!(),
     about = None,
     long_about = None,
 )]
-pub struct WallyCLI {
+pub struct WallyCli {
     /// Optional seed for reproducibility.
     #[arg(long, global = true)]
     pub(crate) seed: Option<u64>,
@@ -63,7 +63,7 @@ pub struct WallyCLI {
     pub(crate) name: String,
 
     /// Output format of generated wallpaper.
-    #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::Png)]
+    #[arg(short, long, value_enum, global = true, default_value_t = WallFormats::default())]
     pub(crate) format: WallFormats,
 
     /// Color palette of generated wallpaper.
@@ -106,7 +106,7 @@ pub struct WallyCLI {
     pub(crate) command: WallyCommands,
 }
 
-impl WallyCLI {
+impl WallyCli {
     pub(crate) fn colorize(&self) -> Option<bool> {
         if self.color {
             Some(true)

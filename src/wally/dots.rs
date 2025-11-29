@@ -1,7 +1,7 @@
 use rand::rngs::SmallRng;
 use rand::{Rng, SeedableRng};
 
-use super::cli::WallyCLI;
+use super::cli::WallyCli;
 use super::consts::BASE_ALPHA;
 use super::draw::draw_tiled_dots;
 use super::img::{Color, write_img};
@@ -25,7 +25,7 @@ pub(crate) struct Dot {
 }
 
 pub(crate) fn mk_dots(
-    args: &WallyCLI,
+    args: &WallyCli,
     dot_size: f32,
     steps: u32,
     palette: &dyn ColorPalette,
