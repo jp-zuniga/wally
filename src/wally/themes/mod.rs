@@ -7,6 +7,7 @@ mod catppuccin;
 mod dracula;
 mod everforest;
 mod gruvbox;
+mod moonfly;
 mod nord;
 mod rosepine;
 mod solarized;
@@ -35,6 +36,7 @@ pub(crate) enum WallyPalettes {
     EverforestLight,
     GruvboxDark,
     GruvboxLight,
+    Moonfly,
     Nord,
     RosePine,
     RosePineDawn,

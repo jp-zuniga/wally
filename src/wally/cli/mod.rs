@@ -125,6 +125,7 @@ impl WallyCli {
             WallyPalettes::EverforestLight => Palette::evf_light(),
             WallyPalettes::GruvboxDark => Palette::gruv_dark(),
             WallyPalettes::GruvboxLight => Palette::gruv_light(),
+            WallyPalettes::Moonfly => Palette::moonfly(),
             WallyPalettes::Nord => Palette::nord(),
             WallyPalettes::RosePineDawn => Palette::rose_dawn(),
             WallyPalettes::RosePine => Palette::rose_pine(),
