@@ -31,7 +31,7 @@ pub(crate) enum WallyCommands {
     },
 
     /// List available color palettes.
-    WallyPalettes,
+    Themes,
 }
 
 #[derive(Parser, Debug)]
