@@ -116,11 +116,11 @@ impl WallyCli {
     pub(crate) fn mk_palette(&self) -> Palette {
         match self.palette {
             WallyPalettes::Alucard => Palette::alucard(),
-            WallyPalettes::Dracula => Palette::default(),
             WallyPalettes::CatppuccinFrappe => Palette::cat_frappe(),
             WallyPalettes::CatppuccinLatte => Palette::cat_latte(),
             WallyPalettes::CatppuccinMacchiato => Palette::cat_macchiato(),
             WallyPalettes::CatppuccinMocha => Palette::cat_mocha(),
+            WallyPalettes::Dracula => Palette::dracula(),
             WallyPalettes::GruvboxDark => Palette::gruv_dark(),
             WallyPalettes::GruvboxLight => Palette::gruv_light(),
             WallyPalettes::Nord => Palette::nord(),

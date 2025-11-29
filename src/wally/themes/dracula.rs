@@ -3,7 +3,7 @@ use crate::wally::img::Color;
 use super::Palette;
 
 impl Palette {
-    pub(crate) fn default() -> Self {
+    pub(crate) fn dracula() -> Self {
         Palette {
             foreground: Color::from_u8(0xf8, 0xf8, 0xf2), // #f8f8f2
             accent: Color::from_u8(0x44, 0x47, 0x5a),     // #44475a
