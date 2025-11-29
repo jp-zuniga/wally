@@ -36,10 +36,10 @@ It should also provide methods to instantiate itself. If the theme only has one 
 
 ```rust
 impl DraculaFlavor {
-    pub(crate) fn default() -> DraculaFlavor {
+    pub(crate) fn alucard() -> Self {
         DraculaFlavor {
-            background: Color::from_u8(0x28, 0x2a, 0x36), // #282a36
-            foreground: Color::from_u8(0xf8, 0xf8, 0xf2), // #f8f8f2
+            background: Color::from_u8(0xff, 0xfb, 0xeb), // #fffbeb
+            foreground: Color::from_u8(0x6c, 0x66, 0x4b), // #6c664b
             // ...
         }
     }
@@ -48,7 +48,7 @@ impl DraculaFlavor {
 }
 ```
 
-Now, all that's left is matching the new enum variant in the [`mk_palette()`](../src/wally/cli.rs)!
+Now, all that's left is matching the new enum variant in [`mk_palette()`](../src/wally/cli.rs)!
 
 ```rust
 match self.palette {
