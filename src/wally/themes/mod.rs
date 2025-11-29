@@ -11,16 +11,19 @@ pub(crate) mod rosepine;
 pub(crate) mod solarized;
 pub(crate) mod tokyonight;
 
-pub(crate) trait ColorPalette {
-    fn len(&self) -> usize;
+const COLOR_COUNT: usize = 11;
 
-    fn background(&self) -> Color;
+pub(crate) fn print_palettes() {
+    println!();
+    println!("{}", "Available color palettes:".purple().bold());
 
-    fn get_color(&self, idx: usize) -> Color;
+    for name in WallyPalettes::get_variants() {
+        println!("  {} {}", "-".purple().bold(), name.green().italic());
+    }
 }
 
 #[derive(Clone, Copy, Debug, ValueEnum)]
-pub(crate) enum Themes {
+pub(crate) enum WallyPalettes {
     Alucard,
     Dracula,
     CatppuccinFrappe,
@@ -30,7 +33,7 @@ pub(crate) enum Themes {
     GruvboxDark,
     GruvboxLight,
     Nord,
-    RosePineDefault,
+    RosePine,
     RosePineDawn,
     RosePineMoon,
     SolarizedDark,
@@ -41,20 +44,53 @@ pub(crate) enum Themes {
     TokyoNightStorm,
 }
 
-impl Themes {
+impl WallyPalettes {
     pub(crate) fn get_variants() -> Vec<String> {
-        Themes::value_variants()
+        WallyPalettes::value_variants()
             .iter()
             .filter_map(|v| v.to_possible_value().map(|pv| pv.get_name().to_string()))
             .collect()
     }
 }
 
-pub(crate) fn print_palettes() {
-    println!();
-    println!("{}", "Available color palettes:".purple().bold());
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct Palette {
+    accent: Color,
+    base: Color,
+    foreground: Color,
+    black: Color,
+    red: Color,
+    yellow: Color,
+    green: Color,
+    cyan: Color,
+    blue: Color,
+    magenta: Color,
+    white: Color,
+}
 
-    for name in Themes::get_variants() {
-        println!("  {} {}", "-".purple().bold(), name.green().italic());
+impl Palette {
+    pub(crate) fn len(&self) -> usize {
+        COLOR_COUNT
+    }
+
+    pub(crate) fn background(&self) -> Color {
+        self.base
+    }
+
+    pub(crate) fn get_color(&self, idx: usize) -> Color {
+        match idx {
+            0 => self.accent,
+            1 => self.base,
+            2 => self.foreground,
+            3 => self.black,
+            4 => self.red,
+            5 => self.yellow,
+            6 => self.green,
+            7 => self.cyan,
+            8 => self.blue,
+            9 => self.magenta,
+            10 => self.white,
+            _ => unreachable!(),
+        }
     }
 }

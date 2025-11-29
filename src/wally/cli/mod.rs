@@ -5,25 +5,17 @@ pub(crate) mod error;
 pub(crate) mod parse;
 pub(crate) mod term;
 
-use super::consts::{
-    CLI_STYLE, DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING,
-    DEFAULT_STEPS, DEFAULT_WIDTH,
-};
-
-use crate::wally::img::WallFormats;
 use parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };
 
-use crate::wally::themes::catppuccin::CatppuccinFlavor;
-use crate::wally::themes::dracula::DraculaFlavor;
-use crate::wally::themes::gruvbox::GruvboxFlavor;
-use crate::wally::themes::nord::Nord;
-use crate::wally::themes::rosepine::RosePineFlavor;
-use crate::wally::themes::solarized::SolarizedFlavor;
-use crate::wally::themes::tokyonight::TokyoNightFlavor;
-use crate::wally::themes::{ColorPalette, Themes};
+use crate::wally::consts::{
+    CLI_STYLE, DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING,
+    DEFAULT_STEPS, DEFAULT_WIDTH,
+};
+use crate::wally::img::WallFormats;
+use crate::wally::themes::{Palette, WallyPalettes};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum WallyCommands {
@@ -39,7 +31,7 @@ pub(crate) enum WallyCommands {
     },
 
     /// List available color palettes.
-    Themes,
+    WallyPalettes,
 }
 
 #[derive(Parser, Debug)]
@@ -77,9 +69,9 @@ pub struct WallyCli {
         value_enum,
         global = true,
         hide_possible_values = true,
-        default_value_t = Themes::RosePineMoon,
+        default_value_t = WallyPalettes::RosePineMoon,
     )]
-    pub(crate) palette: Themes,
+    pub(crate) palette: WallyPalettes,
 
     /// Width of generated wallpaper.
     #[arg(short = 'W', long, global = true, default_value_t = DEFAULT_WIDTH, value_parser = parse_width)]
@@ -121,26 +113,26 @@ impl WallyCli {
         }
     }
 
-    pub(crate) fn mk_palette(&self) -> Box<dyn ColorPalette> {
+    pub(crate) fn mk_palette(&self) -> Palette {
         match self.palette {
-            Themes::Alucard => Box::new(DraculaFlavor::alucard()),
-            Themes::Dracula => Box::new(DraculaFlavor::default()),
-            Themes::CatppuccinFrappe => Box::new(CatppuccinFlavor::frappe()),
-            Themes::CatppuccinLatte => Box::new(CatppuccinFlavor::latte()),
-            Themes::CatppuccinMacchiato => Box::new(CatppuccinFlavor::macchiato()),
-            Themes::CatppuccinMocha => Box::new(CatppuccinFlavor::mocha()),
-            Themes::GruvboxDark => Box::new(GruvboxFlavor::dark()),
-            Themes::GruvboxLight => Box::new(GruvboxFlavor::light()),
-            Themes::Nord => Box::new(Nord::new()),
-            Themes::RosePineDawn => Box::new(RosePineFlavor::dawn()),
-            Themes::RosePineDefault => Box::new(RosePineFlavor::default()),
-            Themes::RosePineMoon => Box::new(RosePineFlavor::moon()),
-            Themes::SolarizedDark => Box::new(SolarizedFlavor::dark()),
-            Themes::SolarizedLight => Box::new(SolarizedFlavor::light()),
-            Themes::TokyoNightDefault => Box::new(TokyoNightFlavor::default()),
-            Themes::TokyoNightDay => Box::new(TokyoNightFlavor::day()),
-            Themes::TokyoNightMoon => Box::new(TokyoNightFlavor::moon()),
-            Themes::TokyoNightStorm => Box::new(TokyoNightFlavor::storm()),
+            WallyPalettes::Alucard => Palette::alucard(),
+            WallyPalettes::Dracula => Palette::default(),
+            WallyPalettes::CatppuccinFrappe => Palette::cat_frappe(),
+            WallyPalettes::CatppuccinLatte => Palette::cat_latte(),
+            WallyPalettes::CatppuccinMacchiato => Palette::cat_macchiato(),
+            WallyPalettes::CatppuccinMocha => Palette::cat_mocha(),
+            WallyPalettes::GruvboxDark => Palette::gruv_dark(),
+            WallyPalettes::GruvboxLight => Palette::gruv_light(),
+            WallyPalettes::Nord => Palette::nord(),
+            WallyPalettes::RosePineDawn => Palette::rose_dawn(),
+            WallyPalettes::RosePine => Palette::rose_pine(),
+            WallyPalettes::RosePineMoon => Palette::rose_moon(),
+            WallyPalettes::SolarizedDark => Palette::sol_dark(),
+            WallyPalettes::SolarizedLight => Palette::sol_light(),
+            WallyPalettes::TokyoNightDefault => Palette::tokyo_night(),
+            WallyPalettes::TokyoNightDay => Palette::tokyo_day(),
+            WallyPalettes::TokyoNightMoon => Palette::tokyo_moon(),
+            WallyPalettes::TokyoNightStorm => Palette::tokyo_storm(),
         }
     }
 }

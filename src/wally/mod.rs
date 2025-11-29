@@ -41,9 +41,9 @@ pub fn run_cli(mut args: WallyCli) {
     match args.command {
         WallyCommands::Dots { dot_size, steps } => {
             check_bounds(&args, steps);
-            mk_dots(&args, dot_size, steps, &*args.mk_palette())
+            mk_dots(&args, dot_size, steps, args.mk_palette())
         },
-        WallyCommands::Themes => {
+        WallyCommands::WallyPalettes => {
             themes::print_palettes();
         },
     };

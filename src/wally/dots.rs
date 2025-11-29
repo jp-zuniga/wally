@@ -6,7 +6,7 @@ use super::consts::BASE_ALPHA;
 use super::draw::draw_tiled_dots;
 use super::img::{Color, write_img};
 use super::noise::Perlin2D;
-use super::themes::ColorPalette;
+use super::themes::Palette;
 use super::utils::resolve_output_file;
 
 #[derive(Clone, Copy, Debug)]
@@ -28,7 +28,7 @@ pub(crate) fn mk_dots(
     args: &WallyCli,
     dot_size: f32,
     steps: u32,
-    palette: &dyn ColorPalette,
+    palette: Palette,
 ) {
     let steps_usize = steps as usize;
     let width_usize = args.width as usize;
