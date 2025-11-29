@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use super::consts::{
+use crate::wally::consts::{
     MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_PADDING, MIN_STEPS, MIN_WIDTH,
 };
 

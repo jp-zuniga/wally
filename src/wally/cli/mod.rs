@@ -1,25 +1,29 @@
 use clap::{ArgAction, crate_authors, crate_version};
 use clap::{Parser, Subcommand};
 
+pub(crate) mod error;
+pub(crate) mod parse;
+pub(crate) mod term;
+
 use super::consts::{
     CLI_STYLE, DEFAULT_DOT_SIZE, DEFAULT_HEIGHT, DEFAULT_NAME, DEFAULT_PADDING,
     DEFAULT_STEPS, DEFAULT_WIDTH,
 };
 
-use super::img::WallFormats;
-use super::parse::{
+use crate::wally::img::WallFormats;
+use parse::{
     parse_dot_size, parse_file_name, parse_height, parse_padding, parse_steps,
     parse_width,
 };
 
-use super::themes::catppuccin::CatppuccinFlavor;
-use super::themes::dracula::DraculaFlavor;
-use super::themes::gruvbox::GruvboxFlavor;
-use super::themes::nord::Nord;
-use super::themes::rosepine::RosePineFlavor;
-use super::themes::solarized::SolarizedFlavor;
-use super::themes::tokyonight::TokyoNightFlavor;
-use super::themes::{ColorPalette, Themes};
+use crate::wally::themes::catppuccin::CatppuccinFlavor;
+use crate::wally::themes::dracula::DraculaFlavor;
+use crate::wally::themes::gruvbox::GruvboxFlavor;
+use crate::wally::themes::nord::Nord;
+use crate::wally::themes::rosepine::RosePineFlavor;
+use crate::wally::themes::solarized::SolarizedFlavor;
+use crate::wally::themes::tokyonight::TokyoNightFlavor;
+use crate::wally::themes::{ColorPalette, Themes};
 
 #[derive(Clone, Copy, Debug, Subcommand)]
 pub(crate) enum WallyCommands {

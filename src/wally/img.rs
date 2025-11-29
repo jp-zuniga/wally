@@ -4,7 +4,7 @@ use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
 use rayon::iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use rayon::slice::ParallelSliceMut;
 
-use super::error::{exit_with_error, mk_dir_create_error_msg, mk_write_error_msg};
+use super::cli::error::{exit_with_error, mk_dir_create_error_msg, mk_write_error_msg};
 use super::utils::get_absolute_path;
 
 #[derive(Clone, Copy, Debug)]
@@ -58,7 +58,7 @@ impl WallFormats {
         match format {
             "jpg" | "jpeg" => Ok(Self::Jpg),
             "png" => Ok(Self::Png),
-            _ => Err(())
+            _ => Err(()),
         }
     }
 }

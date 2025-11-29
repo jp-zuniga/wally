@@ -4,8 +4,8 @@ use clap::error::{ContextKind, ErrorKind};
 use clap::{Error as ClapError, crate_version};
 use image::ImageError;
 
-use super::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_STEPS, MIN_WIDTH};
 use super::parse::Dimensions;
+use crate::wally::consts::{MAX_HEIGHT, MAX_WIDTH, MIN_HEIGHT, MIN_STEPS, MIN_WIDTH};
 
 #[derive(Debug, Default)]
 struct ErrorContext {

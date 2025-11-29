@@ -6,18 +6,15 @@ pub(crate) mod cli;
 mod consts;
 mod dots;
 mod draw;
-mod error;
 mod img;
 mod noise;
-mod parse;
-mod term;
 mod themes;
 mod utils;
 
+use cli::error::exit_with_clap_error;
+use cli::term::set_color_output;
 use cli::{WallyCli, WallyCommands};
 use dots::mk_dots;
-use error::exit_with_clap_error;
-use term::set_color_output;
 use utils::{check_bounds, detect_color_choice};
 
 pub fn init_cli() -> WallyCli {
