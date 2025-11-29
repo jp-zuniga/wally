@@ -72,9 +72,9 @@ impl WallyPalettes {
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Palette {
+    foreground: Color,
     accent: Color,
     base: Color,
-    foreground: Color,
     black: Color,
     red: Color,
     yellow: Color,
@@ -96,9 +96,9 @@ impl Palette {
 
     pub(crate) fn get_color(&self, idx: usize) -> Color {
         match idx {
-            0 => self.accent,
-            1 => self.base,
-            2 => self.foreground,
+            0 => self.foreground,
+            1 => self.accent,
+            2 => self.base,
             3 => self.black,
             4 => self.red,
             5 => self.yellow,
