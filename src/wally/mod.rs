@@ -2,7 +2,7 @@ use std::ffi::OsString;
 
 use clap::{CommandFactory, FromArgMatches};
 
-pub(crate) mod cli;
+mod cli;
 mod consts;
 mod dots;
 mod draw;
@@ -15,9 +15,10 @@ use cli::error::exit_with_clap_error;
 use cli::term::set_color_output;
 use cli::{WallyCli, WallyCommands};
 use dots::mk_dots;
+use themes::print_palettes;
 use utils::{check_bounds, detect_color_choice};
 
-pub fn init_cli() -> WallyCli {
+pub(crate) fn init_cli() -> WallyCli {
     let argv: Vec<OsString> = std::env::args_os().collect();
 
     let matches = WallyCli::command()
@@ -33,7 +34,7 @@ pub fn init_cli() -> WallyCli {
     args
 }
 
-pub fn run_cli(mut args: WallyCli) {
+pub(crate) fn run_cli(mut args: WallyCli) {
     if args.swap {
         std::mem::swap(&mut args.width, &mut args.height);
     }
@@ -43,8 +44,8 @@ pub fn run_cli(mut args: WallyCli) {
             check_bounds(&args, steps);
             mk_dots(&args, dot_size, steps, args.mk_palette())
         },
-        WallyCommands::WallyPalettes => {
-            themes::print_palettes();
+        WallyCommands::Themes => {
+            print_palettes();
         },
     };
 }

@@ -3,7 +3,7 @@ use crate::wally::img::Color;
 use super::Palette;
 
 impl Palette {
-    pub fn evf_dark() -> Self {
+    pub(crate) fn evf_dark() -> Self {
         Palette {
             foreground: Color::from_u8(0xd3, 0xc6, 0xaa), // #d3c6aa
             accent: Color::from_u8(0x41, 0x4b, 0x51),     // #414b51
@@ -19,7 +19,7 @@ impl Palette {
         }
     }
 
-    pub fn evf_light() -> Self {
+    pub(crate) fn evf_light() -> Self {
         Palette {
             foreground: Color::from_u8(0x5c, 0x6a, 0x72), // #5c6a72
             accent: Color::from_u8(0xfd, 0xf6, 0xe3),     // #fdf6e3

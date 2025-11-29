@@ -24,7 +24,7 @@ impl Color {
     }
 
     #[inline]
-    pub fn to_rgb(self) -> [u8; 3] {
+    pub(crate) fn to_rgb(self) -> [u8; 3] {
         [self.r as u8, self.g as u8, self.b as u8]
     }
 }
@@ -36,25 +36,25 @@ pub(crate) enum WallFormats {
 }
 
 impl WallFormats {
-    pub fn as_str(&self) -> &'static str {
+    pub(crate) fn as_str(&self) -> &'static str {
         match &self {
             Self::Jpg => "jpg",
             Self::Png => "png",
         }
     }
 
-    pub fn as_image_format(&self) -> ImageFormat {
+    pub(crate) fn as_image_format(&self) -> ImageFormat {
         match self {
             Self::Jpg => ImageFormat::Jpeg,
             Self::Png => ImageFormat::Png,
         }
     }
 
-    pub fn default() -> Self {
+    pub(crate) fn default() -> Self {
         Self::Png
     }
 
-    pub fn from_str(format: &str) -> Result<Self, ()> {
+    pub(crate) fn from_str(format: &str) -> Result<Self, ()> {
         match format {
             "jpg" | "jpeg" => Ok(Self::Jpg),
             "png" => Ok(Self::Png),

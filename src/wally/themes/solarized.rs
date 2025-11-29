@@ -3,7 +3,7 @@ use crate::wally::img::Color;
 use super::Palette;
 
 impl Palette {
-    pub fn sol_dark() -> Self {
+    pub(crate) fn sol_dark() -> Self {
         Palette {
             foreground: Color::from_u8(0x83, 0x94, 0x96), // #839496
             accent: Color::from_u8(0x07, 0x36, 0x42),     // #073642
@@ -19,7 +19,7 @@ impl Palette {
         }
     }
 
-    pub fn sol_light() -> Self {
+    pub(crate) fn sol_light() -> Self {
         Palette {
             foreground: Color::from_u8(0x65, 0x7b, 0x83), // #657b83
             accent: Color::from_u8(0xee, 0xe8, 0xd5),     // #eee8d5
