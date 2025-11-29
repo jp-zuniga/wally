@@ -3,13 +3,14 @@ use colored::Colorize;
 
 use crate::wally::img::Color;
 
-pub(crate) mod catppuccin;
-pub(crate) mod dracula;
-pub(crate) mod gruvbox;
-pub(crate) mod nord;
-pub(crate) mod rosepine;
-pub(crate) mod solarized;
-pub(crate) mod tokyonight;
+mod catppuccin;
+mod dracula;
+mod everforest;
+mod gruvbox;
+mod nord;
+mod rosepine;
+mod solarized;
+mod tokyonight;
 
 const COLOR_COUNT: usize = 11;
 
@@ -25,11 +26,13 @@ pub(crate) fn print_palettes() {
 #[derive(Clone, Copy, Debug, ValueEnum)]
 pub(crate) enum WallyPalettes {
     Alucard,
-    Dracula,
     CatppuccinFrappe,
     CatppuccinLatte,
     CatppuccinMacchiato,
     CatppuccinMocha,
+    Dracula,
+    EverforestDark,
+    EverforestLight,
     GruvboxDark,
     GruvboxLight,
     Nord,
