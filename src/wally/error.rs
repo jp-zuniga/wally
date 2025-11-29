@@ -166,14 +166,13 @@ pub(crate) fn mk_big_steps_error_msg(steps: &u32, height: &u32, width: &u32) -> 
     )
 }
 
-pub(crate) fn mk_unmatched_extension_msg(format: &str, ext_str: &str) -> String {
+pub(crate) fn mk_dir_create_error_msg(dir: &str, err: &std::io::Error) -> String {
     format!(
-        "{} {} {} {} {}",
-        "The extension".purple(),
-        format!(".{}", ext_str).red().bold(),
-        "does not match".purple(),
-        "--format".green().bold(),
-        format!("{format}.").purple().bold(),
+        "{} {}{}\n{}",
+        "Couldn't create directory".purple(),
+        dir.blue().bold(),
+        ".".purple(),
+        err.to_string().red(),
     )
 }
 
@@ -186,16 +185,6 @@ pub(crate) fn mk_unknown_extension_msg(ext_str: &str, target_ext: &str) -> Strin
         "Wally will save your wallpaper as a".blue().italic(),
         target_ext.blue().bold().italic(),
         " instead.".blue().italic(),
-    )
-}
-
-pub(crate) fn mk_dir_create_error_msg(dir: &str, err: &std::io::Error) -> String {
-    format!(
-        "{} {}{}\n{}",
-        "Couldn't create directory".purple(),
-        dir.blue().bold(),
-        ".".purple(),
-        err.to_string().red(),
     )
 }
 
@@ -241,11 +230,10 @@ pub(crate) fn mk_custom_error_msg(
     }
 
     format!(
-        "{} {} {}{}{}\n{} {} {}",
-        "Invalid value".purple(),
+        "{} {} {}{}\n{} {} {}",
         value.red().bold(),
-        "for".purple(),
-        arg_str.green().bold(),
+        "is not a valid value for".purple(),
+        remove_arg_placeholder(arg_str).green().bold(),
         "!".purple(),
         "Run".blue().italic(),
         "wally help".green().bold().italic(),
@@ -434,4 +422,16 @@ pub(crate) fn mk_write_error_msg(err: ImageError, file: &str) -> String {
         "!".purple(),
         err.to_string().red(),
     )
+}
+
+// -------------------------------------------------------------------------------------
+
+fn remove_arg_placeholder(arg: &str) -> &str {
+    arg.get(
+        0..arg
+            .find("<")
+            .expect("arg should come in the form '--arg <ARG>'"),
+    )
+    .unwrap_or(arg)
+    .trim()
 }

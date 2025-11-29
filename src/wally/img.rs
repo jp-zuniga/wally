@@ -29,7 +29,7 @@ impl Color {
     }
 }
 
-#[derive(Clone, Copy, Debug, ValueEnum)]
+#[derive(Clone, Copy, Debug, PartialEq, ValueEnum)]
 pub(crate) enum WallFormats {
     Png,
     Jpg,
@@ -38,15 +38,27 @@ pub(crate) enum WallFormats {
 impl WallFormats {
     pub fn as_str(&self) -> &'static str {
         match &self {
-            WallFormats::Png => "png",
-            WallFormats::Jpg => "jpg",
+            Self::Jpg => "jpg",
+            Self::Png => "png",
         }
     }
 
     pub fn as_image_format(&self) -> ImageFormat {
         match self {
-            WallFormats::Png => ImageFormat::Png,
-            WallFormats::Jpg => ImageFormat::Jpeg,
+            Self::Jpg => ImageFormat::Jpeg,
+            Self::Png => ImageFormat::Png,
+        }
+    }
+
+    pub fn default() -> Self {
+        Self::Png
+    }
+
+    pub fn from_str(format: &str) -> Result<Self, ()> {
+        match format {
+            "jpg" | "jpeg" => Ok(Self::Jpg),
+            "png" => Ok(Self::Png),
+            _ => Err(())
         }
     }
 }
