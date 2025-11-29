@@ -8,6 +8,7 @@ mod dracula;
 mod everforest;
 mod gruvbox;
 mod moonfly;
+mod noctis;
 mod nord;
 mod rosepine;
 mod solarized;
@@ -37,6 +38,17 @@ pub(crate) enum WallyPalettes {
     GruvboxDark,
     GruvboxLight,
     Moonfly,
+    Noctis,
+    NoctisSereno,
+    NoctisMinimus,
+    NoctisObscuro,
+    NoctisAzureus,
+    NoctisUva,
+    NoctisViola,
+    NoctisBordo,
+    NoctisHibernus,
+    NoctisLilac,
+    NoctisLux,
     Nord,
     RosePine,
     RosePineDawn,
