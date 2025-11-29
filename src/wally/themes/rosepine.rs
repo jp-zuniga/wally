@@ -55,7 +55,7 @@ impl ColorPalette for RosePineFlavor {
 }
 
 impl RosePineFlavor {
-    pub(crate) fn default() -> RosePineFlavor {
+    pub(crate) fn default() -> Self {
         RosePineFlavor {
             base: Color::from_u8(0x19, 0x17, 0x24), // #191724
             surface: Color::from_u8(0x1f, 0x1d, 0x2e), // #1f1d2e
@@ -75,7 +75,7 @@ impl RosePineFlavor {
         }
     }
 
-    pub(crate) fn dawn() -> RosePineFlavor {
+    pub(crate) fn dawn() -> Self {
         RosePineFlavor {
             base: Color::from_u8(0xfa, 0xf4, 0xed), // #faf4ed
             surface: Color::from_u8(0xff, 0xfa, 0xf3), // #fffaf3
@@ -95,7 +95,7 @@ impl RosePineFlavor {
         }
     }
 
-    pub(crate) fn moon() -> RosePineFlavor {
+    pub(crate) fn moon() -> Self {
         RosePineFlavor {
             base: Color::from_u8(0x23, 0x21, 0x36), // #232136
             surface: Color::from_u8(0x2a, 0x27, 0x3f), // #2a273f

@@ -47,7 +47,7 @@ impl ColorPalette for Nord {
 }
 
 impl Nord {
-    pub(crate) fn new() -> Nord {
+    pub(crate) fn new() -> Self {
         Nord {
             foreground: Color::from_u8(0xd8, 0xde, 0xe9), // #d8dee9
             background: Color::from_u8(0x2e, 0x34, 0x40), // #2e3440

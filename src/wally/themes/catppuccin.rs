@@ -77,7 +77,7 @@ impl ColorPalette for CatppuccinFlavor {
 }
 
 impl CatppuccinFlavor {
-    pub(crate) fn frappe() -> CatppuccinFlavor {
+    pub(crate) fn frappe() -> Self {
         CatppuccinFlavor {
             rosewater: Color::from_u8(0xf2, 0xd5, 0xcf), // #f2d5cf
             flamingo: Color::from_u8(0xee, 0xbe, 0xbe),  // #eebebe
@@ -108,7 +108,7 @@ impl CatppuccinFlavor {
         }
     }
 
-    pub(crate) fn latte() -> CatppuccinFlavor {
+    pub(crate) fn latte() -> Self {
         CatppuccinFlavor {
             rosewater: Color::from_u8(0xdc, 0x8a, 0x78), // #dc8a78
             flamingo: Color::from_u8(0xdd, 0x78, 0x78),  // #dd7878
@@ -139,7 +139,7 @@ impl CatppuccinFlavor {
         }
     }
 
-    pub(crate) fn macchiato() -> CatppuccinFlavor {
+    pub(crate) fn macchiato() -> Self {
         CatppuccinFlavor {
             rosewater: Color::from_u8(0xf4, 0xdb, 0xd6), // #f4dbd6
             flamingo: Color::from_u8(0xf0, 0xc6, 0xc6),  // #f0c6c6
@@ -170,7 +170,7 @@ impl CatppuccinFlavor {
         }
     }
 
-    pub(crate) fn mocha() -> CatppuccinFlavor {
+    pub(crate) fn mocha() -> Self {
         CatppuccinFlavor {
             rosewater: Color::from_u8(0xf5, 0xe0, 0xdc), // #f5e0dc
             flamingo: Color::from_u8(0xf2, 0xcd, 0xcd),  // #f2cdcd

@@ -47,7 +47,7 @@ impl ColorPalette for TokyoNightFlavor {
 }
 
 impl TokyoNightFlavor {
-    pub(crate) fn default() -> TokyoNightFlavor {
+    pub(crate) fn default() -> Self {
         TokyoNightFlavor {
             background: Color::from_u8(0x1a, 0x1b, 0x26), // #1a1b26
             foreground: Color::from_u8(0xc0, 0xca, 0xf5), // #c0caf5
@@ -63,7 +63,7 @@ impl TokyoNightFlavor {
         }
     }
 
-    pub(crate) fn day() -> TokyoNightFlavor {
+    pub(crate) fn day() -> Self {
         TokyoNightFlavor {
             background: Color::from_u8(0xe1, 0xe2, 0xe7), // #e1e2e7
             foreground: Color::from_u8(0x37, 0x60, 0xbf), // #3760bf
@@ -79,7 +79,7 @@ impl TokyoNightFlavor {
         }
     }
 
-    pub(crate) fn moon() -> TokyoNightFlavor {
+    pub(crate) fn moon() -> Self {
         TokyoNightFlavor {
             background: Color::from_u8(0x22, 0x24, 0x36), // #222436
             foreground: Color::from_u8(0xc8, 0xd3, 0xf5), // #c8d3f5
@@ -95,7 +95,7 @@ impl TokyoNightFlavor {
         }
     }
 
-    pub(crate) fn storm() -> TokyoNightFlavor {
+    pub(crate) fn storm() -> Self {
         TokyoNightFlavor {
             background: Color::from_u8(0x24, 0x28, 0x3b), // #24283b
             foreground: Color::from_u8(0xc0, 0xca, 0xf5), // #c0caf5

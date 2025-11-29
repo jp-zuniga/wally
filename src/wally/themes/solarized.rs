@@ -47,7 +47,7 @@ impl ColorPalette for SolarizedFlavor {
 }
 
 impl SolarizedFlavor {
-    pub fn dark() -> SolarizedFlavor {
+    pub fn dark() -> Self {
         SolarizedFlavor {
             foreground: Color::from_u8(0x83, 0x94, 0x96), // #839496
             background: Color::from_u8(0x00, 0x2b, 0x36), // #002b36
@@ -63,7 +63,7 @@ impl SolarizedFlavor {
         }
     }
 
-    pub fn light() -> SolarizedFlavor {
+    pub fn light() -> Self {
         SolarizedFlavor {
             foreground: Color::from_u8(0x65, 0x7b, 0x83), // #657b83
             background: Color::from_u8(0xfd, 0xf6, 0xe3), // #fdf6e3

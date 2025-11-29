@@ -43,7 +43,7 @@ impl ColorPalette for GruvboxFlavor {
 }
 
 impl GruvboxFlavor {
-    pub(crate) fn dark() -> GruvboxFlavor {
+    pub(crate) fn dark() -> Self {
         GruvboxFlavor {
             background: Color::from_u8(0x28, 0x28, 0x28), // #282828
             foreground: Color::from_u8(0xeb, 0xdb, 0xb2), // #ebdbb2
@@ -57,7 +57,7 @@ impl GruvboxFlavor {
         }
     }
 
-    pub(crate) fn light() -> GruvboxFlavor {
+    pub(crate) fn light() -> Self {
         GruvboxFlavor {
             background: Color::from_u8(0xfb, 0xf1, 0xc7), // #fbf1c7
             foreground: Color::from_u8(0x3c, 0x38, 0x36), // #3c3836
