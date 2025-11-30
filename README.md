@@ -13,34 +13,45 @@ Currently, the only way to install `wally` is to download the [latest release on
 ## Usage
 
 ```text
-wally [OPTIONS] <COMMAND>
+Usage: wally [OPTIONS] <COMMAND>
 
 Commands:
-  dots    Create a wallpaper of randomly-generated dots.
-  themes  List available color palettes.
-  help    Print this message or the help of the given subcommand(s).
+  dots    Create a wallpaper of randomly-generated dots
+  themes  List available color palettes
+  help    Print this message or the help of the given subcommand(s)
 
 Options:
-      --seed    <SEED>     Optional seed for reproducibility.
-  -n, --name    <NAME>     Name of generated wallpaper.          [default: wally]
-  -f, --format  <FORMAT>   Output format of generated wallpaper. [default: png]
-  -p, --palette <PALETTE>  Color palette of generated wallpaper. [default: rose-pine-moon]
-  -W, --width   <WIDTH>    Width of generated wallpaper.         [default: 1920]
-  -H, --height  <HEIGHT>   Height of generated wallpaper.        [default: 1080]
-      --padding <PADDING>  Padding around wallpaper borders.     [default: 200]
-      --swap               Swap width and height.
-      --color              Force color output
-      --no-color           Disable color output
+  -h, --help     Print help
+  -V, --version  Print version
+
+CLI Options:
+      --color     Force color output
+      --no-color  Disable color output
 ```
 
 ### `dots`
 
 ```text
-wally dots [OPTIONS]
+Usage: wally dots [OPTIONS]
 
 Options:
-  -d, --dot-size <DOT_SIZE>  Radius of generated dots.  [default: 40]
-  -s, --steps    <STEPS>     Density of generated dots. [default: 80]
+  -h, --help  Print help
+
+Wallpaper Options:
+  -d, --dot-size <DOT_SIZE>  Radius of generated dots.             [default: 40]
+  -s, --steps    <STEPS>     Density of generated dots.            [default: 80]
+  -n, --name     <NAME>      Name of generated wallpaper.          [default: wally]
+  -f, --format   <FORMAT>    Output format of generated wallpaper. [default: png]
+  -p, --palette  <PALETTE>   Color palette of generated wallpaper. [default: rose-pine-moon]
+  -W, --width    <WIDTH>     Width of generated wallpaper.         [default: 1920]
+  -H, --height   <HEIGHT>    Height of generated wallpaper.        [default: 1080]
+  -P, --padding  <PADDING>   Padding around wallpaper borders.     [default: 200]
+      --swap                 Swap width and height.
+      --seed     <SEED>      Optional seed for reproducibility.
+
+CLI Options:
+      --color     Force color output
+      --no-color  Disable color output
 ```
 
 ## Color Palettes
