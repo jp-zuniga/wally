@@ -3,11 +3,11 @@ use std::path::{Path, PathBuf};
 
 use clap::ColorChoice;
 
+use super::cli::args::WallArgs;
 use super::cli::error::{
     exit_with_error, mk_big_padding_error_msg, mk_big_steps_error_msg,
     mk_unknown_extension_msg, print_warning,
 };
-use super::cli::args::WallArgs;
 use super::img::WallFormats;
 
 pub(crate) fn check_bounds(args: &WallArgs, steps: u32) {

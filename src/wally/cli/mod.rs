@@ -3,13 +3,13 @@ use clap::{Parser, Subcommand};
 
 use crate::wally::consts::{CLI_STYLE, DEFAULT_DOT_SIZE, DEFAULT_STEPS};
 
+pub(crate) mod args;
 pub(crate) mod error;
 pub(crate) mod parse;
 pub(crate) mod term;
-pub(crate) mod args;
 
-use parse::{parse_dot_size, parse_steps};
 use args::WallArgs;
+use parse::{parse_dot_size, parse_steps};
 
 #[derive(Clone, Debug, Subcommand)]
 pub(crate) enum WallyCommands {

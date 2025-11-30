@@ -48,8 +48,6 @@ pub(crate) fn run_cli(cli: WallyCli) {
             check_bounds(&wall_args, steps);
             mk_dots(&wall_args, dot_size, steps, wall_args.mk_palette())
         },
-        WallyCommands::Themes => {
-            print_palettes();
-        },
+        WallyCommands::Themes => print_palettes(),
     };
 }
