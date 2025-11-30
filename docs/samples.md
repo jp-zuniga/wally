@@ -26,7 +26,7 @@
 
 ### Default
 
-![Rosé Pine sample.](../.github/assets/rose-pine-default.png)
+![Rosé Pine sample.](../.github/assets/rose-pine.png)
 
 ### Moon
 
