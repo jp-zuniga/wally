@@ -35,7 +35,7 @@ impl Palette {
 }
 ```
 
-Lastly, the new enum variant must be matched in [`WallyCli::mk_palette()`](../src/wally/cli/mod.rs#L116).
+Lastly, the new enum variant must be matched in [`WallyArgs::mk_palette()`](../src/wally/cli/args.rs#L85).
 
 ```rust
 match self.palette {
@@ -47,3 +47,5 @@ match self.palette {
     // ...
 };
 ```
+
+And that's it! Once these changes are merged into the next release, the new theme will appear to users when running `wally themes`
