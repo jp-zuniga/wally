@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use clap::ValueEnum;
 use colored::Colorize;
 use image::{ExtendedColorType, ImageFormat, save_buffer_with_format};
@@ -81,7 +83,7 @@ pub(crate) fn write_img(
             chunk[2] = b;
         });
 
-    if let Some(parent) = std::path::Path::new(&file).parent() {
+    if let Some(parent) = Path::new(&file).parent() {
         if !parent.as_os_str().is_empty() {
             if let Err(e) = std::fs::create_dir_all(parent) {
                 let dir = parent.display().to_string();

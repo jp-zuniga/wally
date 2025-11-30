@@ -315,7 +315,7 @@ fn mk_padding_error_msg(value: String) -> String {
 fn mk_palette_error_msg(value: String) -> String {
     format!(
         "{} {} {}\n{} {} {}",
-        "The palette".purple(),
+        "The color palette".purple(),
         value.red().bold(),
         "doesn't exist!".purple(),
         "Run".blue().italic(),
@@ -386,12 +386,11 @@ fn mk_missing_subcommand_msg() -> String {
 
 fn mk_argument_conflict_msg() -> String {
     format!(
-        "{} {} {} {} {}\n{}",
-        "You can't use".purple(),
+        "{} {} {} {}\n{}",
         "--color".green().bold(),
         "and".purple(),
         "--no-color".green().bold(),
-        "at the same time.".purple(),
+        "cannot be used at the same time.".purple(),
         "Select one to be explicit, or omit both for automatic detection."
             .blue()
             .italic(),
