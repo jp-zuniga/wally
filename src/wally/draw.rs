@@ -54,10 +54,6 @@ pub(crate) fn draw_tiled_dots(
     let tile_row_count = TILE_HEIGHT as usize;
     let row_stride = width_usize;
 
-    // - `par_chunks_mut` splits `pixels` into tiles of up to `tile_row_count`
-    //    rows each (last tile may be shorter).
-    // - `buckets.into_par_iter()` gives us the dot indices for each tile.
-    // - `zip` pairs each tile's pixels with the corresponding bucket.
     pixels
         .par_chunks_mut(row_stride * tile_row_count)
         .enumerate()

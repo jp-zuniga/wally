@@ -1,4 +1,5 @@
 use noise_perlin::perlin_2d;
+use rand::Rng;
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Perlin2D {
@@ -8,7 +9,7 @@ pub(crate) struct Perlin2D {
 }
 
 impl Perlin2D {
-    pub(crate) fn new<R: rand::Rng + ?Sized>(rng: &mut R) -> Self {
+    pub(crate) fn new<R: Rng + ?Sized>(rng: &mut R) -> Self {
         Self {
             off_x: rng.random::<f32>() * 1000.0,
             off_y: rng.random::<f32>() * 1000.0,

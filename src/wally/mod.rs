@@ -34,15 +34,19 @@ pub(crate) fn init_cli() -> WallyCli {
     args
 }
 
-pub(crate) fn run_cli(mut args: WallyCli) {
-    if args.swap {
-        std::mem::swap(&mut args.width, &mut args.height);
-    }
+pub(crate) fn run_cli(cli: WallyCli) {
+    match cli.command {
+        WallyCommands::Dots {
+            mut wall_args,
+            dot_size,
+            steps,
+        } => {
+            if wall_args.swap {
+                std::mem::swap(&mut wall_args.width, &mut wall_args.height);
+            }
 
-    match args.command {
-        WallyCommands::Dots { dot_size, steps } => {
-            check_bounds(&args, steps);
-            mk_dots(&args, dot_size, steps, args.mk_palette())
+            check_bounds(&wall_args, steps);
+            mk_dots(&wall_args, dot_size, steps, wall_args.mk_palette())
         },
         WallyCommands::Themes => {
             print_palettes();
