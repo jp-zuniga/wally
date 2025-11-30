@@ -29,3 +29,7 @@
     lto           = "thin"
     opt-level     = 3
     panic         = "abort"
+
+[[bin]]
+    name = "wally"
+    path = "src/main.rs"
