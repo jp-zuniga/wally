@@ -1019,7 +1019,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "wally"
+name = "wally-rs"
 version = "0.5.3"
 dependencies = [
  "clap",

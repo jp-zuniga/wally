@@ -11,7 +11,7 @@
     ]
     homepage = "https://github.com/jp-zuniga/wally"
     license = "GPL-3.0-or-later"
-    name = "wally"
+    name = "wally-rs"
     readme = "README.md"
     repository = "https://github.com/jp-zuniga/wally"
     version = "0.5.3"
