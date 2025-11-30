@@ -9,7 +9,6 @@
         "rustfmt.toml",
         "shell.nix",
     ]
-    homepage = "https://github.com/jp-zuniga/wally"
     license = "GPL-3.0-or-later"
     name = "wally-rs"
     readme = "README.md"
