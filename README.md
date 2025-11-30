@@ -68,7 +68,7 @@ For everyone else, make sure you've installed the latest version of Rust using [
 
 ## Acknowledgements
 
-This project is a rewrite and extension of [Oliver Thurley's](https://github.com/thrly) `p5.js` scripts: [dots](https://github.com/thrly/dots-wallpaper) and [cubes](https://github.com/thrly/cubes-wallpaper).
+This project is a rewrite and extension of [Oliver Thurley's](https://github.com/thrly) `p5.js` scripts: [`dots`](https://github.com/thrly/dots-wallpaper) and [`cubes`](https://github.com/thrly/cubes-wallpaper).
 
 ## [License](LICENSE)
 
