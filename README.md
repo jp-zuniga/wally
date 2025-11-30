@@ -8,7 +8,17 @@ Take a look at the [samples](docs/samples.md) to see more of what `wally` can do
 
 ## Installation
 
-Currently, the only way to install `wally` is to download the [latest release on Github](https://github.com/jp-zuniga/wally/releases/latest). `cargo` and `nix` installations are planned.
+The simplest way to install `wally` is through Cargo, which means you must have a local [Rust installation](https://rustup.rs).
+
+```bash
+cargo install wally-rs
+```
+
+You can also download the [latest release on Github](https://github.com/jp-zuniga/wally/releases/latest) and manually move the binary into your `PATH`.
+
+```bash
+mkdir -p ~/.local/bin && curl -L https://github.com/jp-zuniga/wally/releases/latest/download/wally-x86_64-unknown-linux-gnu.tar.gz | tar -xzC ~/.local/bin
+```
 
 ## Usage
 
@@ -56,15 +66,15 @@ CLI Options:
 
 ## Color Palettes
 
-`wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com/), [Gruvbox](https://github.com/morhetz/gruvbox), [Rosé Pine](https://rosepinetheme.com), and many more popular color palettes!
+`wally` fully supports [Catppuccin](https://catppuccin.com), [Dracula](https://draculatheme.com), [Gruvbox](https://github.com/morhetz/gruvbox), [Rosé Pine](https://rosepinetheme.com), and many more popular color palettes!
 
 If your favorite one isn't available yet, it can be easily added to the [`themes`](src/wally/themes) module. You can find the relevant documentation [here](docs/new-themes.md). PRs with your favorite color palettes are welcome!
 
 ## Development
 
-If you're interested in extending, fixing, or improving `wally`, you'll need to clone this repository and install the packages listed in [`shell.nix`](./shell.nix). For `nix` users, this is as simple as running `nix-shell shell.nix`.
+If you're interested in extending, fixing, or improving `wally`, you'll need to clone this repository and install the packages listed in [`shell.nix`](shell.nix). For `nix` users, this is as simple as running `nix-shell shell.nix`.
 
-For everyone else, make sure you've installed the latest version of Rust using [`rustup`](https://rustup.rs/).
+For everyone else, make sure you've installed the latest version of Rust using [`rustup`](https://rustup.rs).
 
 ## Acknowledgements
 
