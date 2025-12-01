@@ -1,5 +1,6 @@
 [package]
     authors = ["Joaquín Zúñiga <jp.zuniga.dev@gmail.com>"]
+    categories = ["Graphics"]
     description = "Elegant, minimal, and sleek wallpaper generator."
     edition = "2024"
     exclude = [
@@ -9,6 +10,7 @@
         "rustfmt.toml",
         "shell.nix",
     ]
+    keywords = ["cli", "random", "wallpapers"]
     license = "GPL-3.0-or-later"
     name = "wally-rs"
     readme = "README.md"
