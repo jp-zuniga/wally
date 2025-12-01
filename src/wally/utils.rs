@@ -14,12 +14,12 @@ pub(crate) fn check_bounds(args: &WallArgs, steps: u32) {
     if args.padding * 2 >= args.width || args.padding * 2 >= args.height {
         exit_with_error(
             1,
-            mk_big_padding_error_msg(&args.padding, &args.height, &args.width),
+            &mk_big_padding_error_msg(args.padding, args.height, args.width),
         )
     }
 
     if steps >= args.height || steps >= args.width {
-        exit_with_error(1, mk_big_steps_error_msg(&steps, &args.height, &args.width));
+        exit_with_error(1, &mk_big_steps_error_msg(steps, args.height, args.width));
     }
 }
 
@@ -77,9 +77,9 @@ pub(crate) fn resolve_output_file(raw_name: &str, format: WallFormats) -> String
         .to_ascii_lowercase();
 
     if WallFormats::from_str(&ext_str).is_err() {
-        print_warning(mk_unknown_extension_msg(&ext_str, format.as_str()));
+        print_warning(&mk_unknown_extension_msg(&ext_str, format.as_str()));
         path.set_extension(WallFormats::default().as_str());
     }
 
-    path.to_string_lossy().into_owned()
+    path.to_string_lossy().to_string()
 }

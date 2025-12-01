@@ -24,10 +24,10 @@ pub(crate) fn init_cli() -> WallyCli {
     let matches = WallyCli::command()
         .color(detect_color_choice(&argv))
         .try_get_matches_from(&argv)
-        .unwrap_or_else(exit_with_clap_error);
+        .unwrap_or_else(|err: clap::Error| exit_with_clap_error(&err));
 
-    let args =
-        WallyCli::from_arg_matches(&matches).unwrap_or_else(exit_with_clap_error);
+    let args = WallyCli::from_arg_matches(&matches)
+        .unwrap_or_else(|err: clap::Error| exit_with_clap_error(&err));
 
     set_color_output(args.colorize());
 
@@ -46,8 +46,8 @@ pub(crate) fn run_cli(cli: WallyCli) {
             }
 
             check_bounds(&wall_args, steps);
-            mk_dots(&wall_args, dot_size, steps, wall_args.mk_palette())
+            mk_dots(&wall_args, dot_size, steps, wall_args.mk_palette());
         },
         WallyCommands::Themes => print_palettes(),
-    };
+    }
 }

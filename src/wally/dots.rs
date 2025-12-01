@@ -47,7 +47,7 @@ pub(crate) fn mk_dots(args: &WallArgs, dot_size: f32, steps: u32, palette: Palet
     let y_scale = (y_max - y_min) / grid_height;
 
     let aa_width = dot_size * 0.1;
-    let palette_len = palette.len();
+    let palette_len = Palette::len();
 
     let mut pixels = vec![palette.background(); total_pixels];
     let mut dots = Vec::new();
@@ -107,7 +107,7 @@ pub(crate) fn mk_dots(args: &WallArgs, dot_size: f32, steps: u32, palette: Palet
     draw_tiled_dots(&mut pixels, &dots, args.height, args.width, BASE_ALPHA);
 
     write_img(
-        resolve_output_file(&args.name, args.format),
+        &resolve_output_file(&args.name, args.format),
         args.format,
         args.width,
         args.height,

@@ -1,7 +1,7 @@
 use colored::Colorize;
 
+use clap::crate_version;
 use clap::error::{ContextKind, ErrorKind};
-use clap::{Error as ClapError, crate_version};
 use image::ImageError;
 
 use super::parse::Dimensions;
@@ -14,7 +14,7 @@ struct ErrorContext {
     custom_msg: Option<String>,
 }
 
-pub(crate) fn exit_with_clap_error<T>(err: ClapError) -> T {
+pub(crate) fn exit_with_clap_error<T>(err: &clap::Error) -> T {
     match err.kind() {
         ErrorKind::DisplayHelp
         | ErrorKind::DisplayHelpOnMissingArgumentOrSubcommand => {
@@ -30,18 +30,18 @@ pub(crate) fn exit_with_clap_error<T>(err: ClapError) -> T {
         _ => {},
     }
 
-    let msg = format_clap_error(&err);
-    exit_with_error(err.exit_code(), msg);
+    let msg = format_clap_error(err);
+    exit_with_error(err.exit_code(), &msg);
 }
 
-pub(crate) fn exit_with_error(code: i32, msg: String) -> ! {
+pub(crate) fn exit_with_error(code: i32, msg: &str) -> ! {
     eprintln!();
     eprintln!("{}", "Oh, no!".red().bold());
     eprintln!("{msg}");
     std::process::exit(code);
 }
 
-pub(crate) fn print_warning(msg: String) {
+pub(crate) fn print_warning(msg: &str) {
     eprintln!();
     eprintln!("{}", "Heads up!".yellow().bold());
     eprintln!("{msg}");
@@ -49,36 +49,36 @@ pub(crate) fn print_warning(msg: String) {
 
 // -------------------------------------------------------------------------------------
 
-fn format_clap_error(err: &ClapError) -> String {
+fn format_clap_error(err: &clap::Error) -> String {
     let ctx = extract_error_context(err);
 
     match err.kind() {
         ErrorKind::InvalidValue | ErrorKind::ValueValidation => {
             if let (Some(arg), Some(value)) = (ctx.arg, ctx.value) {
-                mk_custom_error_msg(arg, value, ctx.custom_msg)
+                mk_custom_error_msg(&arg, &value, ctx.custom_msg)
             } else if let Some(msg) = ctx.custom_msg {
-                mk_unexpected_error_msg(msg)
+                mk_unexpected_error_msg(&msg)
             } else {
                 mk_generic_parse_error()
             }
         },
         ErrorKind::UnknownArgument => {
             if let Some(arg) = ctx.arg {
-                mk_unexpected_error_msg(arg)
+                mk_unexpected_error_msg(&arg)
             } else {
                 mk_generic_parse_error()
             }
         },
         ErrorKind::InvalidSubcommand => {
             if let Some(sub) = ctx.arg {
-                mk_invalid_subcommand_msg(sub)
+                mk_invalid_subcommand_msg(&sub)
             } else {
                 mk_generic_parse_error()
             }
         },
         ErrorKind::MissingRequiredArgument => {
             if let Some(arg) = ctx.arg {
-                mk_missing_arg_msg(arg)
+                mk_missing_arg_msg(&arg)
             } else {
                 mk_generic_parse_error()
             }
@@ -89,7 +89,7 @@ fn format_clap_error(err: &ClapError) -> String {
     }
 }
 
-fn extract_error_context(err: &ClapError) -> ErrorContext {
+fn extract_error_context(err: &clap::Error) -> ErrorContext {
     let mut ctx = ErrorContext::default();
 
     for (kind, s) in err.context() {
@@ -122,7 +122,7 @@ fn mk_generic_parse_error() -> String {
     )
 }
 
-fn mk_fallback_error(err: &ClapError) -> String {
+fn mk_fallback_error(err: &clap::Error) -> String {
     let kind = format!("{:?}", err.kind()).to_lowercase().replace('_', " ");
     format!(
         "{} {}\n{} {} {}",
@@ -137,31 +137,31 @@ fn mk_fallback_error(err: &ClapError) -> String {
 // -------------------------------------------------------------------------------------
 
 pub(crate) fn mk_big_padding_error_msg(
-    padding: &u32,
-    height: &u32,
-    width: &u32,
+    padding: u32,
+    height: u32,
+    width: u32,
 ) -> String {
     format!(
         "{} {} {} {} {} {} {}",
         "A".purple(),
         "--padding".green().bold(),
         "value of".purple(),
-        format!("{}", padding).red().bold(),
+        format!("{padding}").red().bold(),
         "is too large for a".purple(),
-        format!("{}x{}", width, height).green().bold(),
+        format!("{width}x{height}").green().bold(),
         "image.".purple()
     )
 }
 
-pub(crate) fn mk_big_steps_error_msg(steps: &u32, height: &u32, width: &u32) -> String {
+pub(crate) fn mk_big_steps_error_msg(steps: u32, height: u32, width: u32) -> String {
     format!(
         "{} {} {} {} {} {} {}",
         "A".purple(),
         "--steps".green().bold(),
         "value of".purple(),
-        format!("{}", steps).red().bold(),
+        format!("{steps}").red().bold(),
         "is too large for a".purple(),
-        format!("{}x{}", width, height).green().bold(),
+        format!("{width}x{height}").green().bold(),
         "image.".purple()
     )
 }
@@ -180,7 +180,7 @@ pub(crate) fn mk_unknown_extension_msg(ext_str: &str, target_ext: &str) -> Strin
     format!(
         "{} {} {}\n{} {}{}",
         "The extension".purple(),
-        format!(".{}", ext_str).red().bold(),
+        format!(".{ext_str}").red().bold(),
         "is not supported.".purple(),
         "Wally will save your wallpaper as a".blue().italic(),
         target_ext.blue().bold().italic(),
@@ -191,49 +191,47 @@ pub(crate) fn mk_unknown_extension_msg(ext_str: &str, target_ext: &str) -> Strin
 // -------------------------------------------------------------------------------------
 
 pub(crate) fn mk_custom_error_msg(
-    arg: String,
-    value: String,
+    arg: &str,
+    value: &str,
     custom_msg: Option<String>,
 ) -> String {
-    let arg_str = arg.as_str();
-
-    if arg_str.contains("--palette") {
+    if arg.contains("--palette") {
         return mk_palette_error_msg(value);
     }
 
-    if arg_str.contains("--name") {
+    if arg.contains("--name") {
         return mk_name_error_msg(value);
     }
 
-    if arg_str.contains("--width") || arg_str.contains("<WIDTH>") {
+    if arg.contains("--width") || arg.contains("<WIDTH>") {
         return mk_dimensions_error_msg(Dimensions::Width, value);
     }
 
-    if arg_str.contains("--height") || arg_str.contains("<HEIGHT>") {
+    if arg.contains("--height") || arg.contains("<HEIGHT>") {
         return mk_dimensions_error_msg(Dimensions::Height, value);
     }
 
-    if arg_str.contains("--padding") {
+    if arg.contains("--padding") {
         return mk_padding_error_msg(value);
     }
 
-    if arg_str.contains("--dot-size") || arg_str.contains("<DOT_SIZE>") {
+    if arg.contains("--dot-size") || arg.contains("<DOT_SIZE>") {
         return mk_dot_size_error_msg(value);
     }
 
-    if arg_str.contains("--steps") || arg_str.contains("<STEPS>") {
+    if arg.contains("--steps") || arg.contains("<STEPS>") {
         return mk_steps_error_msg(value);
     }
 
     if let Some(msg) = custom_msg {
-        return mk_unexpected_error_msg(msg);
+        return mk_unexpected_error_msg(&msg);
     }
 
     format!(
         "{} {} {}{}\n{} {} {}",
         value.red().bold(),
         "is not a valid value for".purple(),
-        remove_arg_placeholder(arg_str).green().bold(),
+        remove_arg_placeholder(arg).green().bold(),
         "!".purple(),
         "Run".blue().italic(),
         "wally help".green().bold().italic(),
@@ -241,7 +239,7 @@ pub(crate) fn mk_custom_error_msg(
     )
 }
 
-fn mk_dimensions_error_msg(dim: Dimensions, value: String) -> String {
+fn mk_dimensions_error_msg(dim: Dimensions, value: &str) -> String {
     match dim {
         Dimensions::Height => format!(
             "{} {} {}{}\n{} {} {} {}{}",
@@ -272,7 +270,7 @@ fn mk_dimensions_error_msg(dim: Dimensions, value: String) -> String {
     }
 }
 
-fn mk_dot_size_error_msg(value: String) -> String {
+fn mk_dot_size_error_msg(value: &str) -> String {
     format!(
         "{} {} {}{}\n{} {}",
         value.red().bold(),
@@ -285,7 +283,7 @@ fn mk_dot_size_error_msg(value: String) -> String {
     )
 }
 
-fn mk_name_error_msg(value: String) -> String {
+fn mk_name_error_msg(value: &str) -> String {
     format!(
         "{} {}\n{}",
         value.red().bold(),
@@ -297,7 +295,7 @@ fn mk_name_error_msg(value: String) -> String {
     )
 }
 
-fn mk_padding_error_msg(value: String) -> String {
+fn mk_padding_error_msg(value: &str) -> String {
     format!(
         "{} {} {}{}\n{} {}",
         value.red().bold(),
@@ -312,7 +310,7 @@ fn mk_padding_error_msg(value: String) -> String {
     )
 }
 
-fn mk_palette_error_msg(value: String) -> String {
+fn mk_palette_error_msg(value: &str) -> String {
     format!(
         "{} {} {}\n{} {} {}",
         "The color palette".purple(),
@@ -324,7 +322,7 @@ fn mk_palette_error_msg(value: String) -> String {
     )
 }
 
-fn mk_steps_error_msg(value: String) -> String {
+fn mk_steps_error_msg(value: &str) -> String {
     format!(
         "{} {} {}{}\n{} {} {} {} {} {} {}{}",
         value.red().bold(),
@@ -336,7 +334,7 @@ fn mk_steps_error_msg(value: String) -> String {
         "must be a positive integer greater than or equal to"
             .blue()
             .italic(),
-        format!("{}", MIN_STEPS).blue().bold().italic(),
+        format!("{MIN_STEPS}").blue().bold().italic(),
         "and less than".blue().italic(),
         "--height".green().bold().italic(),
         "and".blue().italic(),
@@ -347,7 +345,7 @@ fn mk_steps_error_msg(value: String) -> String {
 
 // -------------------------------------------------------------------------------------
 
-fn mk_invalid_subcommand_msg(sub: String) -> String {
+fn mk_invalid_subcommand_msg(sub: &str) -> String {
     format!(
         "{} {}{}\n{} {} {}",
         "Unknown subcommand".purple(),
@@ -359,7 +357,7 @@ fn mk_invalid_subcommand_msg(sub: String) -> String {
     )
 }
 
-fn mk_missing_arg_msg(arg: String) -> String {
+fn mk_missing_arg_msg(arg: &str) -> String {
     let pretty = arg.trim_matches(|c| c == '<' || c == '>');
     format!(
         "{} {}{}\n{} {} {}",
@@ -397,7 +395,7 @@ fn mk_argument_conflict_msg() -> String {
     )
 }
 
-fn mk_unexpected_error_msg(value: String) -> String {
+fn mk_unexpected_error_msg(value: &str) -> String {
     format!(
         "{} {}{}\n{} {} {}",
         "Found unexpected argument".purple(),
@@ -413,7 +411,7 @@ fn mk_unexpected_error_msg(value: String) -> String {
 
 // -------------------------------------------------------------------------------------
 
-pub(crate) fn mk_write_error_msg(err: ImageError, file: &str) -> String {
+pub(crate) fn mk_write_error_msg(err: &ImageError, file: &str) -> String {
     format!(
         "{} {}{}\n{}",
         "Failed to save your wallpaper at".purple(),
@@ -428,7 +426,7 @@ pub(crate) fn mk_write_error_msg(err: ImageError, file: &str) -> String {
 fn remove_arg_placeholder(arg: &str) -> &str {
     arg.get(
         0..arg
-            .find("<")
+            .find('<')
             .expect("arg should come in the form '--arg <ARG>'"),
     )
     .unwrap_or(arg)

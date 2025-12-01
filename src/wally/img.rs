@@ -38,14 +38,14 @@ pub(crate) enum WallFormats {
 }
 
 impl WallFormats {
-    pub(crate) fn as_str(&self) -> &'static str {
+    pub(crate) fn as_str(self) -> &'static str {
         match &self {
             Self::Jpg => "jpg",
             Self::Png => "png",
         }
     }
 
-    pub(crate) fn as_image_format(&self) -> ImageFormat {
+    pub(crate) fn as_image_format(self) -> ImageFormat {
         match self {
             Self::Jpg => ImageFormat::Jpeg,
             Self::Png => ImageFormat::Png,
@@ -66,7 +66,7 @@ impl WallFormats {
 }
 
 pub(crate) fn write_img(
-    file: String,
+    file: &str,
     format: WallFormats,
     width: u32,
     height: u32,
@@ -83,24 +83,23 @@ pub(crate) fn write_img(
             chunk[2] = b;
         });
 
-    if let Some(parent) = Path::new(&file).parent() {
-        if !parent.as_os_str().is_empty() {
-            if let Err(e) = std::fs::create_dir_all(parent) {
-                let dir = parent.display().to_string();
-                exit_with_error(1, mk_dir_create_error_msg(&dir, &e));
-            }
-        }
+    if let Some(parent) = Path::new(&file).parent()
+        && !parent.as_os_str().is_empty()
+        && let Err(e) = std::fs::create_dir_all(parent)
+    {
+        let dir = parent.display().to_string();
+        exit_with_error(1, &mk_dir_create_error_msg(&dir, &e));
     }
 
     if let Err(e) = save_buffer_with_format(
-        &file,
+        file,
         &buf,
         width,
         height,
         ExtendedColorType::Rgb8,
         format.as_image_format(),
     ) {
-        exit_with_error(1, mk_write_error_msg(e, &file));
+        exit_with_error(1, &mk_write_error_msg(&e, file));
     }
 
     println!();
@@ -108,7 +107,7 @@ pub(crate) fn write_img(
     println!(
         "{} {}{}",
         "You can find your new wallpaper here:".blue().italic(),
-        get_absolute_path(&file).yellow().bold().italic(),
+        get_absolute_path(file).yellow().bold().italic(),
         "!".blue().italic(),
-    )
+    );
 }

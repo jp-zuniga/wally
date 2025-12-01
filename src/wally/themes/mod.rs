@@ -86,7 +86,7 @@ pub(crate) struct Palette {
 }
 
 impl Palette {
-    pub(crate) fn len(&self) -> usize {
+    pub(crate) fn len() -> usize {
         COLOR_COUNT
     }
 
